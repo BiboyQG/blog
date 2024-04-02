@@ -12,7 +12,8 @@ params:
     Content: >
       Welcome to the **Banghao's Blog** 🎉
 
-      - This is a space where I will mostly be sharing about Computer Vision & NLP 🙂
+      - This is a space where I will mostly be sharing about **Computer Vision** & **NLP** 🙂
+      - I also work on Fullstack development with **React** and **SpringBoot**
 
   socialIcons:
     - name: Github
@@ -39,3 +40,7 @@ menu:
       name: Archives
       url: /archives/
       weight: 30
+    - identifier: forum
+      name: Forum App
+      url: "https://banghao.studio/login"
+      weight: 40
