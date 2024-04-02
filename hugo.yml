@@ -1,0 +1,41 @@
+baseURL: "https://banghao.live/"
+languageCode: en-us
+title: Banghao's Blog
+theme: PaperMod
+
+enableEmoji: true
+
+params:
+  author: Banghao Chi
+  homeInfoParams:
+    Title: "Banghao's Blog"
+    Content: >
+      Welcome to the **Banghao's Blog** 🎉
+
+      - This is a space where I will mostly be sharing about Computer Vision & Natural Language Processing 🙂
+
+  socialIcons:
+    - name: Github
+      url: "https://github.com/biboyqg"
+    - name: Youtube
+      url: "https://www.youtube.com/@biboyog"
+    - name: Rss
+      url: "index.xml"
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+
+menu:
+  main:
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 10
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 20
+    - identifier: archives
+      name: Archives
+      url: /archives/
+      weight: 30
