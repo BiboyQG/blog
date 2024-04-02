@@ -6,12 +6,19 @@
     <description>Recent content in Categories on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Apr 2024 05:21:09 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2024 06:35:10 -0500</lastBuildDate>
     <atom:link href="https://banghao.live/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Log</title>
+      <link>https://banghao.live/categories/log/</link>
+      <pubDate>Wed, 20 Mar 2024 06:35:10 -0500</pubDate>
+      <guid>https://banghao.live/categories/log/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Computer Vision</title>
       <link>https://banghao.live/categories/computer-vision/</link>
-      <pubDate>Tue, 02 Apr 2024 05:21:09 -0500</pubDate>
+      <pubDate>Fri, 15 Mar 2024 05:21:09 -0500</pubDate>
       <guid>https://banghao.live/categories/computer-vision/</guid>
       <description></description>
     </item>

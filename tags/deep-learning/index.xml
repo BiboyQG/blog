@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Deep Learning on Banghao&#39;s Blog</title>
+    <link>https://banghao.live/tags/deep-learning/</link>
+    <description>Recent content in Deep Learning on Banghao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 20 Mar 2024 06:35:10 -0500</lastBuildDate>
+    <atom:link href="https://banghao.live/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Daily Log</title>
+      <link>https://banghao.live/blog/log/</link>
+      <pubDate>Wed, 20 Mar 2024 06:35:10 -0500</pubDate>
+      <guid>https://banghao.live/blog/log/</guid>
+      <description>3.12 Managed to understand the whole code base of the CLIP repo from OpenAI. Planned to take a look at CAT-Seg: Cost Aggregation for Open-Vocabulary Semantic Segmentation, to understand how to implement Open-Vocabulary Segmentation (OVS) using CLIP.
+3.13 1. DETR Got a basic understanding of DETR, which is an awesome end-to-end 2D object detection architecture, with its downside lies in:
+Long training period Difficulty of detecting small objects but has advantages in:</description>
+    </item>
+  </channel>
+</rss>
