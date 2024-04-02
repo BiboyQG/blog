@@ -1,0 +1,4 @@
+baseURL = 'https:biboyqg.github.io/blog/'
+languageCode = 'en-us'
+title = "Banghao's Blog"
+theme = 'PaperMod'
