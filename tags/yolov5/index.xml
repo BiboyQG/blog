@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Yolov5 on Banghao&#39;s Blog</title>
+    <link>https://banghao.live/tags/yolov5/</link>
+    <description>Recent content in Yolov5 on Banghao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 08 Mar 2024 07:38:30 -0500</lastBuildDate>
+    <atom:link href="https://banghao.live/tags/yolov5/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>argparse: A user-friendly tool to write CLI interface</title>
+      <link>https://banghao.live/blog/argparse/</link>
+      <pubDate>Fri, 08 Mar 2024 07:38:30 -0500</pubDate>
+      <guid>https://banghao.live/blog/argparse/</guid>
+      <description>1. Introduction Hello fellows! Today I&amp;rsquo;m excited to share insights about the argparse module, a robust and intuitive tool for creating command-line interfaces in Python. What makes argparse particularly fascinating to me is its ability to enable users to quickly leverage Python scripts with custom configurations and functionalities, without the need to dive into the underlying source code. This feature of argparse has captured my interest and again, showcasing its value in making Python files reusable and accessible for diverse applications.</description>
+    </item>
+  </channel>
+</rss>
