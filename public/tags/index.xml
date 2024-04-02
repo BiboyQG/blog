@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on Banghao&#39;s Blog</title>
+    <link>https://banghao.live/tags/</link>
+    <description>Recent content in Tags on Banghao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 02 Apr 2024 05:21:09 -0500</lastBuildDate>
+    <atom:link href="https://banghao.live/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CLIP</title>
+      <link>https://banghao.live/tags/clip/</link>
+      <pubDate>Tue, 02 Apr 2024 05:21:09 -0500</pubDate>
+      <guid>https://banghao.live/tags/clip/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Open Vocabulary Segmentation</title>
+      <link>https://banghao.live/tags/open-vocabulary-segmentation/</link>
+      <pubDate>Tue, 02 Apr 2024 05:21:09 -0500</pubDate>
+      <guid>https://banghao.live/tags/open-vocabulary-segmentation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Swin Transformer</title>
+      <link>https://banghao.live/tags/swin-transformer/</link>
+      <pubDate>Tue, 02 Apr 2024 05:21:09 -0500</pubDate>
+      <guid>https://banghao.live/tags/swin-transformer/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

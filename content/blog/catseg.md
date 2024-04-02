@@ -1,8 +1,8 @@
 +++
 title = 'Catseg'
 date = 2024-04-02T05:21:09-05:00
-tags: ["Open Vocabulary Segmentation", "CLIP", "Swin Transformer"]
-categories: ["Computer Vision"]
+tags = ["Open Vocabulary Segmentation", "CLIP", "Swin Transformer"]
+categories = ["Computer Vision"]
 draft = false
 +++
 
