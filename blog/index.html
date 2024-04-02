@@ -8,7 +8,7 @@
 <title>Blogs | Banghao&#39;s Blog</title>
 <meta name="keywords" content="">
 <meta name="description" content="Blogs - Banghao&#39;s Blog">
-<meta name="author" content="">
+<meta name="author" content="Banghao Chi">
 <link rel="canonical" href="https://banghao.live/blog/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css" integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z&#43;V9&#43;cO1A=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://banghao.live/favicon.ico">
@@ -122,6 +122,21 @@
             </div>
         </div>
         <ul id="menu">
+            <li>
+                <a href="https://banghao.live/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.live/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.live/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -144,7 +159,7 @@ sem_seg_head: CATSegHead.from_config -&gt; CATSegPredictor -&gt;
 Load CLIP model -&gt; Load text templates -&gt; class_embeddings(self.class_texts, prompt_templates, clip_model) -&gt; for each class:
 bpe encode classname in different templates and save results in variable texts (80(number of templates), 77(number of sentence length)). CLIP encode texts : texts go through token_embedding(nn.Embedding) (80,77,768(hidden_dim)) texts go through a 12 layers of ResidualAttentionBlock (80,77,768) take features of texts from the eot_token (80,768) do the above for all classes (150(number of test classes),80,768)...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-04-02 05:21:09 -0500 -0500'>April 2, 2024</span></footer>
+  <footer class="entry-footer"><span title='2024-04-02 05:21:09 -0500 -0500'>April 2, 2024</span>&nbsp;·&nbsp;22 min&nbsp;·&nbsp;Banghao Chi</footer>
   <a class="entry-link" aria-label="post link to Catseg" href="https://banghao.live/blog/catseg/"></a>
 </article>
     </main>
