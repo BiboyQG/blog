@@ -29,7 +29,7 @@ Load CLIP model -&amp;gt; Load text templates -&amp;gt; class_embeddings(self.cl
 bpe encode classname in different templates and save results in variable texts (80(number of templates), 77(number of sentence length)). CLIP encode texts : texts go through token_embedding(nn.Embedding) (80,77,768(hidden_dim)) texts go through a 12 layers of ResidualAttentionBlock (80,77,768) take features of texts from the eot_token (80,768) do the above for all classes (150(number of test classes),80,768)</description>
     </item>
     <item>
-      <title>argparse: A user-friendly tool to write CLI interface</title>
+      <title>Argparse: a user-friendly tool to write CLI interface</title>
       <link>https://banghao.live/blog/argparse/</link>
       <pubDate>Fri, 08 Mar 2024 07:38:30 -0500</pubDate>
       <guid>https://banghao.live/blog/argparse/</guid>
