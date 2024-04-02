@@ -7,13 +7,18 @@ enableEmoji: true
 
 params:
   author: Banghao Chi
+  defaultTheme: auto
+
   homeInfoParams:
-    Title: "Banghao's Blog"
+    Title: "👋 Welcome to Banghao's Blog"
     Content: >
-      Welcome to the **Banghao's Blog** 🎉
+      Hi! This is Banghao Chi, an undergraduate student from University of Illinois at Urbana-Champaign and also a Research Assistant advised by [Prof. Minjia Zhang](https://minjiazhang.github.io/).
+
+      - I’m documenting my learning notes in this blog 😄
 
       - This is a space where I will mostly be sharing about **Computer Vision** & **NLP** 🙂
-      - I also work on Fullstack development with **React** and **SpringBoot**
+
+      - I also work on Fullstack development with **React** and **SpringBoot** (*^▽^*)
 
   socialIcons:
     - name: Github
@@ -24,7 +29,8 @@ params:
       url: "index.xml"
 
   ShowReadingTime: true
-  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
 
 menu:
   main:

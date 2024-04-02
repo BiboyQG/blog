@@ -36,8 +36,8 @@ The follow-up work: Deformable DETR, DINO, Omni-DETR, Up-DETR, PNP-DETR, SMAC-DE
   - Downside:
     - Unstable training process (the only noise is the initial noise at the beginning of the training).
     - The outputs lack diversity, meaning that they are close to the original pictures.
-- AE (auto-encoder):![image-20240313212557543](assets/image-20240313212557543.png)
-- DAE (Denoising auto-encoder):![image-20240313212652120](assets/image-20240313212652120.png)
+- AE (auto-encoder):![image-20240313212557543](../assets/image-20240313212557543.png)
+- DAE (Denoising auto-encoder):![image-20240313212652120](../assets/image-20240313212652120.png)
 
  Added noise $X_c$ This paper proves that "Images have a high degree of redundancy". This work is also similar to MAE.
 
@@ -50,21 +50,21 @@ The follow-up work: Deformable DETR, DINO, Omni-DETR, Up-DETR, PNP-DETR, SMAC-DE
 ##### 1. Datasets
 
 - KITTY: the most classic dataset used in 3d obejct detection.
-  ![image-20240320132044562](assets/image-20240320132044562.png)
-  ![image-20240320132433043](assets/image-20240320132433043.png)
+  ![image-20240320132044562](../assets/image-20240320132044562.png)
+  ![image-20240320132433043](../assets/image-20240320132433043.png)
 
   | Category   | Truncation | Occlusion | Alpha | Bbox_X1 | Bbox_Y1 | Bbox_X2 | Bbox_Y2 | Dimensions_3D_Height | Dimensions_3D_Width | Dimensions_3D_Length | Location_X | Location_Y | Location_Z | Yaw  |
   | ---------- | ---------- | --------- | ----- | ------- | ------- | ------- | ------- | -------------------- | ------------------- | -------------------- | ---------- | ---------- | ---------- | ---- |
   | Pedestrian | 0.00       | 0         | -0.20 | 712.40  | 143.00  | 810.73  | 307.92  | 1.89                 | 0.48                | 1.20                 | 1.84       | 1.47       | 8.41       | 0.01 |
 
- ![image-20240320132739424](assets/image-20240320132739424.png)
+ ![image-20240320132739424](../assets/image-20240320132739424.png)
 
 Can use Open3D for further use.
 
 - Waymo: a large dataset released by Waymo in 2018.
 - nuScenes: a large-scale autonomous driving dataset (used token for query).
-  ![image-20240320133312528](assets/image-20240320133312528.png)
-  ![image-20240320133625985](./assets/image-20240320133625985.png)
+  ![image-20240320133312528](../assets/image-20240320133312528.png)
+  ![image-20240320133625985](../assets/image-20240320133625985.png)
 - Argoverse2
 - Lyft
 
@@ -72,11 +72,11 @@ Can use Open3D for further use.
 
 # From the time zone
 
-![image-20240320103630883](assets/image-20240320103630883.png)
+![image-20240320103630883](../assets/image-20240320103630883.png)
 
 Most survey roughly divide the models into 4 parts: Multi-viewed, Voxel-based, Point-based, and Point-Voxel-based methods. But the overall, the improvement process from the perspective of the time zone is more likely to be digested by beginners.
 
-![image-20240320103719709](assets/image-20240320103719709.png)
+![image-20240320103719709](../assets/image-20240320103719709.png)
 
 (An illustration of point-based 3D object detection methods.)
 
@@ -85,7 +85,7 @@ Most survey roughly divide the models into 4 parts: Multi-viewed, Voxel-based, P
 - **VeloFCN**: which transforms 3d point clouds to 2d front view. This is not a that good idea, as many points can be mapped to the same position as well as the lack of depth information.
 - **MV3D**: Combine LiDAR Bird view (BV), LiDAR Front view (FV), and RGB Image information and fuse them together to get the overall feature. This method as for me is quite astonishing, since I think it is the pioneer model that introduce multi-modality into 3d object detection. The backend detector is typically R-CNN at that time, so it costs a lot of time.
 
-![image-20240320104933704](assets/image-20240320104933704.png)
+![image-20240320104933704](../assets/image-20240320104933704.png)
 
 ### During 2017
 
@@ -93,13 +93,13 @@ Two break-through workds came out: **VoxelNet** and **PointNet++**. VoxelNet ext
 
 - **VoxelNet**: First, the point cloud is quantized into a uniform 3D grid (as shown in "grouping" in the figure below). Within each grid, a fixed number of points are randomly sampled (with repetitions if there are not enough points). Each point is represented by a 7-dimensional feature, including the X, Y, Z coordinates of the point, its reflectance intensity (R), and the position difference (ΔX, ΔY, ΔZ) relative to the grid's centroid (the mean position of all points within the grid). Fully connected layers are used to extract features from each point, and then the features of each point are concatenated with the mean features of all points within the grid to form new point features. The advantage of this feature is that it preserves both the characteristics of individual points and the characteristics of a small local area (the grid) surrounding the point. This process of point feature extraction can be repeated multiple times to enhance the descriptive power of the features (as shown in "Stacked Voxel Feature Encoding" in the figure below). Finally, a max pooling operation is performed on all points within the grid to obtain a fixed-length feature vector. All of the above is the feature extracting network. Accompany with RPN, the network can accomplish 3d object detection.
 
-![image-20240320105551659](assets/image-20240320105551659.png)
+![image-20240320105551659](../assets/image-20240320105551659.png)
 
 - **PointNet++**: The primary approach involves using clustering to generate multiple candidate regions (each region being a set of points), and within each candidate region, PointNet is used to extract features of the points. This process is repeated multiple times in a hierarchical manner, where the multiple sets of points output by the clustering algorithm at each iteration are treated as abstracted point clouds for subsequent processing (Set Abstraction, SA). The point features obtained in this manner have a large receptive field and contain rich contextual information from the local neighborhood. Finally, PointNet classification is performed on the sets of points produced by multiple layers of SA to distinguish between objects and the background. Similarly, this method can also be applied to point cloud segmentation.
 
-![image-20240320110001677](assets/image-20240320110001677.png)
+![image-20240320110001677](../assets/image-20240320110001677.png)
 
-![image-20240320110042687](assets/image-20240320110042687.png)
+![image-20240320110042687](../assets/image-20240320110042687.png)
 
 The adantage and also the downside as compared PointNet++ with VoxelNet:
 
@@ -120,17 +120,17 @@ During this period, lots of follow-up works came out after the invention of **Vo
 
   - **PointPillar**: Instead of using 3D conv, it stack all the voxels into pillars so that it can utilize the mature hardware acceleration about 2D conv, making its speed up to 62 FPS
 
-![image-20240320124503012](assets/image-20240320124503012.png)
+![image-20240320124503012](../assets/image-20240320124503012.png)
 
 - Towards point-based: The SA process in **PointNet++** makes the overall process slow, so many follow-up methods came up with the idea of utilizing 2D conv to solve this problem.
 
   - **Point-RCNN**: First, PointNet++ is used to extract features from points. These features are then used for foreground segmentation to distinguish between points on objects and background points. At the same time, each foreground point also outputs a 3D candidate bounding box (BBox). The next step involves further feature extraction from points within the candidate BBox, determining the object category to which the BBox belongs, and refining its position and size. Those familiar with 2D object detection might recognize this as a typical two-stage detection model. Indeed, but the difference is that Point-RCNN generates candidates only on foreground points, thereby avoiding the immense computational cost associated with generating dense candidate boxes in 3D space. Nevertheless, as a two-stage detector and considering the substantial computational demand of PointNet++ itself, Point-RCNN still operates at a relatively low efficiency of about 13 FPS. Point-RCNN was later extended to **Part-A2**, which achieved improvements in both speed and accuracy.
 
-    ![image-20240320130208632](assets/image-20240320130208632.png)
+    ![image-20240320130208632](../assets/image-20240320130208632.png)
 
   - **3D-SSD**: analyzes the components of previous point-based methods and concludes that the Feature Propagation (FP) layer and the refinement layer are bottlenecks for system speed. The role of the FP layer is to remap the abstracted point features from the Set Abstraction (SA) layer back to the original point cloud, analogous to the Point Cloud Decoder in Point-RCNN as depicted in the figure above. This step is crucial because the abstract points output by SA do not effectively cover all objects, leading to significant information loss. 3D-SSD introduces a new clustering method that considers the similarity between points in both geometric and feature spaces. Through this improved clustering method, the output of the SA layer can be directly used to generate object proposals, avoiding the computational cost associated with the FP layer. Furthermore, to circumvent the region pooling in the refinement phase, 3D-SSD directly uses representative points from the SA output. It utilizes the improved clustering algorithm mentioned earlier to find neighboring points and employs a simple MLP to predict categories and 3D bounding boxes for objects. 3D-SSD can be considered an anchor-free, single-stage detector, aligning with the development trend in the object detection domain. With these improvements, 3D-SSD achieves a processing speed of 25 FPS.
 
-    ![image-20240320130621693](assets/image-20240320130621693.png)
+    ![image-20240320130621693](../assets/image-20240320130621693.png)
 
 - Integration of voxel-based and point-based methods:
 
@@ -534,7 +534,7 @@ After the review, I plan to get on OpenPCDet first for its ease of understanding
 - The training process is figured out, which uses `torch.optim.AdamW()` as the optimizer and `torch.optim.lr_scheduler.OneCycleLR()` as the scheduler.
 - The following things left to be done is the prediction for a single cloud points (involves `NMS`), the visualization step, and the metrics and evaluation methods used in 3D object detection area.
 - Ran KITTI benchmark on the model to check the accuracy.
-  ![benchmark](assets/iShot_2024-03-20_16.33.08.png)
+  ![benchmark](../assets/iShot_2024-03-20_16.33.08.png)
 
 # 3.17 Quantization & Swin-transformer
 
@@ -544,13 +544,13 @@ After the review, I plan to get on OpenPCDet first for its ease of understanding
 
   - Affine: the importance of Z offset.
 
-    ![image-20240320135437695](assets/image-20240320135437695.png)
+    ![image-20240320135437695](../assets/image-20240320135437695.png)
 
     - int8 ( -128 ~ 127 )
     - uint8 ( 0 ~ 255 )
     - Minmax (above)
     - Histogram (two arrows shrink towards each other until below or equal to the required coverage percentage)
-      ![image-20240320135842827](assets/image-20240320135842827.png)
+      ![image-20240320135842827](../assets/image-20240320135842827.png)
     - Entropy: **TO BE CONTINUED**...
 
   - Symmetric: more concise as compared to asymmetric method.
@@ -562,55 +562,55 @@ After the review, I plan to get on OpenPCDet first for its ease of understanding
 ### 2. [Swin-transformer](https://arxiv.org/abs/2103.14030):
 
 - Used the concept of conv to let the attention be focused first only on local part and then global perspective
-  ![image-20240320134821271](assets/image-20240320134821271.png)
+  ![image-20240320134821271](../assets/image-20240320134821271.png)
 - The architecture of the network is:
-  ![image-20240320134904678](assets/image-20240320134904678.png)
+  ![image-20240320134904678](../assets/image-20240320134904678.png)
 - Completely gone through the code base of [Swin-transformer](https://github.com/WZMIAOMIAO/deep-learning-for-image-processing/tree/master/pytorch_classification/swin_transformer).
 
 # 3.18 Quantization about Matrix Multiplication
 
 ### 1. im2col
 
-<img src="assets/image-20240320140425017.png" alt="image-20240320140425017" style="zoom:50%;" />
+<img src="../assets/image-20240320140425017.png" alt="image-20240320140425017" style="zoom:50%;" />
 
-<img src="assets/image-20240320140505490.png" alt="image-20240320140505490" style="zoom: 25%;" />
+<img src="../assets/image-20240320140505490.png" alt="image-20240320140505490" style="zoom: 25%;" />
 
 (3 channels)
 
-<img src="assets/image-20240320140533553.png" alt="image-20240320140533553" style="zoom:33%;" />
+<img src="../assets/image-20240320140533553.png" alt="image-20240320140533553" style="zoom:33%;" />
 
 (3 kernals, transform to below)
 
-<img src="assets/image-20240320140559201.png" alt="image-20240320140559201" style="zoom:67%;" />
+<img src="../assets/image-20240320140559201.png" alt="image-20240320140559201" style="zoom:67%;" />
 
 Therefore, conv operation is successfully transformed into matrix multiplication (one kernal):
 
-![image-20240320140657978](assets/image-20240320140657978.png)
+![image-20240320140657978](../assets/image-20240320140657978.png)
 
 The case for three kernel is the same:
-<img src="assets/image-20240320140728800.png" alt="image-20240320140728800" style="zoom:50%;" />
+<img src="../assets/image-20240320140728800.png" alt="image-20240320140728800" style="zoom:50%;" />
 
 ### 2. [Quantization in matrix multiplication (conv)](https://mp.weixin.qq.com/s?__biz=Mzg3ODU2MzY5MA%3D%3D&mid=2247488318&idx=1&sn=048c1b78f3b2cb25c05abb115f20d6c6&chksm=cf108b3bf867022d1b214928102d65ed691c81955b59ca02bccdee92584ad9aa8e390e1d2978&token=1388685340&lang=zh_CN#rd)
 
-![image-20240320140913509](assets/image-20240320140913509.png)
+![image-20240320140913509](../assets/image-20240320140913509.png)
 
-![image-20240320140932612](assets/image-20240320140932612.png)
+![image-20240320140932612](../assets/image-20240320140932612.png)
 
-![image-20240320140948137](assets/image-20240320140948137.png)
+![image-20240320140948137](../assets/image-20240320140948137.png)
 
-![image-20240320141000040](assets/image-20240320141000040.png)
+![image-20240320141000040](../assets/image-20240320141000040.png)
 
 As we can see, in order to leverage GEMM(INT8) acceleration, we must kill the variable `k` in `s`.
 
-![image-20240320141114105](assets/image-20240320141114105.png)
+![image-20240320141114105](../assets/image-20240320141114105.png)
 
 If we kill `k` in `s`, then on the right hand side, it's just basic INT8 matrix multiplication with the left hand side is the scale. Killing the `k` also means that the scale `s` will be shared across row respective to `X` and across column respective to `W`:
 
-![image-20240320141211703](assets/image-20240320141211703.png)
+![image-20240320141211703](../assets/image-20240320141211703.png)
 
 Then `per-channel` is easy to explain:
 
-![image-20240320141423724](assets/image-20240320141423724.png)
+![image-20240320141423724](../assets/image-20240320141423724.png)
 
 # 3.19 Quantization with code
 
@@ -628,7 +628,7 @@ Then `per-channel` is easy to explain:
 
 - **Post-Training Static Quantization**:
 
-- <img src="assets/image-20240320154647059.png" alt="image-20240320154647059" style="zoom:50%;" />
+- <img src="../assets/image-20240320154647059.png" alt="image-20240320154647059" style="zoom:50%;" />
 
 - Static quantization performs the additional step of first feeding batches of data through the network and computing the resulting distributions of the different activations (specifically, this is done by inserting “observer” modules at different points that record these distributions). This information is used to determine how specifically the different activations should be quantized at inference time
 
@@ -646,7 +646,7 @@ Then `per-channel` is easy to explain:
 
 - **Quantization Aware Training**:
 
-- <img src="assets/image-20240320154516177.png" alt="image-20240320154516177" style="zoom:50%;" />
+- <img src="../assets/image-20240320154516177.png" alt="image-20240320154516177" style="zoom:50%;" />
 
 - Quantization-aware training(QAT) is the third method, and the one that typically results in highest accuracy of these three. With QAT, all weights and activations are “fake quantized” during both the forward and backward passes of training: that is, float values are rounded to mimic int8 values, but all computations are still done with floating point numbers. Thus, all the weight adjustments during training are made while “aware” of the fact that the model will ultimately be quantized; after quantizing, therefore, this method usually yields higher accuracy than the other two methods.
 
@@ -700,7 +700,7 @@ Then `per-channel` is easy to explain:
 
 Highly possible that the performance will not be that good on PointPillars since:
 
-![image-20240320161318119](assets/image-20240320161318119.png)
+![image-20240320161318119](../assets/image-20240320161318119.png)
 
 by [LiDAR-PTQ: Post-Training Quantization for Point Cloud 3D Object Detection](https://openreview.net/forum?id=0d1gQI114C).
 
