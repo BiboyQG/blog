@@ -3,7 +3,7 @@ title = 'Quantization on CenterPoint'
 date = 2024-04-01T16:32:18-05:00
 draft = false
 tags = ["Quantization", "3D Object Detection", "CenterPoint"]
-categories = ["Quantization"]
+categories = ["Research"]
 +++
 
 ### Take `mmdetection` as an example
