@@ -6,8 +6,16 @@
     <description>Recent content in Meeting-Discussions on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 26 Apr 2024 15:32:56 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 01 May 2024 16:48:28 -0500</lastBuildDate>
     <atom:link href="https://banghao.live/categories/meeting-discussions/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Meeting Discussion (5)</title>
+      <link>https://banghao.live/blog/5/</link>
+      <pubDate>Wed, 01 May 2024 16:48:28 -0500</pubDate>
+      <guid>https://banghao.live/blog/5/</guid>
+      <description>1. Accuracy graph under diffrerent quantization metrics: As we can observe from both graphs, activation is clearly influced more by quantization.
+2. Max value within the layers In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53.74, which also explains why activation is influenced more by quantization.</description>
+    </item>
     <item>
       <title>Meeting Discussion (4)</title>
       <link>https://banghao.live/blog/4/</link>
