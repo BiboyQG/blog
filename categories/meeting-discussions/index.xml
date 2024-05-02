@@ -16,7 +16,8 @@
       <description>1. Table of Contents In-depth Memory Usage Visualization
 Ideas about how to implement quantization of sparse conv3d
 Ideas about how to implement SmoothQuant operation on conv2d
-2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -&amp;gt; Backbone 2d Backbone 2d Head Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d? Take a look at Nvidia’s implementation of Conv3d quantized layer The process should be similar if we see:</description>
+2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -&amp;gt; Backbone 2d Backbone 2d Head Below are structure for each major chunk:
+Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d?</description>
     </item>
     <item>
       <title>Meeting Discussion (5)</title>
