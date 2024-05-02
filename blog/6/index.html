@@ -5,12 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Meeting Discussion (5) | Banghao&#39;s Blog</title>
+<title>Meeting Discussion (6) | Banghao&#39;s Blog</title>
 <meta name="keywords" content="meeting-discussions, research, Quantization">
-<meta name="description" content="1. Accuracy graph under diffrerent quantization metrics: As we can observe from both graphs, activation is clearly influced more by quantization.
-2. Max value within the layers In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53.74, which also explains why activation is influenced more by quantization.">
+<meta name="description" content="1. Table of Contents In-depth Memory Usage Visualization
+Ideas about how to implement quantization of sparse conv3d
+Ideas about how to implement SmoothQuant operation on conv2d
+2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -&gt; Backbone 2d Backbone 2d Head Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d? Take a look at Nvidia’s implementation of Conv3d quantized layer The process should be similar if we see:">
 <meta name="author" content="Banghao Chi">
-<link rel="canonical" href="https://banghao.live/blog/5/">
+<link rel="canonical" href="https://banghao.live/blog/6/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8d6d0999b7a3d50c6d5a00541fc8078c4695a82720ad160b4078dab1d4edf114.css" integrity="sha256-jW0Jmbej1QxtWgBUH8gHjEaVqCcgrRYLQHjasdTt8RQ=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://banghao.live/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://banghao.live/favicon-16x16.png">
@@ -19,7 +21,7 @@
 <link rel="mask-icon" href="https://banghao.live/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://banghao.live/blog/5/">
+<link rel="alternate" hreflang="en" href="https://banghao.live/blog/6/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,18 +58,22 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="Meeting Discussion (5)" />
-<meta property="og:description" content="1. Accuracy graph under diffrerent quantization metrics: As we can observe from both graphs, activation is clearly influced more by quantization.
-2. Max value within the layers In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53.74, which also explains why activation is influenced more by quantization." />
+</noscript><meta property="og:title" content="Meeting Discussion (6)" />
+<meta property="og:description" content="1. Table of Contents In-depth Memory Usage Visualization
+Ideas about how to implement quantization of sparse conv3d
+Ideas about how to implement SmoothQuant operation on conv2d
+2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -&gt; Backbone 2d Backbone 2d Head Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d? Take a look at Nvidia’s implementation of Conv3d quantized layer The process should be similar if we see:" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://banghao.live/blog/5/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2024-05-01T16:48:28-05:00" />
-<meta property="article:modified_time" content="2024-05-01T16:48:28-05:00" />
+<meta property="og:url" content="https://banghao.live/blog/6/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2024-05-02T17:04:02-05:00" />
+<meta property="article:modified_time" content="2024-05-02T17:04:02-05:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Meeting Discussion (5)"/>
-<meta name="twitter:description" content="1. Accuracy graph under diffrerent quantization metrics: As we can observe from both graphs, activation is clearly influced more by quantization.
-2. Max value within the layers In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53.74, which also explains why activation is influenced more by quantization."/>
+<meta name="twitter:title" content="Meeting Discussion (6)"/>
+<meta name="twitter:description" content="1. Table of Contents In-depth Memory Usage Visualization
+Ideas about how to implement quantization of sparse conv3d
+Ideas about how to implement SmoothQuant operation on conv2d
+2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -&gt; Backbone 2d Backbone 2d Head Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d? Take a look at Nvidia’s implementation of Conv3d quantized layer The process should be similar if we see:"/>
 
 
 <script type="application/ld+json">
@@ -84,8 +90,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "Meeting Discussion (5)",
-      "item": "https://banghao.live/blog/5/"
+      "name": "Meeting Discussion (6)",
+      "item": "https://banghao.live/blog/6/"
     }
   ]
 }
@@ -94,24 +100,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Meeting Discussion (5)",
-  "name": "Meeting Discussion (5)",
-  "description": "1. Accuracy graph under diffrerent quantization metrics: As we can observe from both graphs, activation is clearly influced more by quantization.\n2. Max value within the layers In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53.74, which also explains why activation is influenced more by quantization.",
+  "headline": "Meeting Discussion (6)",
+  "name": "Meeting Discussion (6)",
+  "description": "1. Table of Contents In-depth Memory Usage Visualization\nIdeas about how to implement quantization of sparse conv3d\nIdeas about how to implement SmoothQuant operation on conv2d\n2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -\u0026gt; Backbone 2d Backbone 2d Head Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d? Take a look at Nvidia’s implementation of Conv3d quantized layer The process should be similar if we see:",
   "keywords": [
     "meeting-discussions", "research", "Quantization"
   ],
-  "articleBody": "1. Accuracy graph under diffrerent quantization metrics: As we can observe from both graphs, activation is clearly influced more by quantization.\n2. Max value within the layers In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53.74, which also explains why activation is influenced more by quantization.\n3. What’s next? Add a customized quantizer for the sparse conv3d layer. Add a customized quantizer for operation in SmoothQuant. ",
-  "wordCount" : "97",
+  "articleBody": "1. Table of Contents In-depth Memory Usage Visualization\nIdeas about how to implement quantization of sparse conv3d\nIdeas about how to implement SmoothQuant operation on conv2d\n2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -\u003e Backbone 2d Backbone 2d Head Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d? Take a look at Nvidia’s implementation of Conv3d quantized layer The process should be similar if we see:\n4. How to implement SmoothQuant operation on conv2d? Get activation scale We will implement the process if getting activation scale similar to the following process (from SmoothQuant):\nMigrate difficulty 5. What’s next? Implement SmoothQuant operation first, and then Implement quantization of sparse conv3d. ",
+  "wordCount" : "126",
   "inLanguage": "en",
-  "datePublished": "2024-05-01T16:48:28-05:00",
-  "dateModified": "2024-05-01T16:48:28-05:00",
+  "datePublished": "2024-05-02T17:04:02-05:00",
+  "dateModified": "2024-05-02T17:04:02-05:00",
   "author":{
     "@type": "Person",
     "name": "Banghao Chi"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://banghao.live/blog/5/"
+    "@id": "https://banghao.live/blog/6/"
   },
   "publisher": {
     "@type": "Organization",
@@ -200,28 +206,84 @@
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      Meeting Discussion (5)
+      Meeting Discussion (6)
     </h1>
-    <div class="post-meta"><span title='2024-05-01 16:48:28 -0500 -0500'>May 1, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Banghao Chi
+    <div class="post-meta"><span title='2024-05-02 17:04:02 -0500 -0500'>May 2, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Banghao Chi
 
 </div>
   </header> 
-  <div class="post-content"><h4 id="1-accuracy-graph-under-diffrerent-quantization-metrics">1. Accuracy graph under diffrerent quantization metrics:<a hidden class="anchor" aria-hidden="true" href="#1-accuracy-graph-under-diffrerent-quantization-metrics">#</a></h4>
-<p><img loading="lazy" src="https://s2.loli.net/2024/05/02/a2ZCioXbnQyfdt9.png" alt="weigt"  />
-</p>
-<p><img loading="lazy" src="https://s2.loli.net/2024/05/02/eWJlbMt64ihZQkf.png" alt="activation"  />
-</p>
-<p>As we can observe from both graphs, activation is clearly influced more by quantization.</p>
-<h4 id="2-max-value-within-the-layers">2. Max value within the layers<a hidden class="anchor" aria-hidden="true" href="#2-max-value-within-the-layers">#</a></h4>
-<p><img loading="lazy" src="https://s2.loli.net/2024/05/02/psoeGLZWcfiYBRd.png" alt="weight_amax"  />
-</p>
-<p><img loading="lazy" src="https://s2.loli.net/2024/05/02/Q3KCObkmnH4ysiP.png" alt="activation_amax"  />
-</p>
-<p>In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53.74, which also explains why activation is influenced more by quantization.</p>
-<h4 id="3-whats-next">3. What&rsquo;s next?<a hidden class="anchor" aria-hidden="true" href="#3-whats-next">#</a></h4>
+  <div class="post-content"><h4 id="1-table-of-contents">1. Table of Contents<a hidden class="anchor" aria-hidden="true" href="#1-table-of-contents">#</a></h4>
 <ul>
-<li>Add a customized quantizer for the sparse conv3d layer.</li>
-<li>Add a customized quantizer for operation in <a href="https://arxiv.org/abs/2211.10438">SmoothQuant</a>.</li>
+<li>
+<p>In-depth Memory Usage Visualization</p>
+</li>
+<li>
+<p>Ideas about how to implement quantization of sparse conv3d</p>
+</li>
+<li>
+<p>Ideas about how to implement SmoothQuant operation on conv2d</p>
+</li>
+</ul>
+<h4 id="2-large-chunk-gpu-memory-usage-overview">2. Large Chunk GPU Memory Usage Overview<a hidden class="anchor" aria-hidden="true" href="#2-large-chunk-gpu-memory-usage-overview">#</a></h4>
+<ul>
+<li>Data loader</li>
+<li>Backbone 3d</li>
+<li>Backbone 3d -&gt; Backbone 2d</li>
+<li>Backbone 2d</li>
+<li>Head</li>
+</ul>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/03/QDslj3v27dH86KO.png" alt="img"  />
+</p>
+<ul>
+<li>Data Loader</li>
+</ul>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/03/EB86rHDU1nvJ4w5.png" alt="img"  />
+</p>
+<ul>
+<li>Backbone 3d</li>
+</ul>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/03/Zk54O2FQuMePmAV.png" alt="img"  />
+</p>
+<ul>
+<li>3d feature to 2d feature</li>
+</ul>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/03/AKPCTygsZBjGHFd.png" alt="img"  />
+</p>
+<ul>
+<li>Backbone 2d</li>
+</ul>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/03/YCN6cUx5dhazMFL.png" alt="img"  />
+</p>
+<ul>
+<li>Head</li>
+</ul>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/03/yghIoLpfwFdGDzc.png" alt="img"  />
+</p>
+<h4 id="3-how-to-implement-quantization-of-sparse-conv3d">3. How to implement quantization of sparse conv3d?<a hidden class="anchor" aria-hidden="true" href="#3-how-to-implement-quantization-of-sparse-conv3d">#</a></h4>
+<ul>
+<li>Take a look at Nvidia’s implementation of Conv3d quantized layer</li>
+</ul>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/03/o2akKjtTCpIOd1l.png" alt="image-20240502170058646"  />
+</p>
+<p>The process should be similar if we see:</p>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/03/MuzSNR9AVHPdpDy.png" alt="img"  />
+</p>
+<h4 id="4-how-to-implement-smoothquant-operation-on-conv2d">4. How to implement SmoothQuant operation on conv2d?<a hidden class="anchor" aria-hidden="true" href="#4-how-to-implement-smoothquant-operation-on-conv2d">#</a></h4>
+<ul>
+<li>Get activation scale</li>
+</ul>
+<p>We will implement the process if getting activation scale similar to the following process (from SmoothQuant):</p>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/03/93iH8EL1u7hcyef.png" alt="img"  />
+</p>
+<ul>
+<li>Migrate difficulty</li>
+</ul>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/03/p5hLFvOm96X4QRG.png" alt="img"  />
+</p>
+<h4 id="5-whats-next">5. What&rsquo;s next?<a hidden class="anchor" aria-hidden="true" href="#5-whats-next">#</a></h4>
+<ul>
+<li>Implement SmoothQuant operation first, and then</li>
+<li>Implement quantization of sparse conv3d.</li>
 </ul>
 
 
@@ -234,15 +296,10 @@
       <li><a href="https://banghao.live/tags/quantization/">Quantization</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://banghao.live/blog/6/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>Meeting Discussion (6)</span>
-  </a>
-  <a class="next" href="https://banghao.live/blog/4/">
+  <a class="next" href="https://banghao.live/blog/5/">
     <span class="title">Next »</span>
     <br>
-    <span>Meeting Discussion (4)</span>
+    <span>Meeting Discussion (5)</span>
   </a>
 </nav>
 

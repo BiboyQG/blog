@@ -6,8 +6,18 @@
     <description>Recent content on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 May 2024 16:48:28 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 02 May 2024 17:04:02 -0500</lastBuildDate>
     <atom:link href="https://banghao.live/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Meeting Discussion (6)</title>
+      <link>https://banghao.live/blog/6/</link>
+      <pubDate>Thu, 02 May 2024 17:04:02 -0500</pubDate>
+      <guid>https://banghao.live/blog/6/</guid>
+      <description>1. Table of Contents In-depth Memory Usage Visualization
+Ideas about how to implement quantization of sparse conv3d
+Ideas about how to implement SmoothQuant operation on conv2d
+2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -&amp;gt; Backbone 2d Backbone 2d Head Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d? Take a look at Nvidia’s implementation of Conv3d quantized layer The process should be similar if we see:</description>
+    </item>
     <item>
       <title>Meeting Discussion (5)</title>
       <link>https://banghao.live/blog/5/</link>
