@@ -6,7 +6,7 @@ categories = ['Internet of Things']
 tags = ['Project', 'Application', 'Internet of Things']
 +++
 
-[Video][https://www.youtube.com/watch?v=Pth99K0GmAg] [GitHub][https://github.com/IoT-God]
+[Video](https://www.youtube.com/watch?v=Pth99K0GmAg) [GitHub](https://github.com/IoT-God)
 
 #### 1. Motivation
 
