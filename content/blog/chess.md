@@ -8,11 +8,11 @@ tags = ['Deep Learning', 'Project', 'yolov5']
 
 #### 1. Selected and customized the YOLOv5 model for Chinese chess annotation data.
 
-<img src="https://s2.loli.net/2024/01/27/zASf74aWbsmn5tP.png">
+![img](https://s2.loli.net/2024/01/27/zASf74aWbsmn5tP.png)
 
 #### 2. Conducted testing and analysis of the model.
 
-<img src="https://s2.loli.net/2024/01/27/7f4cP9gOke5Zy3W.png">
+![img](https://s2.loli.net/2024/01/27/7f4cP9gOke5Zy3W.png)
 
 The results indicated exceptional accuracy in recognition capabilities. However, a significant shortfall was identified in terms of efficiency, with the model taking approximately 6 seconds to process a single image.
 
@@ -22,7 +22,7 @@ We substitute the YOLOv5 model with a more lightweight variant, YOLOv5-lite and 
 
 #### 4. Deployed the model on edge computing devices using ONNXRUNTIME.
 
-<img src="https://s2.loli.net/2024/01/27/wtzKNoyCkMFufVI.png">
+![img](https://s2.loli.net/2024/01/27/wtzKNoyCkMFufVI.png)
 
 This deployment resulted in maintaining a similar rate of recognition success while significantly increasing the frame rate of recognition to 6-8 frames per second, an efficiency improvement of approximately 97%. (The rate of rocognotion of b_zu is due to these set of chess is not made of wood with word engraved in it, meaning it is better change a set of chess whose texture is not affected by reflection)
 
