@@ -6,8 +6,16 @@
     <description>Recent content on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 May 2024 17:04:02 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 05 May 2024 16:18:51 -0500</lastBuildDate>
     <atom:link href="https://banghao.live/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>IoT-Enabled Home Security Camera</title>
+      <link>https://banghao.live/blog/camera/</link>
+      <pubDate>Sun, 05 May 2024 16:18:51 -0500</pubDate>
+      <guid>https://banghao.live/blog/camera/</guid>
+      <description>[Video][https://www.youtube.com/watch?v=Pth99K0GmAg] [GitHub][https://github.com/IoT-God]
+1. Motivation Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work.</description>
+    </item>
     <item>
       <title>Meeting Discussion (6)</title>
       <link>https://banghao.live/blog/6/</link>
