@@ -30,9 +30,9 @@ Validation of the above implementation: ✅ (for $ \alpha = 0.5 $)
       <link>https://banghao.live/blog/6/</link>
       <pubDate>Thu, 02 May 2024 17:04:02 -0500</pubDate>
       <guid>https://banghao.live/blog/6/</guid>
-      <description>1. Table of Contents In-depth Memory Usage Visualization
-Ideas about how to implement quantization of sparse conv3d
-Ideas about how to implement SmoothQuant operation on conv2d
+      <description>1. Table of Contents In-depth Memory Usage Visualization: ✅
+Ideas about how to implement quantization of sparse conv3d: ✅
+Ideas about how to implement SmoothQuant operation on conv2d: ✅
 2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -&amp;gt; Backbone 2d Backbone 2d Head Below are structure for each major chunk:
 Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d?</description>
     </item>
@@ -41,15 +41,15 @@ Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to impl
       <link>https://banghao.live/blog/5/</link>
       <pubDate>Wed, 01 May 2024 16:48:28 -0500</pubDate>
       <guid>https://banghao.live/blog/5/</guid>
-      <description>1. Accuracy graph under diffrerent quantization metrics: As we can observe from both graphs, activation is clearly influced more by quantization.
-2. Max value within the layers In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53.74, which also explains why activation is influenced more by quantization.</description>
+      <description>1. Table of Contents Accuracy graph under diffrerent quantization metrics: ✅ Max value within the layers: ✅ 2. Accuracy graph under diffrerent quantization metrics: As we can observe from both graphs, activation is clearly influced more by quantization.
+3. Max value within the layers In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53.</description>
     </item>
     <item>
       <title>Meeting Discussion (4)</title>
       <link>https://banghao.live/blog/4/</link>
       <pubDate>Fri, 26 Apr 2024 15:32:56 -0500</pubDate>
       <guid>https://banghao.live/blog/4/</guid>
-      <description>1. The strcuture of the CenterPoint-Vexel model CenterPoint( (vfe): MeanVFE() (backbone_3d): VoxelResBackBone8x( (conv_input): SparseSequential( (0): SubMConv3d(5, 16, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[1, 1, 1], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm) (1): BatchNorm1d(16, eps=0.001, momentum=0.01, affine=True, track_running_stats=True) (2): ReLU() ) (conv1): SparseSequential( (0): SparseBasicBlock( (conv1): SubMConv3d(16, 16, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[1, 1, 1], dilation=[1, 1, 1], output_padding=[0, 0, 0], algo=ConvAlgo.MaskImplicitGemm) (bn1): BatchNorm1d(16, eps=0.001, momentum=0.01, affine=True, track_running_stats=True) (relu): ReLU() (conv2): SubMConv3d(16, 16, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[1, 1, 1], dilation=[1, 1, 1], output_padding=[0, 0, 0], algo=ConvAlgo.</description>
+      <description>1. Table of Contents The strcuture of the CenterPoint-Vexel model: ✅ Inference time of each layer: ✅ Memory usage of each layer: ✅ Storage usage of each layer: ✅ Quantization of the model: ✅ 2. The strcuture of the CenterPoint-Vexel model CenterPoint( (vfe): MeanVFE() (backbone_3d): VoxelResBackBone8x( (conv_input): SparseSequential( (0): SubMConv3d(5, 16, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[1, 1, 1], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm) (1): BatchNorm1d(16, eps=0.</description>
     </item>
     <item>
       <title>Meeting Discussion (3)</title>
@@ -57,7 +57,7 @@ Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to impl
       <pubDate>Tue, 02 Apr 2024 18:18:50 -0500</pubDate>
       <guid>https://banghao.live/blog/3/</guid>
       <description>What has been done? This week&amp;rsquo;s work:
-Setup nuScenes training and validation dataset for MMDetection3D framework. Setup waymo training and validation dataset for MMDetection3D framework. Wrote API for PTQ under pytorch-quantization framework. (Now just need model and dataloader definition) Complete walkthrough of CAT-Seg, a SOTA Open Vocabulary Segmentation (OVS) model. What to discuss? Is this quantization way appropriate? Any advice on the changing of model structure (CAT-Seg)? What&amp;rsquo;s next (in the order of priority) Modify pytorch-quantization source code to implement weight-only quantization (below is a potential way):</description>
+Setup nuScenes training and validation dataset for MMDetection3D framework: ✅ Setup waymo training and validation dataset for MMDetection3D framework: ✅ Wrote API for PTQ under pytorch-quantization framework. (Now just need model and dataloader definition): ✅ Complete walkthrough of CAT-Seg, a SOTA Open Vocabulary Segmentation (OVS) model: ✅ What to discuss? Is this quantization way appropriate? Any advice on the changing of model structure (CAT-Seg)?</description>
     </item>
     <item>
       <title>Quantization on CenterPoint</title>
