@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Let&#39;s build GPT from scratch with BPE! | Banghao&#39;s Blog</title>
+<meta name="keywords" content="NLP, Byte Pair Encoding, Tokenization">
+<meta name="description" content="1. Workshop Description Quick question: Have you ever thought about a string being transformed into a word vector so that it can be further fed into a machine learning algorithm?
+In this workshop, we are going to dive into the fascinating world of Natural Language Processing (NLP) with our focus on Byte Pair Encoding (BPE) algorithm. We will discover how this powerful technique segments text into subword units, enabling efficient representation of words as vectors.">
+<meta name="author" content="Banghao Chi">
+<link rel="canonical" href="https://banghao.live/blog/token/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8d6d0999b7a3d50c6d5a00541fc8078c4695a82720ad160b4078dab1d4edf114.css" integrity="sha256-jW0Jmbej1QxtWgBUH8gHjEaVqCcgrRYLQHjasdTt8RQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://banghao.live/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://banghao.live/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://banghao.live/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://banghao.live/apple-touch-icon.png">
+<link rel="mask-icon" href="https://banghao.live/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://banghao.live/blog/token/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Let&#39;s build GPT from scratch with BPE!" />
+<meta property="og:description" content="1. Workshop Description Quick question: Have you ever thought about a string being transformed into a word vector so that it can be further fed into a machine learning algorithm?
+In this workshop, we are going to dive into the fascinating world of Natural Language Processing (NLP) with our focus on Byte Pair Encoding (BPE) algorithm. We will discover how this powerful technique segments text into subword units, enabling efficient representation of words as vectors." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://banghao.live/blog/token/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2024-05-08T14:15:07-05:00" />
+<meta property="article:modified_time" content="2024-05-08T14:15:07-05:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Let&#39;s build GPT from scratch with BPE!"/>
+<meta name="twitter:description" content="1. Workshop Description Quick question: Have you ever thought about a string being transformed into a word vector so that it can be further fed into a machine learning algorithm?
+In this workshop, we are going to dive into the fascinating world of Natural Language Processing (NLP) with our focus on Byte Pair Encoding (BPE) algorithm. We will discover how this powerful technique segments text into subword units, enabling efficient representation of words as vectors."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://banghao.live/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Let's build GPT from scratch with BPE!",
+      "item": "https://banghao.live/blog/token/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Let's build GPT from scratch with BPE!",
+  "name": "Let\u0027s build GPT from scratch with BPE!",
+  "description": "1. Workshop Description Quick question: Have you ever thought about a string being transformed into a word vector so that it can be further fed into a machine learning algorithm?\nIn this workshop, we are going to dive into the fascinating world of Natural Language Processing (NLP) with our focus on Byte Pair Encoding (BPE) algorithm. We will discover how this powerful technique segments text into subword units, enabling efficient representation of words as vectors.",
+  "keywords": [
+    "NLP", "Byte Pair Encoding", "Tokenization"
+  ],
+  "articleBody": "1. Workshop Description Quick question: Have you ever thought about a string being transformed into a word vector so that it can be further fed into a machine learning algorithm?\nIn this workshop, we are going to dive into the fascinating world of Natural Language Processing (NLP) with our focus on Byte Pair Encoding (BPE) algorithm. We will discover how this powerful technique segments text into subword units, enabling efficient representation of words as vectors. Join us to unravel the intricacies of transforming linguistic data into numerical form, which is essential for tasks like text classification, translation, and sentiment analysis!\n2. Structure of the Workshop Introduction: What is tokenization and why is it important? New essential tools: Regex and regular expression “Building up” examples and discussion: Tokenization related issues Tokenization by example Major part: string in Python: Unicode code points -\u003e UTF -8, UTF-16, UTF-32 Why not just directly use the above four methods to encode the string? Introduction of BPE: Why BPE -\u003e How it works Implementation of BPE: Finding the most common consecutive pair. Merging the most common pair to get merge rules. How to train the tokenizer? How to decode tokens to strings? How to encode strings to tokens? How can we improve from basic BPE? Forced splits using regex. Conclusion In the introduction segment of our workshop, we’ll dive into the fundamental concept of tokenization and explore the challenges and intricacies it entails. We’ll discuss how tokenization serves as the initial step in NLP tasks, highlighting its significance in breaking down raw text into manageable units for analysis.\nFollowing the introduction, we’ll introduce you to essential tools that assist in tokenization, with a special focus on Regular Expressions (Regex). Regex offers a powerful and flexible method for pattern matching and text manipulation, making it indispensable for tasks like tokenization where precise pattern recognition is crucial. And the reason we introduce it is not because we are going to use it for tokenization, we use it to achieve better performance of our tokenizer, which is going to be illustrated at the very end of our workshop.\nMoving forward, we’ll engage the audience in an interactive session of “building up” examples and discussions centered around tokenization. Through hands-on examples and discussions, you will gain a deeper understanding of tokenization techniques, exploring various reasons why we need a better tokenization scheme to segmenting text into meaningful units. Additionally, we’ll point out the answer to some common issues such as why Large Language Models (LLM) can’t spell words or why they are bad at simple Math or Python, which in this case I believe many of you have already known the answer - tokenization.\nThe major part of our workshop will focus on the core concepts of string manipulation in Python, starting from Unicode code points and progressing to different UTF encodings. We’ll then dive into the limitations of direct encoding methods and then introduce Byte Pair Encoding (BPE) as a more efficient and effective alternative. You will learn why BPE is a preferred approach and how it operates, followed by a step-by-step implementation guide covering tokenization, training the tokenizer, and decoding/encoding strings to tokens. Additionally, we’ll explore methods to enhance basic BPE, including the incorporation of regex for forced splits, ensuring more precise and effective tokenization results.\n3. Introduction So our goal is to transform a string of text into numeric representation so that it can be fed directly into machine learning algorithms. By that, we need tokenization.\nBut what is tokenization?\nTokenization is the process of breaking down raw text into smaller, meaningful units called tokens. These tokens could be words, phrases, symbols, or any other unit of text that holds significance in understanding the whole text, meaning it serves as the foundation for all subsequent text processing tasks in NLP.\nConsider a sentence: “Real integrity is doing the right thing, knowing that nobody’s going to know whether you did it or not.” by Oprah Winfrey. A simple tokenization of this sentence would involve breaking it down into individual words: [“Real”, “integrity”, “is”, “doing”, “the”, “right”, “thing”, “,”, “knowing”, “that”, “nobody”, “’s”, “going”, “to”, “know”, “whether”, “you”, “did”, “it”, “or”, “not”, “.”]. Each word here represents a token, and this tokenized representation enables machines to understand and analyze the text more effectively since it divides large chunk into smaller pieces.\nHowever, tokenization isn’t as straightforward as splitting text on spaces or punctuation marks. It actually involves addressing various linguistic challenges, such as handling contractions (“can’t” should be tokenized as [“can”, “’t”]), dealing with special cases like hyphenated words (“state-of-the-art” should be tokenized as [“state”, “-”, “of”, “-”, “the”, “-”, “art”]), and distinguishing between different types of punctuation marks, which is exactly the reason why we are going to introduce new essential tools in the next section.\nMoreover, tokenization strategies may vary depending on the specific requirements of the NLP task at hand, or even specific languages. For instance, while word-level tokenization is common, there are scenarios where character-level or subword-level tokenization may be more appropriate, such as in languages with complex morphology like Chinese or when dealing with out-of-vocabulary words.\nIn essence, tokenization aims to transforming textual data into a format that machines can comprehend and process, bridging the gap between natural language and numerical representations which are of great siginicance for machine learning algorithms.\n4. New Essential Tools In order to dedicatedly deal with contractions tokenization like 's or 't, we will need one powerful tool that enable us to do different text pattern matching, which is Regex. This is an extension of the original re module inside original Python, meaning it is more powerful.\nAnd in our workshop, we will focus on its two specific function calls and one specific regular expression referenced from this repository with some modification:\n# import modules and rename it as re for convenience import regex as re # define pattern referenced from the repo except for special tokens pat = re.compile(r\"\"\"'s|'t|'re|'ve|'m|'ll|'d| ?\\p{L}+| ?\\p{N}+| ?[^\\s\\p{L}\\p{N}]+|\\s+(?!\\S)|\\s+\"\"\", re.IGNORECASE) text = 'Any text that you want to be split.' print(re.findall(pat, text)) We will first walkthrough re.findall and then dive into re.compile and the meaning of the regular expression inside it.\nre.findall:\nBasically what re.findall does is it will take the regular expression pattern, in this case pat and try to match it against the text. The way it works is that the regex module will go through the string from left to right to match the pattern, and re.findall will match all the occurences and organize them into a list. In this case, the output of the terminal will be: ['Any', ' text', ' that', ' you', ' want', ' to', ' be', ' split', '.'] re.compile:\nOn the other hand, what re.compile does is defining a regular expression that can be used for further regex function using the regular expression string inside it. Regular expression:\nWe will lay our main focus on the regular expression here from two perspectives: what it means and why should it be like this.\nWhat the regular expression means:\n's|'t|'re|'ve|'m|'ll|'d:\nThe | inside the regular expression represents the “or” operation in regex, meaning that it will match the pattern either on its left hand side or on its right hand side. And therefore we understand the this part of regular expression, which matches common English contractions and possessive endings. For example, for text:\ntext = \"Any text that you'd want to be split.\" print(re.findall(pat, text)) The output will be:\n['Any', ' text', ' that', ' you', \"'d\", ' want', ' to', ' be', ' split', '.'] In this case we can clearly see that 'd' is successfully separated out.\n?\\p{L}+:\nFor this chunk we can take a look at this source. Firstly, ? optionally matches a space before the main pattern. Next, according to the source, \\p{L} is a Unicode property escape that matches any kind of letter from any language. And + means one or more of the preceding element, so \\p{L}+ matches one or more letters (i.e., it matches the whole words). Therefore, this chunk match the whole word with an optional space in front of it. ?\\p{N}+:\nSimilar to the previous explanation, this matches an optional leading space followed by one or more Unicode numeric characters (i.e., it matches entire numbers). For example, for text:\ntext = \"Any text123 that you'd want to be split.\" print(re.findall(pat, text)) The output will be:\n['Any', ' text', '123', ' that', ' you', \"'d\", ' want', ' to', ' be', ' split', '.'] In this case we can clearly see that the number is separated out.\n?[^\\s\\p{L}\\p{N}]+:\n? again optionally matches a space.\n^ represents “not” operation in regex regular expression. Therefore, [^\\s\\p{L}\\p{N}] matches any character that is not a whitespace (\\s), not a letter (\\p{L}), and not a numeric character (\\p{N}), therefore is used to match punctuation and other symbols.\n+ ensures that one or more of such characters are matched together as a group, in this case it matches as many punctuations as possible. For example, for text:\ntext = \"Any text that you'd want to be split???!!!\" print(re.findall(pat, text)) The output will be:\n['Any', ' text', ' that', ' you', \"'d\", ' want', ' to', ' be', ' split', '???!!!'] In this case we can clearly see that the punctuations are captured.\n\\s+(?!\\S):\n\\s+ matches one or more whitespace characters here.\n(?!\\S) is a negative lookahead that asserts what follows is not a non-whitespace character. This part will ensure that the matched whitespace is at the end of a line or string, preventing excessive spaces from consuming lots of spaces at the same time. For example, for text:\ntext = \"Any text that you'd want to be split.\" print(re.findall(pat, text)) The output will be:\n['Any', ' text', ' that', ' you', \"'d\", ' want', ' to', ' ', ' be', ' split', '.'] In this case we can clearly see that the excessive space is successfully separated out with one space in front of “be”.\n\\s+:\nThis simply matches one or more whitespace characters anywhere else in the input like the one above. Why should it be like this?\nThe reason is actually explained above, but the main reason is that this regular expression has the ability to match the whole word, whole integer, punctuation(s) and excessive spaces, making it really useful in the final refinement process. This will be further discussed in the final section. 5. “Building up” examples and discussion In this section, we will dive deeper into the practical aspects of tokenization, exploring both common challenges through illustrative examples and engaging discussions.\nA quick fun and useful app that we can utilize here is the tiktokenizer website, where it visualizes the tokenization live just in the browser. Since GPT-2 uses BPE algorithm with minimal modification, we are going to use its tokenizer as an example.\nHere we can see the visualization of the tokenization. For the english sentence (selected from IS 305 website), it is pretty clear that BPE algorithm tokenizes the sentence almost perfectly (with space being part of the token chunk) according to its merge rules, which seems all well and good. But this exactly the reason why LLMs are bad at spelling! Since nearly all of the common words are tokenized so that they can be represented using only one single integer, it’s really hard for them to spell the characters within that single token which are treated as a single integer.\nWhat’s more, in terms of some simple arithmetics, we can see that the tokenizer handle the first equation perfectly, but when it comes to the second one, the two number, 3221 and 2334, are fed into the machine learning as two separate tokens respectively (3, 221 and 233, 4). Even the final result 5555 is divided into 5 and 555, which to some extent explains why sometimes LLMs are bad at simple arithmetics -\u003e tokenization!\nAnd another example is that we write our egg under multiple context. One is Egg. , where the BPE separates the period from the noun. In the sentence, the Egg is separated together with the space in front of it. When we write egg., the “egg” is separated from period, but when we write EGG., the tokenized version is like ['EG', 'G', ''.']. Here we notice that, for the same concept, “egg”, depending on its location within the sentence and upper or lowercase or mixed, all these will result in fairly different tokens and therefore different word vector, which will be further learned by the machine learning algorithms.\nAdditionally, the third example is quite interestring. Here, the text 你好，我是池邦豪！ 👋 means ‘Hello, my name is Banghao Chi’ in English. By punctuation, I believe that everybody can guess the meaning of “你好”, right? That’s correct! “你好” exactly means “Hello” in English. But in this case, what we observe is that BPE divides “你好” into two seperated tokens, which is really weird since if “你好” means “Hello”, why BPE would divide them apart? Here we can notice that BPE works slightly worse on non-english languages, part of reason is because the training dataset for BPE on English is much larger than any other languages, resulting in different tokenization performances on different languages.\nFinally, we come to a snippet of Python code here. What we can notice is that the indent here are all treated as individual space and all individual space are all separate tokens, which leads to extremely wasteful tokenization in this way. In better tokenizer (taking the second line of code as an example), we will combine the first three spaces together into one single token and then treat if as the other token. This example also to some extent explains why LLMs sometimes can perform really bad at coding -\u003e tokenization!\nAfter coming a long way from scratch, we now understand the significance of the tokenizer, and in the following sections, we are going teach all the fundations of the BPE and why we should choose it. And based on that, you can then explore the fascinating world of tokenization and therefore even solve the issues above on your own!\n6. What encoding mechanism should we choose? One thing we need to remember is that we not only want to support English but some other popular languages and also some special characters like emoji. Then how are we going to feed our text into the tokenizer?\nIf we take a quick look at the official Python documentation, we can see that:\nStrings are immutable sequences of Unicode code points.\nBut what are Unicode code points ? It can be found here in Wikipedia. So basically it is a definition of roughly 150,000 characters defined by Unicode Consortium as part of the Unicode standard. Roughly speaking, they define how each character look like and what integers represent them. If we scroll to the bottom, we can even see that it’s very much alive, still updated each year.\nThe way we can access the Unicode code points integer in Python is through ord function.\n[ord(t)for t in \"你好，我叫池邦豪 👋 (hello, my name is Banghao Chi in Chinese)\"] And we can find the outputs of the terminal being:\n[20320, 22909, 65292, 25105, 21483, 27744, 37030, 35946, 32, 128075, 32, 40, 104, 101, 108, 108, 111, 44, 32, 109, 121, 32, 110, 97, 109, 101, 32, 105, 115, 32, 66, 97, 110, 103, 104, 97, 111, 32, 67, 104, 105, 32, 105, 110, 32, 67, 104, 105, 110, 101, 115, 101, 41] But you might ask, we already turned the raw code points into integer format, so why can’t we just simply use these integers and not doing any tokenization at all?\nWell there are three main reasons:\nUnicode has a vocab size which is too large (roughly 150,000) for NLP or any other machine learning algorithms. It is consistently updated, which is not a stable representation that we may want to use. We don’t want to achieve character-level encoding due to the nature of English. Because of these, we may need something better, turning to encodings. If we scroll a little bit down of the wikipedia page of Unicode, we can find that the Unicode Consortium has defined three extra types of encodings by which we can take Unicode text and transform them into binary data:\nUTF-8 (has 256 characters) UTF-16 UTF-32 Among all of them, UTF-8 is the most common one, and as we can see from its wikipedia page, it takes every single code point and it translates it to a byte stream which is between one to four bytes:\nSo if we’d like to do the UTF encoding, how can we do that in Python? Well, string object has a method encode and we can choose what encoding scheme we want inside it.\n\"你好，我叫池邦豪 👋 (hello, my name is Banghao Chi in Chinese)\".encode(\"utf-8\") which outputs:\nb'\\xe4\\xbd\\xa0\\xe5\\xa5\\xbd\\xef\\xbc\\x8c\\xe6\\x88\\x91\\xe5\\x8f\\xab\\xe6\\xb1\\xa0\\xe9\\x82\\xa6\\xe8\\xb1\\xaa\\xf0\\x9f\\x91\\x8b (hello, my name is Banghao Chi in Chinese)' But what we directly get is not very user-friendly since since they are bytes object, so instead we will convert it to a list which consists of the raw bytes of this encoding.\nlist(\"你好，我叫池邦豪 👋 (hello, my name is Banghao Chi in Chinese)\".encode(\"utf-8\")) And the output shows:\n[228, 189, 160, 229, 165, 189, 239, 188, 140, 230, 136, 145, 229, 143, 171, 230, 177, 160, 233, 130, 166, 232, 177, 170, 32, 240, 159, 145, 139, 32, 40, 104, 101, 108, 108, 111, 44, 32, 109, 121, 32, 110, 97, 109, 101, 32, 105, 115, 32, 66, 97, 110, 103, 104, 97, 111, 32, 67, 104, 105, 32, 105, 110, 32, 67, 104, 105, 110, 101, 115, 101, 41] So this is the raw bytes representing the above string accoring to the UTF-8 encoding. But what about UTF-16 and UTF-32? And how are we going to choose among three of them? To make a decision, we can just print them out to see the differences:\nUTF-8 (has 256 characters)\n[228, 189, 160, 229, 165, 189, 239, 188, 140, 230, 136, 145, 229, 143, 171, 230, 177, 160, 233, 130, 166, 232, 177, 170, 32, 240, 159, 145, 139, 32, 40, 104, 101, 108, 108, 111, 44, 32, 109, 121, 32, 110, 97, 109, 101, 32, 105, 115, 32, 66, 97, 110, 103, 104, 97, 111, 32, 67, 104, 105, 32, 105, 110, 32, 67, 104, 105, 110, 101, 115, 101, 41] UTF-16\n[255, 254, 96, 79, 125, 89, 12, 255, 17, 98, 235, 83, 96, 108, 166, 144, 106, 140, 32, 0, 61, 216, 75, 220, 32, 0, 40, 0, 104, 0, 101, 0, 108, 0, 108, 0, 111, 0, 44, 0, 32, 0, 109, 0, 121, 0, 32, 0, 110, 0, 97, 0, 109, 0, 101, 0, 32, 0, 105, 0, 115, 0, 32, 0, 66, 0, 97, 0, 110, 0, 103, 0, 104, 0, 97, 0, 111, 0, 32, 0, 67, 0, 104, 0, 105, 0, 32, 0, 105, 0, 110, 0, 32, 0, 67, 0, 104, 0, 105, 0, 110, 0, 101, 0, 115, 0, 101, 0, 41, 0] UTF-32\n[255, 254, 0, 0, 96, 79, 0, 0, 125, 89, 0, 0, 12, 255, 0, 0, 17, 98, 0, 0, 235, 83, 0, 0, 96, 108, 0, 0, 166, 144, 0, 0, 106, 140, 0, 0, 32, 0, 0, 0, 75, 244, 1, 0, 32, 0, 0, 0, 40, 0, 0, 0, 104, 0, 0, 0, 101, 0, 0, 0, 108, 0, 0, 0, 108, 0, 0, 0, 111, 0, 0, 0, 44, 0, 0, 0, 32, 0, 0, 0, 109, 0, 0, 0, 121, 0, 0, 0, 32, 0, 0, 0, 110, 0, 0, 0, 97, 0, 0, 0, 109, 0, 0, 0, 101, 0, 0, 0, 32, 0, 0, 0, 105, 0, 0, 0, 115, 0, 0, 0, 32, 0, 0, 0, 66, 0, 0, 0, 97, 0, 0, 0, 110, 0, 0, 0, 103, 0, 0, 0, 104, 0, 0, 0, 97, 0, 0, 0, 111, 0, 0, 0, 32, 0, 0, 0, 67, 0, 0, 0, 104, 0, 0, 0, 105, 0, 0, 0, 32, 0, 0, 0, 105, 0, 0, 0, 110, 0, 0, 0, 32, 0, 0, 0, 67, 0, 0, 0, 104, 0, 0, 0, 105, 0, 0, 0, 110, 0, 0, 0, 101, 0, 0, 0, 115, 0, 0, 0, 101, 0, 0, 0, 41, 0, 0, 0] From the above outputs, we start to see the disadvantages of UTF-16 and UTF-32, with excessive 0 lying within the list, which give us a sense that UTF-16 and UTF-32 are a bit of a wasteful encodings. Therefore, we will stick with UTF-8 for better efficiency.\nHowever, we won’t just barely use UTF-8 encoding either, since it only has a vocabulary size of 256, meaning that we will only have 256 types of tokens, which is too small. The small size of vocabulary will results in the huge length representation of the original text, which is not nice for the up-coming machine learning algorithms. Therefore, we need to find a way to increase our vocabulary size by compressing the original bytes sequences to reduce the final representation length of the text, which turns out to be BPE.\n7. Introduction of BPE The process of BPE is quite intuitive, according to Wikipedia, but we will walk you through to help you get the basic idea of the algorithm. The following example is referenced from Wikipedia:\nSuppose the data to be encoded is:\naaabdaaabac The byte pair “aa” occurs most often, so it will be replaced by a byte that is not used in the data, such as “Z”. Now there is the following data and replacement table:\nZabdZabac Z=aa Then the process is repeated with byte pair “ab”, replacing it with “Y”:\nZYdZYac Y=ab Z=aa The only literal byte pair left occurs only once, and the encoding might stop here. Alternatively, the process could continue with recursive byte pair encoding, replacing “ZY” with “X”:\nXdXac X=ZY Y=ab Z=aa This data cannot be compressed further by byte pair encoding because there are no pairs of bytes that occur more than once.\nSo basically after we’ve gone through the process, instead of having a sequence of 11 tokens with a vocabulary size of 4, we now have a suquence of 5 tokens with a vocabulary size of 7. By using BPE, we can iteratively compress our original sequence with more vocabulary and therefore find a balance of tokenization for further use.\n8. Implementation of BPE Since we need some training texts to train our BPE, we first select some texts from the IS 305 website and do some cleaning.\ncorpus = ... corpus = corpus.replace('\\n', ' ') corpus = corpus.replace(' ', ' ') corpus = corpus.replace(' ', ' ') corpus = corpus.replace(' ', ' ') Then we convert the corpus to raw bytes, but in order to manipulate them in a more convenvient way, we use the map function to convert the bytes object into integer and store them in a list.\nencoding = 'utf-8' tokens = corpus.encode(encoding) tokens = list(map(int, tokens)) print(\"length of corpus:\", len(corpus)) print('----------------') print(\"length: tokens\", len(tokens)) print('----------------') print(\"Length equal: \", len(corpus) == len(tokens)) The outputs show:\nlength of corpus: 29678 ---------------- length of tokens: 29681 ---------------- Length equal: False The reason why of length of them is not equal here is because although most of the characters are simple ASCII characters which just become a single byte or integer after encoding, but for some Unicode, more complex characters like emoji, they become multiple bytes up to 4 instead of just 1.\nCount the Frequency\nIn order to find the pair of bytes that occur most frequently, we first need to count the frequency of all pairs because them we are going to merge them based on their frequency.\ndef count(tokens): counts = {} for p in zip(tokens, tokens[1:]): counts[p] = counts.get(p, 0) + 1 return counts counts = count(tokens) So what we do is that we pass the tokens (a list of integer) as the input and we create a new dictionary to store the frequency of each pair. We then iterate through adjacent elements in the tokens. If this is the first time we come across this pair, the value returned from counts.get(p, 0) will be zero and we add one to show that this is the first time. Then we use the pair (which is a tuple of consecutive elements in tokens). The case where it’s not the first time is trivial, we just get the frequency from counts.get(p, 0) and add one to it. After the process, we return the dictionary which store the frequency of each pair.\nThe outputs of counts should be something like this:\n{(240, 159): 1, (159, 145): 1, (145, 139): 1, (139, 32): 1, (32, 77): 14, (77, 111): 7, (111, 100): 61, (100, 117): 17, (117, 108): 97, (108, 101): 266, (101, 32): 939, ...} We can notice that the combination of (101, 32) has the highest frequency, and we can reverse to see what combination of them is by using the chr function:\nprint(chr(101), chr(32)) The outputs are:\n('e', ' ') The chr function is just a reverse function of ord. The outputs mean that the most common pair in the text is ('e', ' ').\nGet Top Pair\nAfter getting the frequency of each adjacent pairs, we should get the pair which has the highest frequency through max function instead of telling by bare eyes:\ntop_pair = max(counts, key=counts.get) By defining the key to be the frequency, we can find the top pair and name it top_pair.\nMerge pair functionality based on a specific pair we got\nWe then need to replace all consecutive occurences of pair with the new idx:\ndef merge(tokens, pair, idx): # create new list to return later new_tokens = [] # reset pointer i = 0 # we iterate through every token while i \u003c len(tokens): # pair match for first two and ensure not the last token for the last condition if i \u003c len(tokens) - 1 and tokens[i] == pair[0] and tokens[i+1] == pair[1]: new_tokens.append(idx) # increase by 2 to skip i += 2 else: new_tokens.append(tokens[i]) i += 1 return new_tokens We pass tokens, pair(top_pair), idx(integer that we want to represent the pair) to the function as the inputs. We will create a new tokens list for convenience and set our pointer i to zero meaning the starting index. Then we will iterate through the whole tokens to merge the tokens within the list based on pair using while i \u003c len(tokens):.\nInside the while loop, we first see if the current token is the last one:\nif so, we go straight to the else branch and append it to the new_tokens; if not, then need to verify if the current token and the next one match the pair: if so, we append the new idx to the new_tokens and add i by 2 to skip to thee third token of the current sequence. if not, we just append the current token to the new_tokens and go to the next token. Hence, we get the above merge function, and in order to test if it is functioning correctly, we do a simple test as follows:\n# a simple test print(merge([2, 2, 8, 9, 5, 3, 8, 9], (8, 9), 257)) The outputs show:\n[2, 2, 257, 5, 3, 257] which means our function is correct.\nGet Merge Rules\nWe can then define the size of the vocab that we want and then integrate all the code for now to get the merge rules which are later used in the encoding stage:\nvocab_size = 400 # the final vocab length we want num_merges = vocab_size - 256 # UTF has original characters, so here we minus it tokens_BPE = list(tokens) Here vocab_size is just a hyper-parameter, meaning that this is the parameter that we can set whatever we want, representing the final size of the vocabulary. We can then get the number of merges by substracting it with 256 (UTF-8 has 256 characters originally, so we substract it). In case of mutating the orignal tokens list, we copy a new version of it and name it tokens_BPE.\nAfter getting the num_merges, tokens_BPE, we can perform the merge operation and get the merge rules:\nmerges = {} # key: pair to be merged; value: new token idx for i in range(num_merges): counts = count(tokens_BPE) pair = max(counts, key=counts.get) idx = 256 + i print(f\"merging {pair} into a new idx {idx}\") tokens_BPE = merge(tokens_BPE, pair, idx) merges[pair] = idx Here we create a new dictionary merges to store the merge rules. Then we iterate num_merges of times to:\nFirst get the frequency of all pairs.\ncounts = count(tokens_BPE) Find the top pair based on the first step and the frequency. Here, key=counts.get automatically tells the program that to find the pair which has the maximum value (frequency).\npair = max(counts, key=counts.get) Get the new idx which we want to represent the new top pair.\nidx = 256 + i Use merge function to merge the pairs within the tokens_BPE.\ntokens_BPE = merge(tokens_BPE, pair, idx) Save this merge rule to the merge rules.\nmerges[pair] = idx After executing the cell, we can get the outputs:\nmerging (101, 32) into a new idx 256 merging (116, 104) into a new idx 257 merging (115, 32) into a new idx 258 merging (116, 32) into a new idx 259 merging (105, 110) into a new idx 260 merging (97, 110) into a new idx 261 merging (101, 114) into a new idx 262 merging (32, 257) into a new idx 263 merging (111, 110) into a new idx 264 merging (97, 116) into a new idx 265 ... Get Vocabulary List\nAfter that, we can get the completed vocabulary list based on merge rules, which is going to be used in decoding stage:\nvocab = {idx: bytes([idx]) for idx in range(256)} # original characters in UTF # then we pop the pair out to vocab pair by pair for (pair0, pair1), idx in merges.items(): vocab[idx] = vocab[pair0] + vocab[pair1] For the first line, we place the original 256 characters defined by UTF-8 inside the vocab variable. The key here is the idx and the value is the bytes object of that idx.\nThen, we append the contatenation of the pair inside the merge rules to the vocab so that it not only contains the 256 characters defined by UTF-8, but also contains the pairs inside the merge rules.\nTo better help you understand the code, I attach the content of merges and vocab below:\nmerges:\n{(101, 32): 256, (116, 104): 257, (115, 32): 258, (116, 32): 259, (105, 110): 260, (97, 110): 261, (101, 114): 262, (32, 257): 263, (111, 110): 264, ...} vocab:\n{0: b'\\x00', 1: b'\\x01', 2: b'\\x02', 3: b'\\x03', 4: b'\\x04', 5: b'\\x05', 6: b'\\x06', 7: b'\\x07', 8: b'\\x08', ... 382: b'with ', 383: b'pro', 384: b'comm', 385: b\"', '\", 386: b'resul', 387: b'on ', 388: b'will ', 389: b'ver', 390: b'if', 391: b'use ', 392: b'pl', 393: b'ob', 394: b'al ', 395: b'ent', 396: b'ut ', 397: b'files ', 398: b'sp', 399: b'obj'} ​ Through vocab we can already see that some of the most common word are already grouped up, such as “with”, “will”, “use”, “if”, “files”, even some of the prefix or suffix such as “pro”, “comm”, etc. As long as we increase the vocab_size, more common words will be in the vocab and merges.\nDecoding Stage\nFor decoding stage, what we get as the input is a list of integers that represents the encoded text, and what we return in this function will be the Python string. Therefore:\ndef decode(tokens_BPE): tokens = b\"\".join(vocab[idx] for idx in tokens_BPE) text = tokens.decode(encoding, errors=\"replace\") return text We will also walk you through line by line in this case:\nWe get the original bytes representation of the text by first using the idx and vocab to look up the bytes, and contatenating all of them.\ntokens = b\"\".join(vocab[idx] for idx in tokens_BPE) After we get the raw bytes, we will decode them using str.decode method. This is because previously we use encode method to generate raw bytes using python string, and in order to reverse the process, we will be using the decode method.\ntext = tokens.decode(encoding, errors=\"replace\") The reason why we need a errors=\"replace\" is because, there is a certain scheme that the UTF-8 do the conversion between code point and byte. For example, if we try the following code without error='replace':\ndef decode(tokens_BPE): tokens = b\"\".join(vocab[idx] for idx in tokens_BPE) text = tokens.decode(encoding) return text decode([128]) The output shows:\nUnicodeDetectError: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte This is because the binary representation of 128 starts with 1 and all others are 0, meaning that it doesn’t match any of the above scheme, explaining why it can’t be decoded. Therefore, the way we fix this is add the keyword argument error='replace' so that the outputs will become:\n'�' according to the offical Python documentation:\nEncoding Stage\nNow we are going in the other way - implementing the encoding stage. What we now get as the input will be the string, and we want to convert them into bytes. Therefore:\ndef encode(corpus): # we first get the tokens list and convert them tokens = list(corpus.encode(encoding)) # in case of single character or blank; that way, no need to merge anything while len(tokens) \u003e 1: counts = count(tokens) pair = min(counts, key=lambda p: merges.get(p, float(\"inf\"))) if pair not in merges: # nothing more can be merged break idx = merges[pair] tokens = merge(tokens, pair, idx) return tokens We will also walk you through line by line in this case:\nFirstly, we get the bytes representation of the original string.\ntokens = list(corpus.encode(encoding)) Next, we only begin the merge process when the length of our tokens list is greater than 1; otherwise, no need to merge anything, since there’s only 1 character.\nwhile len(tokens) \u003e 1: Inside the loop, to reuse some of the code, we use count to get the pair within the original string.\ncounts = count(tokens) We are going to merge the pair which has the smallest idx within merges. This is because, as we take a look at merges:\n{(101, 32): 256, (116, 104): 257, (115, 32): 258, (116, 32): 259, (105, 110): 260, (97, 110): 261, (101, 114): 262, (32, 257): 263, (111, 110): 264, ...} We can clearly see that some of the later-on pair depends on the previous merge, for example, (32, 257): 263 depends on 257. Therefore, we need to select the pair that has the minimal idx to become the pair that we want to merge in each iteration.\nIn Python, if we call min on an iterator, in this case, a dictionary, we’ll be iterating the keys of it. And here we need to use a lambda function since we are going to use some other variable besides counts.\nTherefore, pair = min(counts, key=lambda p: merges.get(p, float(\"inf\"))) in this case, will return us the pair in counts which has the lowest idx within merges (if it’s not in merges, we return infinity so that it won’t be one of the candidates).\npair = min(counts, key=lambda p: merges.get(p, float(\"inf\"))) After getting the pair we want to merge, we need to see if it’s in merges:\nIf not, it means that there’s no pair left to be merged, so we break out of the loop; If so, we continue. if pair not in merges: break # nothing more can be merged If there’s pair we need to merge, since our goal is to encode the string, we then first need to get the corresponding idx of the pair.\nidx = merges[pair] Then, by calling merge function, we complete one iteration of the encoding stage.\ntokens = merge(tokens, pair, idx) Finally, if we are out of the loop, we return the tokens, which is the bytes representation of the original text.\nreturn tokens Verify our tokenizer\nTo verify if our tokenizer is working, we can simply encode a text and then decode it to see if the final output is the same as the original one.\nprint(encode(\"Hello👋, my name is Banghao Chi!; 你好👋，我是池邦豪！\")) The outputs of it is:\n[72, 351, 353, 240, 159, 145, 139, 270, 109, 273, 110, 334, 256, 287, 66, 261, 103, 340, 329, 67, 104, 105, 33, 59, 32, 228, 189, 160, 229, 165, 189, 240, 159, 145, 139, 239, 188, 140, 230, 136, 145, 230, 152, 175, 230, 177, 160, 233, 130, 166, 232, 177, 170, 239, 188, 129] We then store it in a variable:\ntokens_TEST = [72, 351, 353, 240, 159, 145, 139, 270, 109, 273, 110, 334, 256, 287, 66, 261, 103, 340, 329, 67, 104, 105, 33, 59, 32, 228, 189, 160, 229, 165, 189, 240, 159, 145, 139, 239, 188, 140, 230, 136, 145, 230, 152, 175, 230, 177, 160, 233, 130, 166, 232, 177, 170, 239, 188, 129] And we decode it to see the final outputs:\nprint(decode(tokens_TEST)) which outputs:\nHello👋, my name is Banghao Chi!; 你好👋，我是池邦豪！ meaning that our tokenization is working as expected!\n9. How can we improve from here? (Hint) We’ve saw how we can take some training on raw texts using BPE algorithm. The parameters of it is just the merge rules. Once we have the merge rules, we can both encode and decode between raw texts and token sequences.\nWhat we now are going to do is that we are going to take a look at some papers talking about the tokenizer. For example, in page 4 of this paper, we see that BPE ends up with dog, dog., dog!, dog?, something like these with a simple concept. It feels like we are clustering things that shouldn’t be clustered, and we are combining semantics with punctuation, which is suboptimal.\nHence, the researcher in the paper points out a manual way of enforcing some types of the characters should never be merged together, which turns out to be the tool that we introduce at the beginning of the workshop!\n# import modules and rename it as re for convenience import regex as re # define pattern referenced from the repo except for special tokens pat = re.compile(r\"\"\"'s|'t|'re|'ve|'m|'ll|'d| ?\\p{L}+| ?\\p{N}+| ?[^\\s\\p{L}\\p{N}]+|\\s+(?!\\S)|\\s+\"\"\", re.IGNORECASE) text = 'Any text that you want to be split.' print(re.findall(pat, text)) # outputs: # ['Any', ' text', ' that', ' you', ' want', ' to', ' be', ' split', '.'] By forced splitting the original text, we therefore ensure that we will never merge between any adjacent strings within the list. After we’ve done the merging for all of these strings individually, we just simply concatenate them to generate the final representation, which is pretty similar for the training and decoding stage for the BPE.\n10. Conclusion In this workshop, we explored the transformative process of tokenization, particularly focusing on the Byte Pair Encoding (BPE) algorithm. We dived into the intricacies of converting textual data into a numerical format, which is essential for various post machine learning applications such as text classification, sentiment analysis, and language translation.\nIn conclusion, we first began with an introduction to the fundamentals of tokenization and its significance in machine learning. Understanding that tokenization is more than merely splitting text into words, we underscored its role in handling linguistic challenges it presents, such as managing contractions and special characters.\nThrough practical demonstrations and discussions, we demonstrated a deeper understanding of tokenization, Python’s string manipulations, emphasizing Unicode and UTF encodings. We then introduced BPE, explaining its efficiency in reducing vocabulary size while maintaining meaningful linguistic units. Our hands-on sessions included implementing BPE from scratch, illustrating the process of finding and merging the most common byte pairs in a corpus.\nFurthermore, we explored how enhancements, such as using regex for forced splits, could refine the BPE process, ensuring that semantically different units like punctuation and words are not inappropriately merged. This approach helps in fine-tuning tokenizers to handle diverse linguistic patterns more effectively.\nAs we wrapped up, we demonstrated the practical application and the potential improvements in tokenizer designs. By understanding and implementing these advanced techniques, participants are now better equipped to tackle complex tasks and contribute to the evolution of more effective machine learning algorithms such as making LLMs better at spelling, Math and Python.\nIn conclusion, we not only provided a comprehensive overview of BPE and its applications but also emphasized the reason why we should choose it and the continuous need for innovation within this field. The knowledge and skills gained here are steps towards mastering the art and science of future exploration, paving the way for advancements in data manipulation and even machine learning!\n",
+  "wordCount" : "6776",
+  "inLanguage": "en",
+  "datePublished": "2024-05-08T14:15:07-05:00",
+  "dateModified": "2024-05-08T14:15:07-05:00",
+  "author":{
+    "@type": "Person",
+    "name": "Banghao Chi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://banghao.live/blog/token/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Banghao's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://banghao.live/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://banghao.live/" accesskey="h" title="Banghao&#39;s Blog (Alt + H)">Banghao&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://banghao.live/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.live/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.live/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.studio/login" title="Forum App">
+                    <span>Forum App</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Let&#39;s build GPT from scratch with BPE!
+    </h1>
+    <div class="post-meta"><span title='2024-05-08 14:15:07 -0500 -0500'>May 8, 2024</span>&nbsp;·&nbsp;32 min&nbsp;·&nbsp;Banghao Chi
+
+</div>
+  </header> 
+  <div class="post-content"><h4 id="1-workshop-description">1. Workshop Description<a hidden class="anchor" aria-hidden="true" href="#1-workshop-description">#</a></h4>
+<p>Quick question: Have you ever thought about a string being transformed into a word vector so that it can be further fed into a machine learning algorithm?</p>
+<p>In this workshop, we are going to dive into the fascinating world of Natural Language Processing (NLP) with our focus on Byte Pair Encoding (BPE) algorithm. We will discover how this powerful technique segments text into subword units, enabling efficient representation of words as vectors. Join us to unravel the intricacies of transforming linguistic data into numerical form, which is essential for tasks like text classification, translation, and sentiment analysis!</p>
+<h4 id="2-structure-of-the-workshop">2. Structure of the Workshop<a hidden class="anchor" aria-hidden="true" href="#2-structure-of-the-workshop">#</a></h4>
+<ul>
+<li>Introduction:
+<ul>
+<li>What is tokenization and why is it important?</li>
+</ul>
+</li>
+<li>New essential tools:
+<ul>
+<li>Regex and regular expression</li>
+</ul>
+</li>
+<li>&ldquo;Building up&rdquo; examples and discussion:
+<ul>
+<li>Tokenization related issues</li>
+<li>Tokenization by example</li>
+</ul>
+</li>
+<li>Major part:
+<ul>
+<li>string in Python:
+<ul>
+<li>Unicode code points -&gt; UTF -8, UTF-16, UTF-32</li>
+</ul>
+</li>
+<li>Why not just directly use the above four methods to encode the string?</li>
+<li>Introduction of BPE:
+<ul>
+<li>Why BPE -&gt; How it works</li>
+</ul>
+</li>
+<li>Implementation of BPE:
+<ul>
+<li>Finding the most common consecutive pair.</li>
+<li>Merging the most common pair to get merge rules.</li>
+<li>How to train the tokenizer?</li>
+<li>How to decode tokens to strings?</li>
+<li>How to encode strings to tokens?</li>
+</ul>
+</li>
+<li>How can we improve from basic BPE?
+<ul>
+<li>Forced splits using regex.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Conclusion</li>
+</ul>
+<p>In the introduction segment of our workshop, we&rsquo;ll dive into the fundamental concept of tokenization and explore the challenges and intricacies it entails. We&rsquo;ll discuss how tokenization serves as the initial step in NLP tasks, highlighting its significance in breaking down raw text into manageable units for analysis.</p>
+<p>Following the introduction, we&rsquo;ll introduce you to essential tools that assist in tokenization, with a special focus on Regular Expressions (Regex). Regex offers a powerful and flexible method for pattern matching and text manipulation, making it indispensable for tasks like tokenization where precise pattern recognition is crucial. And the reason we introduce it is not because we are going to use it for tokenization, we use it to achieve better performance of our tokenizer, which is going to be illustrated at the very end of our workshop.</p>
+<p>Moving forward, we&rsquo;ll engage the audience in an interactive session of &ldquo;building up&rdquo; examples and discussions centered around tokenization. Through hands-on examples and discussions, you will gain a deeper understanding of tokenization techniques, exploring various reasons why we need a better tokenization scheme to segmenting text into meaningful units. Additionally, we&rsquo;ll point out the answer to some common issues such as why Large Language Models (LLM) can&rsquo;t spell words or why they are bad at simple Math or Python, which in this case I believe many of you have already known the answer - tokenization.</p>
+<p>The major part of our workshop will focus on the core concepts of string manipulation in Python, starting from Unicode code points and progressing to different UTF encodings. We&rsquo;ll then dive into the limitations of direct encoding methods and then introduce Byte Pair Encoding (BPE) as a more efficient and effective alternative. You will learn why BPE is a preferred approach and how it operates, followed by a step-by-step implementation guide covering tokenization, training the tokenizer, and decoding/encoding strings to tokens. Additionally, we&rsquo;ll explore methods to enhance basic BPE, including the incorporation of regex for forced splits, ensuring more precise and effective tokenization results.</p>
+<h4 id="3-introduction">3. Introduction<a hidden class="anchor" aria-hidden="true" href="#3-introduction">#</a></h4>
+<p>So our goal is to transform a string of text into numeric representation so that it can be fed directly into machine learning algorithms. By that, we need tokenization.</p>
+<p>But what is tokenization?</p>
+<p>Tokenization is the process of breaking down raw text into smaller, meaningful units called tokens. These tokens could be words, phrases, symbols, or any other unit of text that holds significance in understanding the whole text, meaning it serves as the foundation for all subsequent text processing tasks in NLP.</p>
+<p>Consider a sentence: &ldquo;Real integrity is doing the right thing, knowing that nobody&rsquo;s going to know whether you did it or not.&rdquo; by Oprah Winfrey. A simple tokenization of this sentence would involve breaking it down into individual words: [&ldquo;Real&rdquo;, &ldquo;integrity&rdquo;, &ldquo;is&rdquo;, &ldquo;doing&rdquo;, &ldquo;the&rdquo;, &ldquo;right&rdquo;, &ldquo;thing&rdquo;, &ldquo;,&rdquo;, &ldquo;knowing&rdquo;, &ldquo;that&rdquo;, &ldquo;nobody&rdquo;, &ldquo;&rsquo;s&rdquo;, &ldquo;going&rdquo;, &ldquo;to&rdquo;, &ldquo;know&rdquo;, &ldquo;whether&rdquo;, &ldquo;you&rdquo;, &ldquo;did&rdquo;, &ldquo;it&rdquo;, &ldquo;or&rdquo;, &ldquo;not&rdquo;, &ldquo;.&rdquo;]. Each word here represents a token, and this tokenized representation enables machines to understand and analyze the text more effectively since it divides large chunk into smaller pieces.</p>
+<p>However, tokenization isn&rsquo;t as straightforward as splitting text on spaces or punctuation marks. It actually involves addressing various linguistic challenges, such as handling contractions (&ldquo;can&rsquo;t&rdquo; should be tokenized as [&ldquo;can&rdquo;, &ldquo;&rsquo;t&rdquo;]), dealing with special cases like hyphenated words (&ldquo;state-of-the-art&rdquo; should be tokenized as [&ldquo;state&rdquo;, &ldquo;-&rdquo;, &ldquo;of&rdquo;, &ldquo;-&rdquo;, &ldquo;the&rdquo;, &ldquo;-&rdquo;, &ldquo;art&rdquo;]), and distinguishing between different types of punctuation marks, which is exactly the reason why we are going to introduce new essential tools in the next section.</p>
+<p>Moreover, tokenization strategies may vary depending on the specific requirements of the NLP task at hand, or even specific languages. For instance, while word-level tokenization is common, there are scenarios where character-level or subword-level tokenization may be more appropriate, such as in languages with complex morphology like Chinese or when dealing with out-of-vocabulary words.</p>
+<p>In essence, tokenization aims to transforming textual data into a format that machines can comprehend and process, bridging the gap between natural language and numerical representations which are of great siginicance for machine learning algorithms.</p>
+<h4 id="4-new-essential-tools">4. New Essential Tools<a hidden class="anchor" aria-hidden="true" href="#4-new-essential-tools">#</a></h4>
+<p>In order to dedicatedly deal with contractions tokenization like <code>'s</code> or <code>'t</code>, we will need one powerful tool that enable us to do different text pattern matching, which is Regex. This is an extension of the original re module inside original Python, meaning it is more powerful.</p>
+<p>And in our workshop, we will focus on its two specific function calls and one specific regular expression referenced from <a href="https://github.com/openai/CLIP/blob/a1d071733d7111c9c014f024669f959182114e33/clip/simple_tokenizer.py#L78">this</a> repository with some modification:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># import modules and rename it as re for convenience</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> regex <span style="color:#66d9ef">as</span> re
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># define pattern referenced from the repo except for special tokens</span>
+</span></span><span style="display:flex;"><span>pat <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;&#34;&#34;&#39;s|&#39;t|&#39;re|&#39;ve|&#39;m|&#39;ll|&#39;d| ?\p</span><span style="color:#e6db74">{L}</span><span style="color:#e6db74">+| ?\p</span><span style="color:#e6db74">{N}</span><span style="color:#e6db74">+| ?[^\s\p</span><span style="color:#e6db74">{L}</span><span style="color:#e6db74">\p</span><span style="color:#e6db74">{N}</span><span style="color:#e6db74">]+|\s+(?!\S)|\s+&#34;&#34;&#34;</span>, re<span style="color:#f92672">.</span>IGNORECASE)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Any text that you want to be split.&#39;</span>
+</span></span><span style="display:flex;"><span>print(re<span style="color:#f92672">.</span>findall(pat, text))
+</span></span></code></pre></div><p>We will first walkthrough <code>re.findall</code> and then dive into <code>re.compile</code> and the meaning of the regular expression inside it.</p>
+<ul>
+<li>
+<p><code>re.findall</code>:</p>
+<ul>
+<li>Basically what <code>re.findall</code> does is it will take the regular expression pattern, in this case <code>pat</code> and try to match it against the <code>text</code>. The way it works is that the <code>regex</code> module will go through the string from left to right to match the pattern, and <code>re.findall</code> will match all the occurences and organize them into a list. In this case, the output of the terminal will be:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;Any&#39;</span>, <span style="color:#e6db74">&#39; text&#39;</span>, <span style="color:#e6db74">&#39; that&#39;</span>, <span style="color:#e6db74">&#39; you&#39;</span>, <span style="color:#e6db74">&#39; want&#39;</span>, <span style="color:#e6db74">&#39; to&#39;</span>, <span style="color:#e6db74">&#39; be&#39;</span>, <span style="color:#e6db74">&#39; split&#39;</span>, <span style="color:#e6db74">&#39;.&#39;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><code>re.compile</code>:</p>
+<ul>
+<li>On the other hand, what <code>re.compile</code> does is defining a regular expression that can be used for further regex function using the regular expression string inside it.</li>
+</ul>
+</li>
+<li>
+<p>Regular expression:</p>
+<ul>
+<li>
+<p>We will lay our main focus on the regular expression here from two perspectives: what it means and why should it be like this.</p>
+<ul>
+<li>
+<p>What the regular expression means:</p>
+<ul>
+<li>
+<p><code>'s|'t|'re|'ve|'m|'ll|'d</code>:</p>
+<ul>
+<li>
+<p>The <code>|</code> inside the regular expression represents the &ldquo;or&rdquo; operation in regex, meaning that it will match the pattern either on its left hand side or on its right hand side. And therefore we understand the this part of regular expression, which matches common English contractions and possessive endings.
+For example, for text:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Any text that you&#39;d want to be split.&#34;</span>
+</span></span><span style="display:flex;"><span>print(re<span style="color:#f92672">.</span>findall(pat, text))
+</span></span></code></pre></div><p>The output will be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;Any&#39;</span>, <span style="color:#e6db74">&#39; text&#39;</span>, <span style="color:#e6db74">&#39; that&#39;</span>, <span style="color:#e6db74">&#39; you&#39;</span>, <span style="color:#e6db74">&#34;&#39;d&#34;</span>, <span style="color:#e6db74">&#39; want&#39;</span>, <span style="color:#e6db74">&#39; to&#39;</span>, <span style="color:#e6db74">&#39; be&#39;</span>, <span style="color:#e6db74">&#39; split&#39;</span>, <span style="color:#e6db74">&#39;.&#39;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>In this case we can clearly see that <code>'d'</code> is successfully separated out.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>  ?\p{L}+</code>:</p>
+<ul>
+<li>For this chunk we can take a look at <a href="https://www.regular-expressions.info/unicode.html">this</a> source. Firstly, <code> ?</code> optionally matches a space before the main pattern. Next, according to the source, <code>\p{L}</code> is a Unicode property escape that matches any kind of letter from any language. And <code>+</code> means one or more of the preceding element, so <code>\p{L}+</code> matches one or more letters (i.e., it matches the whole words). Therefore, this chunk match the whole word with an optional space in front of it.</li>
+</ul>
+</li>
+<li>
+<p><code>  ?\p{N}+</code>:</p>
+<ul>
+<li>
+<p>Similar to the previous explanation, this matches an optional leading space followed by one or more Unicode numeric characters (i.e., it matches entire numbers).
+For example, for text:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Any text123 that you&#39;d want to be split.&#34;</span>
+</span></span><span style="display:flex;"><span>print(re<span style="color:#f92672">.</span>findall(pat, text))
+</span></span></code></pre></div><p>The output will be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;Any&#39;</span>, <span style="color:#e6db74">&#39; text&#39;</span>, <span style="color:#e6db74">&#39;123&#39;</span>, <span style="color:#e6db74">&#39; that&#39;</span>, <span style="color:#e6db74">&#39; you&#39;</span>, <span style="color:#e6db74">&#34;&#39;d&#34;</span>, <span style="color:#e6db74">&#39; want&#39;</span>, <span style="color:#e6db74">&#39; to&#39;</span>, <span style="color:#e6db74">&#39; be&#39;</span>, <span style="color:#e6db74">&#39; split&#39;</span>, <span style="color:#e6db74">&#39;.&#39;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>In this case we can clearly see that the number is separated out.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>?[^\s\p{L}\p{N}]+</code>:</p>
+<ul>
+<li>
+<p><code>  ?</code> again optionally matches a space.</p>
+</li>
+<li>
+<p><code>^</code> represents &ldquo;not&rdquo; operation in regex regular expression. Therefore, <code>[^\s\p{L}\p{N}]</code> matches any character that is not a whitespace (<code>\s</code>), not a letter (<code>\p{L}</code>), and not a numeric character (<code>\p{N}</code>), therefore is used to match punctuation and other symbols.</p>
+</li>
+<li>
+<p><code>+</code> ensures that one or more of such characters are matched together as a group, in this case it matches as many punctuations as possible.
+For example, for text:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Any text that you&#39;d want to be split???!!!&#34;</span>
+</span></span><span style="display:flex;"><span>print(re<span style="color:#f92672">.</span>findall(pat, text))
+</span></span></code></pre></div><p>The output will be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;Any&#39;</span>, <span style="color:#e6db74">&#39; text&#39;</span>, <span style="color:#e6db74">&#39; that&#39;</span>, <span style="color:#e6db74">&#39; you&#39;</span>, <span style="color:#e6db74">&#34;&#39;d&#34;</span>, <span style="color:#e6db74">&#39; want&#39;</span>, <span style="color:#e6db74">&#39; to&#39;</span>, <span style="color:#e6db74">&#39; be&#39;</span>, <span style="color:#e6db74">&#39; split&#39;</span>, <span style="color:#e6db74">&#39;???!!!&#39;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>In this case we can clearly see that the punctuations are captured.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>\s+(?!\S)</code>:</p>
+<ul>
+<li>
+<p><code>\s+</code> matches one or more whitespace characters here.</p>
+</li>
+<li>
+<p><code>(?!\S)</code> is a negative lookahead that asserts what follows is not a non-whitespace character. This part will ensure that the matched whitespace is at the end of a line or string, preventing excessive spaces from consuming lots of spaces at the same time.
+For example, for text:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Any text that you&#39;d want to                 be split.&#34;</span>
+</span></span><span style="display:flex;"><span>print(re<span style="color:#f92672">.</span>findall(pat, text))
+</span></span></code></pre></div><p>The output will be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;Any&#39;</span>, <span style="color:#e6db74">&#39; text&#39;</span>, <span style="color:#e6db74">&#39; that&#39;</span>, <span style="color:#e6db74">&#39; you&#39;</span>, <span style="color:#e6db74">&#34;&#39;d&#34;</span>, <span style="color:#e6db74">&#39; want&#39;</span>, <span style="color:#e6db74">&#39; to&#39;</span>, <span style="color:#e6db74">&#39;                &#39;</span>, <span style="color:#e6db74">&#39; be&#39;</span>, <span style="color:#e6db74">&#39; split&#39;</span>, <span style="color:#e6db74">&#39;.&#39;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>In this case we can clearly see that the excessive space is successfully separated out with one space in front of &ldquo;be&rdquo;.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>\s+</code>:</p>
+<ul>
+<li>This simply matches one or more whitespace characters anywhere else in the input like the one above.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Why should it be like this?</p>
+<ul>
+<li>The reason is actually explained above, but the main reason is that this regular expression has the ability to match the whole word, whole integer, punctuation(s) and excessive spaces, making it really useful in the final refinement process. This will be further discussed in the final section.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-building-up-examples-and-discussion">5. &ldquo;Building up&rdquo; examples and discussion<a hidden class="anchor" aria-hidden="true" href="#5-building-up-examples-and-discussion">#</a></h4>
+<p>In this section, we will dive deeper into the practical aspects of tokenization, exploring both common challenges through illustrative examples and engaging discussions.</p>
+<p>A quick fun and useful app that we can utilize here is the <a href="https://tiktokenizer.vercel.app/?model=gpt2">tiktokenizer</a> website, where it visualizes the tokenization live just in the browser. Since GPT-2 uses BPE algorithm with minimal modification, we are going to use its tokenizer as an example.</p>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/08/U1WmXwK36TAS5b7.png" alt="image-20240506173131577"  />
+</p>
+<p>Here we can see the visualization of the tokenization. For the english sentence (selected from IS 305 <a href="https://elliewix.gitbook.io/is-305/module-6-semi-structured-data-to-tables">website</a>), it is pretty clear that BPE algorithm tokenizes the sentence almost perfectly (with space being part of the token chunk) according to its merge rules, which seems all well and good. But this exactly the reason why LLMs are bad at spelling! Since nearly all of the common words are tokenized so that they can be represented using only one single integer, it&rsquo;s really hard for them to spell the characters within that single token which are treated as a single integer.</p>
+<p>What&rsquo;s more, in terms of some simple arithmetics, we can see that the tokenizer handle the first equation perfectly, but when it comes to the second one, the two number, 3221 and 2334, are fed into the machine learning as two separate tokens respectively (3, 221 and 233, 4). Even the final result 5555 is divided into 5 and 555, which to some extent explains why sometimes LLMs are bad at simple arithmetics -&gt; tokenization!</p>
+<p>And another example is that we write our egg under multiple context. One is <code>Egg.</code> , where the BPE separates the period from the noun. In the sentence, the Egg is separated together with the space in front of it. When we write <code>egg.</code>, the &ldquo;egg&rdquo; is separated from period, but when we write <code>EGG.</code>, the tokenized version is like <code>['EG', 'G', ''.']</code>. Here we notice that, for the same concept, &ldquo;egg&rdquo;, depending on its location within the sentence and upper or lowercase or mixed, all these will result in fairly different tokens and therefore different word vector, which will be further learned by the machine learning algorithms.</p>
+<p>Additionally, the third example is quite interestring. Here, the text <code>你好，我是池邦豪！ 👋 </code> means &lsquo;Hello, my name is Banghao Chi&rsquo; in English. By punctuation, I believe that everybody can guess the meaning of &ldquo;你好&rdquo;, right? That&rsquo;s correct! &ldquo;你好&rdquo; exactly means &ldquo;Hello&rdquo; in English. But in this case, what we observe is that BPE divides &ldquo;你好&rdquo; into two seperated tokens, which is really weird since if &ldquo;你好&rdquo; means &ldquo;Hello&rdquo;, why BPE would divide them apart? Here we can notice that BPE works slightly worse on non-english languages, part of reason is because the training dataset for BPE on English is much larger than any other languages, resulting in different tokenization performances on different languages.</p>
+<p>Finally, we come to a snippet of Python code here. What we can notice is that the indent here are all treated as individual space and all individual space are all separate tokens, which leads to extremely wasteful tokenization in this way. In better tokenizer (taking the second line of code as an example), we will combine the first three spaces together into one single token and then treat <code>  if</code> as the other token. This example also to some extent explains why LLMs sometimes can perform really bad at coding -&gt; tokenization!</p>
+<p>After coming a long way from scratch, we now understand the significance of the tokenizer, and in the following sections, we are going teach all the fundations of the BPE and why we should choose it. And based on that, you can then explore the fascinating world of tokenization and therefore even solve the issues above on your own!</p>
+<h4 id="6-what-encoding-mechanism-should-we-choose">6. What encoding mechanism should we choose?<a hidden class="anchor" aria-hidden="true" href="#6-what-encoding-mechanism-should-we-choose">#</a></h4>
+<p>One thing we need to remember is that we not only want to support English but some other popular languages and also some special characters like emoji. Then how are we going to feed our text into the tokenizer?</p>
+<p>If we take a quick look at the official Python documentation, we can see that:</p>
+<blockquote>
+<p>Strings are immutable <a href="https://docs.python.org/3/library/stdtypes.html#typesseq">sequences</a> of Unicode code points.</p>
+</blockquote>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/08/6yYpanFXNirCbMG.png" alt="image-20240428210054360"  />
+</p>
+<p>But what are Unicode code points ? It can be found <a href="https://en.wikipedia.org/wiki/Unicode">here</a> in Wikipedia. So basically it is a definition of roughly 150,000 characters defined by Unicode Consortium as part of the Unicode standard. Roughly speaking, they define how each character look like and what integers represent them. If we scroll to the bottom, we can even see that it&rsquo;s very much alive, still updated each year.</p>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/08/tOcI6lKkyMJCiba.png" alt="image-20240507083257417"  />
+</p>
+<p>The way we can access the Unicode code points integer in Python is through <code>ord</code> function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[ord(t)<span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> <span style="color:#e6db74">&#34;你好，我叫池邦豪 👋 (hello, my name is Banghao Chi in Chinese)&#34;</span>]
+</span></span></code></pre></div><p>And we can find the outputs of the terminal being:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>20320,  22909,  65292,  25105,  21483,  27744,  37030,  35946,  32,  128075,  32,  40,  104,  101,  108,  108,  111,  44,  32,  109,  121,  32,  110,  97,  109,  101,  32,  105,  115,  32,  66,  97,  110,  103,  104,  97,  111,  32,  67,  104,  105,  32,  105,  110,  32,  67,  104,  105,  110,  101,  115,  101,  41<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>But you might ask, we already turned the raw code points into integer format, so why can&rsquo;t we just simply use these integers and not doing any tokenization at all?</p>
+<p>Well there are three main reasons:</p>
+<ul>
+<li>Unicode has a vocab size which is too large (roughly 150,000) for NLP or any other machine learning algorithms.</li>
+<li>It is consistently updated, which is not a stable representation that we may want to use.</li>
+<li>We don&rsquo;t want to achieve character-level encoding due to the nature of English.</li>
+</ul>
+<p>Because of these, we may need something better, turning to encodings. If we scroll a little bit down of the wikipedia page of Unicode, we can find that the Unicode Consortium has defined three extra types of encodings by which we can take Unicode text and transform them into binary data:</p>
+<ul>
+<li>UTF-8 (has 256 characters)</li>
+<li>UTF-16</li>
+<li>UTF-32</li>
+</ul>
+<p>Among all of them, UTF-8 is the most common one, and as we can see from its wikipedia page, it takes every single code point and it translates it to a byte stream which is between one to four bytes:</p>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/08/xCZ76E2inVWu3AP.png" alt="image-20240507103245941"  />
+</p>
+<p>So if we&rsquo;d like to do the UTF encoding, how can we do that in Python? Well, string object has a method <code>encode</code> and we can choose what encoding scheme we want inside it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#34;你好，我叫池邦豪 👋 (hello, my name is Banghao Chi in Chinese)&#34;</span><span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#34;utf-8&#34;</span>)
+</span></span></code></pre></div><p>which outputs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>b<span style="color:#e6db74">&#39;\xe4\xbd\xa0\xe5\xa5\xbd\xef\xbc\x8c\xe6\x88\x91\xe5\x8f\xab\xe6\xb1\xa0\xe9\x82\xa6\xe8\xb1\xaa\xf0\x9f\x91\x8b (hello, my name is Banghao Chi in Chinese)&#39;</span>
+</span></span></code></pre></div><p>But what we directly get is not very user-friendly since since they are bytes object, so instead we will convert it to a list which consists of the raw bytes of this encoding.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>list(<span style="color:#e6db74">&#34;你好，我叫池邦豪 👋 (hello, my name is Banghao Chi in Chinese)&#34;</span><span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#34;utf-8&#34;</span>))
+</span></span></code></pre></div><p>And the output shows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>228,  189,  160,  229,  165,  189,  239,  188,  140,  230,  136,  145,  229,  143,  171,  230,  177,  160,  233,  130,  166,  232,  177,  170,  32,  240,  159,  145,  139,  32,  40,  104,  101,  108,  108,  111,  44,  32,  109,  121,  32,  110,  97,  109,  101,  32,  105,  115,  32,  66,  97,  110,  103,  104,  97,  111,  32,  67,  104,  105,  32,  105,  110,  32,  67,  104,  105,  110,  101,  115,  101,  41<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>So this is the raw bytes representing the above string accoring to the UTF-8 encoding. But what about UTF-16 and UTF-32? And how are we going to choose among three of them? To make a decision, we can just print them out to see the differences:</p>
+<ul>
+<li>
+<p>UTF-8 (has 256 characters)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>228,  189,  160,  229,  165,  189,  239,  188,  140,  230,  136,  145,  229,  143,  171,  230,  177,  160,  233,  130,  166,  232,  177,  170,  32,  240,  159,  145,  139,  32,  40,  104,  101,  108,  108,  111,  44,  32,  109,  121,  32,  110,  97,  109,  101,  32,  105,  115,  32,  66,  97,  110,  103,  104,  97,  111,  32,  67,  104,  105,  32,  105,  110,  32,  67,  104,  105,  110,  101,  115,  101,  41<span style="color:#f92672">]</span>
+</span></span></code></pre></div></li>
+<li>
+<p>UTF-16</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>255,  254,  96,  79,  125,  89,  12,  255,  17,  98,  235,  83,  96,  108,  166,  144,  106,  140,  32,  0,  61,  216,  75,  220,  32,  0,  40,  0,  104,  0,  101,  0,  108,  0,  108,  0,  111,  0,  44,  0,  32,  0,  109,  0,  121,  0,  32,  0,  110,  0,  97,  0,  109,  0,  101,  0,  32,  0,  105,  0,  115,  0,  32,  0,  66,  0,  97,  0,  110,  0,  103,  0,  104,  0,  97,  0,  111,  0,  32,  0,  67,  0,  104,  0,  105,  0,  32,  0,  105,  0,  110,  0,  32,  0,  67,  0,  104,  0,  105,  0,  110,  0,  101,  0,  115,  0,  101,  0,  41,  0<span style="color:#f92672">]</span>
+</span></span></code></pre></div></li>
+<li>
+<p>UTF-32</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>255,  254,  0,  0,  96,  79,  0,  0,  125,  89,  0,  0,  12,  255,  0,  0,  17,  98,  0,  0,  235,  83,  0,  0,  96,  108,  0,  0,  166,  144,  0,  0,  106,  140,  0,  0,  32,  0,  0,  0,  75,  244,  1,  0,  32,  0,  0,  0,  40,  0,  0,  0,  104,  0,  0,  0,  101,  0,  0,  0,  108,  0,  0,  0,  108,  0,  0,  0,  111,  0,  0,  0,  44,  0,  0,  0,  32,  0,  0,  0,  109,  0,  0,  0,  121,  0,  0,  0,  32,  0,  0,  0,  110,  0,  0,  0,  97,  0,  0,  0,  109,  0,  0,  0,  101,  0,  0,  0,  32,  0,  0,  0,  105,  0,  0,  0,  115,  0,  0,  0,  32,  0,  0,  0,  66,  0,  0,  0,  97,  0,  0,  0,  110,  0,  0,  0,  103,  0,  0,  0,  104,  0,  0,  0,  97,  0,  0,  0,  111,  0,  0,  0,  32,  0,  0,  0,  67,  0,  0,  0,  104,  0,  0,  0,  105,  0,  0,  0,  32,  0,  0,  0,  105,  0,  0,  0,  110,  0,  0,  0,  32,  0,  0,  0,  67,  0,  0,  0,  104,  0,  0,  0,  105,  0,  0,  0,  110,  0,  0,  0,  101,  0,  0,  0,  115,  0,  0,  0,  101,  0,  0,  0,  41,  0,  0,  0<span style="color:#f92672">]</span>
+</span></span></code></pre></div></li>
+</ul>
+<p>From the above outputs, we start to see the disadvantages of UTF-16 and UTF-32, with excessive 0 lying within the list, which give us a sense that UTF-16 and UTF-32 are a bit of a wasteful encodings. Therefore, we will stick with UTF-8 for better efficiency.</p>
+<p>However, we won&rsquo;t just barely use UTF-8 encoding either, since it only has a vocabulary size of 256, meaning that we will only have 256 types of tokens, which is too small. The small size of vocabulary will results in the huge length representation of the original text, which is not nice for the up-coming machine learning algorithms. Therefore, we need to find a way to increase our vocabulary size by compressing the original bytes sequences to reduce the final representation length of the text, which turns out to be BPE.</p>
+<h4 id="7-introduction-of-bpe">7. Introduction of BPE<a hidden class="anchor" aria-hidden="true" href="#7-introduction-of-bpe">#</a></h4>
+<p>The process of BPE is quite intuitive, according to <a href="https://en.wikipedia.org/wiki/Byte_pair_encoding">Wikipedia</a>, but we will walk you through to help you get the basic idea of the algorithm. The following example is referenced from <a href="https://en.wikipedia.org/wiki/Byte_pair_encoding">Wikipedia</a>:</p>
+<p>Suppose the data to be encoded is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>aaabdaaabac
+</span></span></code></pre></div><p>The byte pair &ldquo;aa&rdquo; occurs most often, so it will be replaced by a byte that is not used in the data, such as &ldquo;Z&rdquo;. Now there is the following data and replacement table:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>ZabdZabac
+</span></span><span style="display:flex;"><span>Z=aa
+</span></span></code></pre></div><p>Then the process is repeated with byte pair &ldquo;ab&rdquo;, replacing it with &ldquo;Y&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>ZYdZYac
+</span></span><span style="display:flex;"><span>Y=ab
+</span></span><span style="display:flex;"><span>Z=aa
+</span></span></code></pre></div><p>The only literal byte pair left occurs only once, and the encoding might stop here. Alternatively, the process could continue with <a href="https://en.wikipedia.org/wiki/Recursion">recursive</a> byte pair encoding, replacing &ldquo;ZY&rdquo; with &ldquo;X&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>XdXac
+</span></span><span style="display:flex;"><span>X=ZY
+</span></span><span style="display:flex;"><span>Y=ab
+</span></span><span style="display:flex;"><span>Z=aa
+</span></span></code></pre></div><p>This data cannot be compressed further by byte pair encoding because there are no pairs of bytes that occur more than once.</p>
+<p>So basically after we&rsquo;ve gone through the process, instead of having a sequence of 11 tokens with a vocabulary size of 4, we now have a suquence of 5 tokens with a vocabulary size of 7. By using BPE, we can iteratively compress our original sequence with more vocabulary and therefore find a balance of tokenization for further use.</p>
+<h4 id="8-implementation-of-bpe">8. Implementation of BPE<a hidden class="anchor" aria-hidden="true" href="#8-implementation-of-bpe">#</a></h4>
+<p>Since we need some training texts to train our BPE, we first select some texts from the <a href="https://elliewix.gitbook.io/is-305">IS 305</a> website and do some cleaning.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>corpus <span style="color:#f92672">=</span> <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>corpus <span style="color:#f92672">=</span> corpus<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74">&#39; &#39;</span>)
+</span></span><span style="display:flex;"><span>corpus <span style="color:#f92672">=</span> corpus<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;    &#39;</span>, <span style="color:#e6db74">&#39; &#39;</span>)
+</span></span><span style="display:flex;"><span>corpus <span style="color:#f92672">=</span> corpus<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;   &#39;</span>, <span style="color:#e6db74">&#39; &#39;</span>)
+</span></span><span style="display:flex;"><span>corpus <span style="color:#f92672">=</span> corpus<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;  &#39;</span>, <span style="color:#e6db74">&#39; &#39;</span>)
+</span></span></code></pre></div><p>Then we convert the corpus to raw bytes, but in order to manipulate them in a more convenvient way, we use the <code>map</code> function to convert the bytes object into integer and store them in a list.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;utf-8&#39;</span>
+</span></span><span style="display:flex;"><span>tokens <span style="color:#f92672">=</span> corpus<span style="color:#f92672">.</span>encode(encoding)
+</span></span><span style="display:flex;"><span>tokens <span style="color:#f92672">=</span> list(map(int, tokens))
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;length of corpus:&#34;</span>, len(corpus))
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;----------------&#39;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;length: tokens&#34;</span>, len(tokens))
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;----------------&#39;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Length equal: &#34;</span>, len(corpus) <span style="color:#f92672">==</span> len(tokens))
+</span></span></code></pre></div><p>The outputs show:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>length of corpus:  <span style="color:#ae81ff">29678</span>
+</span></span><span style="display:flex;"><span>----------------
+</span></span><span style="display:flex;"><span>length of tokens:  <span style="color:#ae81ff">29681</span>
+</span></span><span style="display:flex;"><span>----------------
+</span></span><span style="display:flex;"><span>Length equal:  False
+</span></span></code></pre></div><p>The reason why of length of them is not equal here is because although most of the characters are simple ASCII characters which just become a single byte or integer after encoding, but for some Unicode, more complex characters like emoji, they become multiple bytes up to 4 instead of just 1.</p>
+<p><strong>Count the Frequency</strong></p>
+<p>In order to find the pair of bytes that occur most frequently, we first need to count the frequency of all pairs because them we are going to merge them based on their frequency.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count</span>(tokens):
+</span></span><span style="display:flex;"><span>    counts <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> zip(tokens, tokens[<span style="color:#ae81ff">1</span>:]):
+</span></span><span style="display:flex;"><span>        counts[p] <span style="color:#f92672">=</span> counts<span style="color:#f92672">.</span>get(p, <span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> counts
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>counts <span style="color:#f92672">=</span> count(tokens)
+</span></span></code></pre></div><p>So what we do is that we pass the tokens (a list of integer) as the input and we create a new dictionary to store the frequency of each pair. We then iterate through adjacent elements in the tokens. If this is the first time we come across this pair, the value returned from <code>counts.get(p, 0)</code> will be zero and we add one to show that this is the first time. Then we use the pair (which is a tuple of consecutive elements in tokens). The case where it&rsquo;s not the first time is trivial, we just get the frequency from <code>counts.get(p, 0)</code> and add one to it. After the process, we return the dictionary which store the frequency of each pair.</p>
+<p>The outputs of counts should be something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>{(240, 159): 1,
+</span></span><span style="display:flex;"><span> (159, 145): 1,
+</span></span><span style="display:flex;"><span> (145, 139): 1,
+</span></span><span style="display:flex;"><span> (139, 32): 1,
+</span></span><span style="display:flex;"><span> (32, 77): 14,
+</span></span><span style="display:flex;"><span> (77, 111): 7,
+</span></span><span style="display:flex;"><span> (111, 100): 61,
+</span></span><span style="display:flex;"><span> (100, 117): 17,
+</span></span><span style="display:flex;"><span> (117, 108): 97,
+</span></span><span style="display:flex;"><span> (108, 101): 266,
+</span></span><span style="display:flex;"><span> (101, 32): 939,
+</span></span><span style="display:flex;"><span> ...}
+</span></span></code></pre></div><p>We can notice that the combination of <code>(101, 32)</code> has the highest frequency, and we can reverse to see what combination of them is by using the <code>chr</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(chr(<span style="color:#ae81ff">101</span>), chr(<span style="color:#ae81ff">32</span>))
+</span></span></code></pre></div><p>The outputs are:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span><span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>The <code>chr</code> function is just a reverse function of <code>ord</code>. The outputs mean that the most common pair in the text is <code>('e', ' ')</code>.</p>
+<p><strong>Get Top Pair</strong></p>
+<p>After getting the frequency of each adjacent pairs, we should get the pair which has the highest frequency through <code>max</code> function instead of telling by bare eyes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>top_pair <span style="color:#f92672">=</span> max(counts, key<span style="color:#f92672">=</span>counts<span style="color:#f92672">.</span>get)
+</span></span></code></pre></div><p>By defining the key to be the frequency, we can find the top pair and name it <code>top_pair</code>.</p>
+<p><strong>Merge pair functionality based on a specific pair we got</strong></p>
+<p>We then need to replace all consecutive occurences of pair with the new idx:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">merge</span>(tokens, pair, idx):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># create new list to return later</span>
+</span></span><span style="display:flex;"><span>    new_tokens <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># reset pointer</span>
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># we iterate through every token</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;</span> len(tokens):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># pair match for first two and ensure not the last token for the last condition</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>  i <span style="color:#f92672">&lt;</span> len(tokens) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> tokens[i] <span style="color:#f92672">==</span> pair[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">and</span> tokens[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> pair[<span style="color:#ae81ff">1</span>]:
+</span></span><span style="display:flex;"><span>            new_tokens<span style="color:#f92672">.</span>append(idx)
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># increase by 2 to skip</span>
+</span></span><span style="display:flex;"><span>            i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            new_tokens<span style="color:#f92672">.</span>append(tokens[i])
+</span></span><span style="display:flex;"><span>            i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> new_tokens
+</span></span></code></pre></div><p>We pass <code>tokens</code>, <code>pair</code>(top_pair), <code>idx</code>(integer that we want to represent the pair) to the function as the inputs. We will create a new tokens list for convenience and set our pointer <code>i</code> to zero meaning the starting index. Then we will iterate through the whole <code>tokens</code> to merge the tokens within the list based on <code>pair</code> using <code>while i &lt; len(tokens):</code>.</p>
+<p>Inside the <code>while</code> loop, we first see if the current token is the last one:</p>
+<ul>
+<li>if so, we go straight to the <code>else</code> branch and append it to the <code>new_tokens</code>;</li>
+<li>if not, then need to verify if the current token and the next one match the pair:
+<ul>
+<li>if so, we append the new <code>idx</code> to the <code>new_tokens</code> and add <code>i</code> by 2 to skip to thee third token of the current sequence.</li>
+<li>if not, we just append the current token to the <code>new_tokens</code> and go to the next token.</li>
+</ul>
+</li>
+</ul>
+<p>Hence, we get the above merge function, and in order to test if it is functioning correctly, we do a simple test as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># a simple test</span>
+</span></span><span style="display:flex;"><span>print(merge([<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>], (<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>), <span style="color:#ae81ff">257</span>))
+</span></span></code></pre></div><p>The outputs show:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>[2, 2, 257, 5, 3, 257]
+</span></span></code></pre></div><p>which means our function is correct.</p>
+<p><strong>Get Merge Rules</strong></p>
+<p>We can then define the size of the vocab that we want and then integrate all the code for now to get the merge rules which are later used in the encoding stage:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>vocab_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">400</span> <span style="color:#75715e"># the final vocab length we want</span>
+</span></span><span style="display:flex;"><span>num_merges <span style="color:#f92672">=</span> vocab_size <span style="color:#f92672">-</span> <span style="color:#ae81ff">256</span> <span style="color:#75715e"># UTF has original characters, so here we minus it</span>
+</span></span><span style="display:flex;"><span>tokens_BPE <span style="color:#f92672">=</span> list(tokens)
+</span></span></code></pre></div><p>Here <code>vocab_size</code> is just a hyper-parameter, meaning that this is the parameter that we can set whatever we want, representing the final size of the vocabulary. We can then get the number of merges by substracting it with 256 (UTF-8 has 256 characters originally, so we substract it). In case of mutating the orignal <code>tokens</code> list, we copy a new version of it and name it <code>tokens_BPE</code>.</p>
+<p>After getting the <code>num_merges</code>, <code>tokens_BPE</code>, we can perform the merge operation and get the merge rules:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>merges <span style="color:#f92672">=</span> {} <span style="color:#75715e"># key: pair to be merged; value: new token idx</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(num_merges):
+</span></span><span style="display:flex;"><span>    counts <span style="color:#f92672">=</span> count(tokens_BPE)
+</span></span><span style="display:flex;"><span>    pair <span style="color:#f92672">=</span> max(counts, key<span style="color:#f92672">=</span>counts<span style="color:#f92672">.</span>get)
+</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">=</span> <span style="color:#ae81ff">256</span> <span style="color:#f92672">+</span> i
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;merging </span><span style="color:#e6db74">{</span>pair<span style="color:#e6db74">}</span><span style="color:#e6db74"> into a new idx </span><span style="color:#e6db74">{</span>idx<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    tokens_BPE <span style="color:#f92672">=</span> merge(tokens_BPE, pair, idx)
+</span></span><span style="display:flex;"><span>    merges[pair] <span style="color:#f92672">=</span> idx
+</span></span></code></pre></div><p>Here we create a new dictionary <code>merges</code> to store the merge rules. Then we iterate <code>num_merges</code> of times to:</p>
+<ol>
+<li>
+<p>First get the frequency of all pairs.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>counts <span style="color:#f92672">=</span> count(tokens_BPE)
+</span></span></code></pre></div></li>
+<li>
+<p>Find the top pair based on the first step and the frequency. Here, <code>key=counts.get</code> automatically tells the program that to find the pair which has the maximum value (frequency).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pair <span style="color:#f92672">=</span> max(counts, key<span style="color:#f92672">=</span>counts<span style="color:#f92672">.</span>get)
+</span></span></code></pre></div></li>
+<li>
+<p>Get the new idx which we want to represent the new top pair.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>idx <span style="color:#f92672">=</span> <span style="color:#ae81ff">256</span> <span style="color:#f92672">+</span> i
+</span></span></code></pre></div></li>
+<li>
+<p>Use <code>merge</code> function to merge the pairs within the <code>tokens_BPE</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tokens_BPE <span style="color:#f92672">=</span> merge(tokens_BPE, pair, idx)
+</span></span></code></pre></div></li>
+<li>
+<p>Save this merge rule to the merge rules.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>merges[pair] <span style="color:#f92672">=</span> idx
+</span></span></code></pre></div></li>
+</ol>
+<p>After executing the cell, we can get the outputs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>merging (101, 32) into a new idx 256
+</span></span><span style="display:flex;"><span>merging (116, 104) into a new idx 257
+</span></span><span style="display:flex;"><span>merging (115, 32) into a new idx 258
+</span></span><span style="display:flex;"><span>merging (116, 32) into a new idx 259
+</span></span><span style="display:flex;"><span>merging (105, 110) into a new idx 260
+</span></span><span style="display:flex;"><span>merging (97, 110) into a new idx 261
+</span></span><span style="display:flex;"><span>merging (101, 114) into a new idx 262
+</span></span><span style="display:flex;"><span>merging (32, 257) into a new idx 263
+</span></span><span style="display:flex;"><span>merging (111, 110) into a new idx 264
+</span></span><span style="display:flex;"><span>merging (97, 116) into a new idx 265
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p><strong>Get Vocabulary List</strong></p>
+<p>After that, we can get the completed vocabulary list based on merge rules, which is going to be used in decoding stage:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>vocab <span style="color:#f92672">=</span> {idx: bytes([idx]) <span style="color:#66d9ef">for</span> idx <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>)} <span style="color:#75715e"># original characters in UTF</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># then we pop the pair out to vocab pair by pair</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (pair0, pair1), idx <span style="color:#f92672">in</span> merges<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>    vocab[idx] <span style="color:#f92672">=</span> vocab[pair0] <span style="color:#f92672">+</span> vocab[pair1]
+</span></span></code></pre></div><p>For the first line, we place the original 256 characters defined by UTF-8 inside the <code>vocab</code> variable. The key here is the idx and the value is the bytes object of that idx.</p>
+<p>Then, we append the contatenation of the pair inside the merge rules to the <code>vocab</code> so that it not only contains the 256 characters defined by UTF-8, but also contains the pairs inside the merge rules.</p>
+<p>To better help you understand the code, I attach the content of <code>merges</code> and <code>vocab</code> below:</p>
+<ul>
+<li>
+<p><code>merges</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>{(101, 32): 256,
+</span></span><span style="display:flex;"><span> (116, 104): 257,
+</span></span><span style="display:flex;"><span> (115, 32): 258,
+</span></span><span style="display:flex;"><span> (116, 32): 259,
+</span></span><span style="display:flex;"><span> (105, 110): 260,
+</span></span><span style="display:flex;"><span> (97, 110): 261,
+</span></span><span style="display:flex;"><span> (101, 114): 262,
+</span></span><span style="display:flex;"><span> (32, 257): 263,
+</span></span><span style="display:flex;"><span> (111, 110): 264,
+</span></span><span style="display:flex;"><span> ...}
+</span></span></code></pre></div></li>
+<li>
+<p><code>vocab</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">{</span>0: b<span style="color:#e6db74">&#39;\x00&#39;</span>,
+</span></span><span style="display:flex;"><span> 1: b<span style="color:#e6db74">&#39;\x01&#39;</span>,
+</span></span><span style="display:flex;"><span> 2: b<span style="color:#e6db74">&#39;\x02&#39;</span>,
+</span></span><span style="display:flex;"><span> 3: b<span style="color:#e6db74">&#39;\x03&#39;</span>,
+</span></span><span style="display:flex;"><span> 4: b<span style="color:#e6db74">&#39;\x04&#39;</span>,
+</span></span><span style="display:flex;"><span> 5: b<span style="color:#e6db74">&#39;\x05&#39;</span>,
+</span></span><span style="display:flex;"><span> 6: b<span style="color:#e6db74">&#39;\x06&#39;</span>,
+</span></span><span style="display:flex;"><span> 7: b<span style="color:#e6db74">&#39;\x07&#39;</span>,
+</span></span><span style="display:flex;"><span> 8: b<span style="color:#e6db74">&#39;\x08&#39;</span>,
+</span></span><span style="display:flex;"><span> ...
+</span></span><span style="display:flex;"><span> 382: b<span style="color:#e6db74">&#39;with &#39;</span>,
+</span></span><span style="display:flex;"><span> 383: b<span style="color:#e6db74">&#39;pro&#39;</span>,
+</span></span><span style="display:flex;"><span> 384: b<span style="color:#e6db74">&#39;comm&#39;</span>,
+</span></span><span style="display:flex;"><span> 385: b<span style="color:#e6db74">&#34;&#39;, &#39;&#34;</span>,
+</span></span><span style="display:flex;"><span> 386: b<span style="color:#e6db74">&#39;resul&#39;</span>,
+</span></span><span style="display:flex;"><span> 387: b<span style="color:#e6db74">&#39;on &#39;</span>,
+</span></span><span style="display:flex;"><span> 388: b<span style="color:#e6db74">&#39;will &#39;</span>,
+</span></span><span style="display:flex;"><span> 389: b<span style="color:#e6db74">&#39;ver&#39;</span>,
+</span></span><span style="display:flex;"><span> 390: b<span style="color:#e6db74">&#39;if&#39;</span>,
+</span></span><span style="display:flex;"><span> 391: b<span style="color:#e6db74">&#39;use &#39;</span>,
+</span></span><span style="display:flex;"><span> 392: b<span style="color:#e6db74">&#39;pl&#39;</span>,
+</span></span><span style="display:flex;"><span> 393: b<span style="color:#e6db74">&#39;ob&#39;</span>,
+</span></span><span style="display:flex;"><span> 394: b<span style="color:#e6db74">&#39;al &#39;</span>,
+</span></span><span style="display:flex;"><span> 395: b<span style="color:#e6db74">&#39;ent&#39;</span>,
+</span></span><span style="display:flex;"><span> 396: b<span style="color:#e6db74">&#39;ut &#39;</span>,
+</span></span><span style="display:flex;"><span> 397: b<span style="color:#e6db74">&#39;files &#39;</span>,
+</span></span><span style="display:flex;"><span> 398: b<span style="color:#e6db74">&#39;sp&#39;</span>,
+</span></span><span style="display:flex;"><span> 399: b<span style="color:#e6db74">&#39;obj&#39;</span><span style="color:#f92672">}</span>
+</span></span></code></pre></div></li>
+</ul>
+<p>​ Through <code>vocab</code> we can already see that some of the most common word are already grouped up, such as &ldquo;with&rdquo;, &ldquo;will&rdquo;, &ldquo;use&rdquo;, &ldquo;if&rdquo;, &ldquo;files&rdquo;, even some of the prefix or suffix such as &ldquo;pro&rdquo;, &ldquo;comm&rdquo;, etc. As long as we increase the <code>vocab_size</code>, more common words will be in the <code>vocab</code> and <code>merges</code>.</p>
+<p><strong>Decoding Stage</strong></p>
+<p>For decoding stage, what we get as the input is a list of integers that represents the encoded text, and what we return in this function will be the Python string. Therefore:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode</span>(tokens_BPE):
+</span></span><span style="display:flex;"><span>    tokens <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join(vocab[idx] <span style="color:#66d9ef">for</span> idx <span style="color:#f92672">in</span> tokens_BPE)
+</span></span><span style="display:flex;"><span>    text <span style="color:#f92672">=</span> tokens<span style="color:#f92672">.</span>decode(encoding, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;replace&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> text
+</span></span></code></pre></div><p>We will also walk you through line by line in this case:</p>
+<ol>
+<li>
+<p>We get the original bytes representation of the text by first using the <code>idx</code> and <code>vocab</code> to look up the bytes, and contatenating all of them.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tokens <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join(vocab[idx] <span style="color:#66d9ef">for</span> idx <span style="color:#f92672">in</span> tokens_BPE)
+</span></span></code></pre></div></li>
+<li>
+<p>After we get the raw bytes, we will decode them using <code>str.decode</code> method. This is because previously we use <code>encode</code> method to generate raw bytes using python string, and in order to reverse the process, we will be using the <code>decode</code> method.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>text <span style="color:#f92672">=</span> tokens<span style="color:#f92672">.</span>decode(encoding, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;replace&#34;</span>)
+</span></span></code></pre></div><p>The reason why we need a <code>errors=&quot;replace&quot;</code> is because, there is a certain scheme that the UTF-8 do the conversion between code point and byte.
+<img loading="lazy" src="https://s2.loli.net/2024/05/08/xCZ76E2inVWu3AP.png" alt="image-20240507103245941"  />
+
+For example, if we try the following code without <code>error='replace'</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode</span>(tokens_BPE):
+</span></span><span style="display:flex;"><span>    tokens <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join(vocab[idx] <span style="color:#66d9ef">for</span> idx <span style="color:#f92672">in</span> tokens_BPE)
+</span></span><span style="display:flex;"><span>    text <span style="color:#f92672">=</span> tokens<span style="color:#f92672">.</span>decode(encoding)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> text
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>decode([<span style="color:#ae81ff">128</span>])
+</span></span></code></pre></div><p>The output shows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>UnicodeDetectError: &#39;utf-8&#39; codec can&#39;t decode byte 0x80 in position 0: invalid start byte
+</span></span></code></pre></div><p>This is because the binary representation of 128 starts with 1 and all others are 0, meaning that it doesn&rsquo;t match any of the above scheme, explaining why it can&rsquo;t be decoded. Therefore, the way we fix this is add the keyword argument <code>error='replace'</code> so that the outputs will become:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>&#39;�&#39;
+</span></span></code></pre></div><p>according to the offical Python documentation:</p>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/08/7Z8IaV2YcfTE6SP.png" alt="image-20240507164541595"  />
+</p>
+</li>
+</ol>
+<p><strong>Encoding Stage</strong></p>
+<p>Now we are going in the other way - implementing the encoding stage. What we now get as the input will be the string, and we want to convert them into bytes. Therefore:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode</span>(corpus):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># we first get the tokens list and convert them</span>
+</span></span><span style="display:flex;"><span>    tokens <span style="color:#f92672">=</span> list(corpus<span style="color:#f92672">.</span>encode(encoding))
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># in case of single character or blank; that way, no need to merge anything</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> len(tokens) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        counts <span style="color:#f92672">=</span> count(tokens)
+</span></span><span style="display:flex;"><span>        pair <span style="color:#f92672">=</span> min(counts, key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> p: merges<span style="color:#f92672">.</span>get(p, float(<span style="color:#e6db74">&#34;inf&#34;</span>)))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> pair <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> merges:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># nothing more can be merged</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        idx <span style="color:#f92672">=</span> merges[pair]
+</span></span><span style="display:flex;"><span>        tokens <span style="color:#f92672">=</span> merge(tokens, pair, idx)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> tokens
+</span></span></code></pre></div><p>We will also walk you through line by line in this case:</p>
+<ol>
+<li>
+<p>Firstly, we get the bytes representation of the original string.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tokens <span style="color:#f92672">=</span> list(corpus<span style="color:#f92672">.</span>encode(encoding))
+</span></span></code></pre></div></li>
+<li>
+<p>Next, we only begin the merge process when the length of our <code>tokens</code> list is greater than 1; otherwise, no need to merge anything, since there&rsquo;s only 1 character.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">while</span> len(tokens) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span></code></pre></div></li>
+<li>
+<p>Inside the loop, to reuse some of the code, we use <code>count</code> to get the pair within the original string.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>counts <span style="color:#f92672">=</span> count(tokens)
+</span></span></code></pre></div></li>
+<li>
+<p>We are going to merge the pair which has the smallest idx within <code>merges</code>. This is because, as we take a look at <code>merges</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>{(101, 32): 256,
+</span></span><span style="display:flex;"><span> (116, 104): 257,
+</span></span><span style="display:flex;"><span> (115, 32): 258,
+</span></span><span style="display:flex;"><span> (116, 32): 259,
+</span></span><span style="display:flex;"><span> (105, 110): 260,
+</span></span><span style="display:flex;"><span> (97, 110): 261,
+</span></span><span style="display:flex;"><span> (101, 114): 262,
+</span></span><span style="display:flex;"><span> (32, 257): 263,
+</span></span><span style="display:flex;"><span> (111, 110): 264,
+</span></span><span style="display:flex;"><span> ...}
+</span></span></code></pre></div><p>We can clearly see that some of the later-on pair depends on the previous merge, for example, <code>(32, 257): 263</code> depends on 257. Therefore, we need to select the pair that has the minimal idx to become the pair that we want to merge in each iteration.</p>
+<p>In Python, if we call <code>min</code> on an iterator, in this case, a dictionary, we&rsquo;ll be iterating the keys of it. And here we need to use a lambda function since we are going to use some other variable besides <code>counts</code>.</p>
+<p>Therefore, <code>pair = min(counts, key=lambda p: merges.get(p, float(&quot;inf&quot;)))</code> in this case, will return us the pair in <code>counts</code> which has the lowest idx within <code>merges</code> (if it&rsquo;s not in <code>merges</code>, we return infinity so that it won&rsquo;t be one of the candidates).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pair <span style="color:#f92672">=</span> min(counts, key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> p: merges<span style="color:#f92672">.</span>get(p, float(<span style="color:#e6db74">&#34;inf&#34;</span>)))
+</span></span></code></pre></div></li>
+<li>
+<p>After getting the pair we want to merge, we need to see if it&rsquo;s in <code>merges</code>:</p>
+<ul>
+<li>If not, it means that there&rsquo;s no pair left to be merged, so we break out of the loop;</li>
+<li>If so, we continue.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> pair <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> merges:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">break</span> <span style="color:#75715e"># nothing more can be merged</span>
+</span></span></code></pre></div></li>
+<li>
+<p>If there&rsquo;s pair we need to merge, since our goal is to encode the string, we then first need to get the corresponding idx of the pair.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>idx <span style="color:#f92672">=</span> merges[pair]
+</span></span></code></pre></div><p>Then, by calling <code>merge</code> function, we complete one iteration of the encoding stage.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tokens <span style="color:#f92672">=</span> merge(tokens, pair, idx)
+</span></span></code></pre></div></li>
+<li>
+<p>Finally, if we are out of the loop, we return the <code>tokens</code>, which is the bytes representation of the original text.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">return</span> tokens
+</span></span></code></pre></div></li>
+</ol>
+<p><strong>Verify our tokenizer</strong></p>
+<p>To verify if our tokenizer is working, we can simply encode a text and then decode it to see if the final output is the same as the original one.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(encode(<span style="color:#e6db74">&#34;Hello👋, my name is Banghao Chi!; 你好👋，我是池邦豪！&#34;</span>))
+</span></span></code></pre></div><p>The outputs of it is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>[72, 351, 353, 240, 159, 145, 139, 270, 109, 273, 110, 334, 256, 287, 66, 261, 103, 340, 329, 67, 104, 105, 33, 59, 32, 228, 189, 160, 229, 165, 189, 240, 159, 145, 139, 239, 188, 140, 230, 136, 145, 230, 152, 175, 230, 177, 160, 233, 130, 166, 232, 177, 170, 239, 188, 129]
+</span></span></code></pre></div><p>We then store it in a variable:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tokens_TEST <span style="color:#f92672">=</span> [<span style="color:#ae81ff">72</span>, <span style="color:#ae81ff">351</span>, <span style="color:#ae81ff">353</span>, <span style="color:#ae81ff">240</span>, <span style="color:#ae81ff">159</span>, <span style="color:#ae81ff">145</span>, <span style="color:#ae81ff">139</span>, <span style="color:#ae81ff">270</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">273</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">334</span>, <span style="color:#ae81ff">256</span>, <span style="color:#ae81ff">287</span>, <span style="color:#ae81ff">66</span>, <span style="color:#ae81ff">261</span>, <span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">340</span>, <span style="color:#ae81ff">329</span>, <span style="color:#ae81ff">67</span>, <span style="color:#ae81ff">104</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">33</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">228</span>, <span style="color:#ae81ff">189</span>, <span style="color:#ae81ff">160</span>, <span style="color:#ae81ff">229</span>, <span style="color:#ae81ff">165</span>, <span style="color:#ae81ff">189</span>, <span style="color:#ae81ff">240</span>, <span style="color:#ae81ff">159</span>, <span style="color:#ae81ff">145</span>, <span style="color:#ae81ff">139</span>, <span style="color:#ae81ff">239</span>, <span style="color:#ae81ff">188</span>, <span style="color:#ae81ff">140</span>, <span style="color:#ae81ff">230</span>, <span style="color:#ae81ff">136</span>, <span style="color:#ae81ff">145</span>, <span style="color:#ae81ff">230</span>, <span style="color:#ae81ff">152</span>, <span style="color:#ae81ff">175</span>, <span style="color:#ae81ff">230</span>, <span style="color:#ae81ff">177</span>, <span style="color:#ae81ff">160</span>, <span style="color:#ae81ff">233</span>, <span style="color:#ae81ff">130</span>, <span style="color:#ae81ff">166</span>, <span style="color:#ae81ff">232</span>, <span style="color:#ae81ff">177</span>, <span style="color:#ae81ff">170</span>, <span style="color:#ae81ff">239</span>, <span style="color:#ae81ff">188</span>, <span style="color:#ae81ff">129</span>]
+</span></span></code></pre></div><p>And we decode it to see the final outputs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(decode(tokens_TEST))
+</span></span></code></pre></div><p>which outputs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tex" data-lang="tex"><span style="display:flex;"><span>Hello👋, my name is Banghao Chi!; 你好👋，我是池邦豪！
+</span></span></code></pre></div><p>meaning that our tokenization is working as expected!</p>
+<h4 id="9-how-can-we-improve-from-here-hint">9. How can we improve from here? (Hint)<a hidden class="anchor" aria-hidden="true" href="#9-how-can-we-improve-from-here-hint">#</a></h4>
+<p>We&rsquo;ve saw how we can take some training on raw texts using BPE algorithm. The parameters of it is just the merge rules. Once we have the merge rules, we can both encode and decode between raw texts and token sequences.</p>
+<p>What we now are going to do is that we are going to take a look at some papers talking about the tokenizer. For example, in page 4 of <a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf">this</a> paper, we see that BPE ends up with <code>dog</code>, <code>dog.</code>, <code>dog!</code>, <code>dog?</code>, something like these with a simple concept. It feels like we are clustering things that shouldn&rsquo;t be clustered, and we are combining semantics with punctuation, which is suboptimal.</p>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/08/oVlYbwyS7PveCWT.png" alt="image-20240507174730610"  />
+</p>
+<p>Hence, the researcher in the paper points out a manual way of enforcing some types of the characters should never be merged together, which turns out to be the tool that we introduce at the beginning of the workshop!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># import modules and rename it as re for convenience</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> regex <span style="color:#66d9ef">as</span> re
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># define pattern referenced from the repo except for special tokens</span>
+</span></span><span style="display:flex;"><span>pat <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;&#34;&#34;&#39;s|&#39;t|&#39;re|&#39;ve|&#39;m|&#39;ll|&#39;d| ?\p</span><span style="color:#e6db74">{L}</span><span style="color:#e6db74">+| ?\p</span><span style="color:#e6db74">{N}</span><span style="color:#e6db74">+| ?[^\s\p</span><span style="color:#e6db74">{L}</span><span style="color:#e6db74">\p</span><span style="color:#e6db74">{N}</span><span style="color:#e6db74">]+|\s+(?!\S)|\s+&#34;&#34;&#34;</span>, re<span style="color:#f92672">.</span>IGNORECASE)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Any text that you want to be split.&#39;</span>
+</span></span><span style="display:flex;"><span>print(re<span style="color:#f92672">.</span>findall(pat, text))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># outputs:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [&#39;Any&#39;, &#39; text&#39;, &#39; that&#39;, &#39; you&#39;, &#39; want&#39;, &#39; to&#39;, &#39; be&#39;, &#39; split&#39;, &#39;.&#39;]</span>
+</span></span></code></pre></div><p>By forced splitting the original text, we therefore ensure that we will never merge between any adjacent strings within the list. After we&rsquo;ve done the merging for all of these strings individually, we just simply concatenate them to generate the final representation, which is pretty similar for the training and decoding stage for the BPE.</p>
+<h4 id="10-conclusion">10. Conclusion<a hidden class="anchor" aria-hidden="true" href="#10-conclusion">#</a></h4>
+<p>In this workshop, we explored the transformative process of tokenization, particularly focusing on the Byte Pair Encoding (BPE) algorithm. We dived into the intricacies of converting textual data into a numerical format, which is essential for various post machine learning applications such as text classification, sentiment analysis, and language translation.</p>
+<p>In conclusion, we first began with an introduction to the fundamentals of tokenization and its significance in machine learning. Understanding that tokenization is more than merely splitting text into words, we underscored its role in handling linguistic challenges it presents, such as managing contractions and special characters.</p>
+<p>Through practical demonstrations and discussions, we demonstrated a deeper understanding of tokenization, Python&rsquo;s string manipulations, emphasizing Unicode and UTF encodings. We then introduced BPE, explaining its efficiency in reducing vocabulary size while maintaining meaningful linguistic units. Our hands-on sessions included implementing BPE from scratch, illustrating the process of finding and merging the most common byte pairs in a corpus.</p>
+<p>Furthermore, we explored how enhancements, such as using regex for forced splits, could refine the BPE process, ensuring that semantically different units like punctuation and words are not inappropriately merged. This approach helps in fine-tuning tokenizers to handle diverse linguistic patterns more effectively.</p>
+<p>As we wrapped up, we demonstrated the practical application and the potential improvements in tokenizer designs. By understanding and implementing these advanced techniques, participants are now better equipped to tackle complex tasks and contribute to the evolution of more effective machine learning algorithms such as making LLMs better at spelling, Math and Python.</p>
+<p>In conclusion, we not only provided a comprehensive overview of BPE and its applications but also emphasized the reason why we should choose it and the continuous need for innovation within this field. The knowledge and skills gained here are steps towards mastering the art and science of future exploration, paving the way for advancements in data manipulation and even machine learning!</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://banghao.live/tags/nlp/">NLP</a></li>
+      <li><a href="https://banghao.live/tags/byte-pair-encoding/">Byte Pair Encoding</a></li>
+      <li><a href="https://banghao.live/tags/tokenization/">Tokenization</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://banghao.live/blog/7/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Meeting Discussion (7)</span>
+  </a>
+  <a class="next" href="https://banghao.live/blog/camera/">
+    <span class="title">Next »</span>
+    <br>
+    <span>IoT-Enabled Home Security Camera</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://banghao.live/">Banghao&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

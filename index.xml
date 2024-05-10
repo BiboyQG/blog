@@ -18,6 +18,14 @@ Validation of the above implementation: ✅ (for $ \alpha = 0.5 $)
 2. Implementation of SmoothQuant operation on Conv2d Get activation scale Get weight scale Compute smoothing factor $ s $ based on above two scales Apply scaling: $\text{input} \mathrel{{/}{=}} s$ $\text{weight} \mathrel{{*}{=}} s$ 2.1 Get activation &amp;amp; weight scale Take a look at the shape of activation, output, and weight in Conv2d: Take one layer as an example: Input shape: torch.</description>
     </item>
     <item>
+      <title>Let&#39;s build GPT from scratch with BPE!</title>
+      <link>https://banghao.live/blog/token/</link>
+      <pubDate>Wed, 08 May 2024 14:15:07 -0500</pubDate>
+      <guid>https://banghao.live/blog/token/</guid>
+      <description>1. Workshop Description Quick question: Have you ever thought about a string being transformed into a word vector so that it can be further fed into a machine learning algorithm?
+In this workshop, we are going to dive into the fascinating world of Natural Language Processing (NLP) with our focus on Byte Pair Encoding (BPE) algorithm. We will discover how this powerful technique segments text into subword units, enabling efficient representation of words as vectors.</description>
+    </item>
+    <item>
       <title>IoT-Enabled Home Security Camera</title>
       <link>https://banghao.live/blog/camera/</link>
       <pubDate>Sun, 05 May 2024 16:18:51 -0500</pubDate>

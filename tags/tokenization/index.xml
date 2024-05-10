@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tokenization on Banghao&#39;s Blog</title>
+    <link>https://banghao.live/tags/tokenization/</link>
+    <description>Recent content in Tokenization on Banghao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 May 2024 14:15:07 -0500</lastBuildDate>
+    <atom:link href="https://banghao.live/tags/tokenization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Let&#39;s build GPT from scratch with BPE!</title>
+      <link>https://banghao.live/blog/token/</link>
+      <pubDate>Wed, 08 May 2024 14:15:07 -0500</pubDate>
+      <guid>https://banghao.live/blog/token/</guid>
+      <description>1. Workshop Description Quick question: Have you ever thought about a string being transformed into a word vector so that it can be further fed into a machine learning algorithm?
+In this workshop, we are going to dive into the fascinating world of Natural Language Processing (NLP) with our focus on Byte Pair Encoding (BPE) algorithm. We will discover how this powerful technique segments text into subword units, enabling efficient representation of words as vectors.</description>
+    </item>
+  </channel>
+</rss>
