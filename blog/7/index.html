@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Meeting Discussion (7) | Banghao&#39;s Blog</title>
+<meta name="keywords" content="meeting-discussions, research, Quantization">
+<meta name="description" content="1. Table of Contents Implementation of SmoothQuant on Conv2d: ✅
+Validation of the above implementation: ✅ (for $ \alpha = 0.5 $)
+2. Implementation of SmoothQuant operation on Conv2d Get activation scale Get weight scale Compute smoothing factor $ s $ based on above two scales Apply scaling: $\text{input} \mathrel{{/}{=}} s$ $\text{weight} \mathrel{{*}{=}} s$ 2.1 Get activation &amp; weight scale Take a look at the shape of activation, output, and weight in Conv2d: Take one layer as an example: Input shape: torch.">
+<meta name="author" content="Banghao Chi">
+<link rel="canonical" href="https://banghao.live/blog/7/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8d6d0999b7a3d50c6d5a00541fc8078c4695a82720ad160b4078dab1d4edf114.css" integrity="sha256-jW0Jmbej1QxtWgBUH8gHjEaVqCcgrRYLQHjasdTt8RQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://banghao.live/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://banghao.live/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://banghao.live/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://banghao.live/apple-touch-icon.png">
+<link rel="mask-icon" href="https://banghao.live/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://banghao.live/blog/7/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Meeting Discussion (7)" />
+<meta property="og:description" content="1. Table of Contents Implementation of SmoothQuant on Conv2d: ✅
+Validation of the above implementation: ✅ (for $ \alpha = 0.5 $)
+2. Implementation of SmoothQuant operation on Conv2d Get activation scale Get weight scale Compute smoothing factor $ s $ based on above two scales Apply scaling: $\text{input} \mathrel{{/}{=}} s$ $\text{weight} \mathrel{{*}{=}} s$ 2.1 Get activation &amp; weight scale Take a look at the shape of activation, output, and weight in Conv2d: Take one layer as an example: Input shape: torch." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://banghao.live/blog/7/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2024-05-10T14:01:08-05:00" />
+<meta property="article:modified_time" content="2024-05-10T14:01:08-05:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Meeting Discussion (7)"/>
+<meta name="twitter:description" content="1. Table of Contents Implementation of SmoothQuant on Conv2d: ✅
+Validation of the above implementation: ✅ (for $ \alpha = 0.5 $)
+2. Implementation of SmoothQuant operation on Conv2d Get activation scale Get weight scale Compute smoothing factor $ s $ based on above two scales Apply scaling: $\text{input} \mathrel{{/}{=}} s$ $\text{weight} \mathrel{{*}{=}} s$ 2.1 Get activation &amp; weight scale Take a look at the shape of activation, output, and weight in Conv2d: Take one layer as an example: Input shape: torch."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://banghao.live/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Meeting Discussion (7)",
+      "item": "https://banghao.live/blog/7/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Meeting Discussion (7)",
+  "name": "Meeting Discussion (7)",
+  "description": "1. Table of Contents Implementation of SmoothQuant on Conv2d: ✅\nValidation of the above implementation: ✅ (for $ \\alpha = 0.5 $)\n2. Implementation of SmoothQuant operation on Conv2d Get activation scale Get weight scale Compute smoothing factor $ s $ based on above two scales Apply scaling: $\\text{input} \\mathrel{{/}{=}} s$ $\\text{weight} \\mathrel{{*}{=}} s$ 2.1 Get activation \u0026amp; weight scale Take a look at the shape of activation, output, and weight in Conv2d: Take one layer as an example: Input shape: torch.",
+  "keywords": [
+    "meeting-discussions", "research", "Quantization"
+  ],
+  "articleBody": "1. Table of Contents Implementation of SmoothQuant on Conv2d: ✅\nValidation of the above implementation: ✅ (for $ \\alpha = 0.5 $)\n2. Implementation of SmoothQuant operation on Conv2d Get activation scale Get weight scale Compute smoothing factor $ s $ based on above two scales Apply scaling: $\\text{input} \\mathrel{{/}{=}} s$ $\\text{weight} \\mathrel{{*}{=}} s$ 2.1 Get activation \u0026 weight scale Take a look at the shape of activation, output, and weight in Conv2d: Take one layer as an example: Input shape: torch.Size([4, 256, 182, 182]) Weight shape: torch.Size([128, 256, 3, 3]) Output shape: torch.Size([4, 128, 180, 180]) The absMax value we get is per-channel according to SmoothQuant (above) -\u003e Means that we should have 256 number of element (max value for each channel) for this layer of activation. def register_collect_smoothquant_hook(model, data_loader, num_batch=200): model.eval() act_scales = {} weight_scales = {} def forward_hook(module, input, name): hidden_dim_act = input[0].shape[1] tensor_act = input[0].view(-1, hidden_dim_act).abs().detach() comming_max_act = torch.max(tensor_act, dim=0)[0].float().cpu() if name not in act_scales: act_scales[name] = comming_max_act else: act_scales[name] = torch.max(act_scales[name], comming_max_act) hidden_dim_weight = module.weight.shape[1] tensor_weight = module.weight.view(-1, hidden_dim_weight).abs().detach() comming_max_weight = torch.max(tensor_weight, dim=0)[0].float().cpu() if name not in weight_scales: weight_scales[name] = comming_max_weight else: weight_scales[name] = torch.max(weight_scales[name], comming_max_weight) hooks = [] for name, module in model.named_modules(): if isinstance(module, torch.nn.Conv2d): hook = module.register_forward_pre_hook(partial(forward_hook, name=name)) hooks.append(hook) try: with torch.no_grad(): for i, inputs in enumerate(tqdm(data_loader, desc='collecting stats', total=num_batch)): if i \u003e= num_batch: break load_data_to_gpu(inputs) model(inputs) finally: for h in hooks: h.remove() return act_scales, weight_scales Input shape: torch.Size([4, 256, 182, 182]) hidden_dim_act = 256 Weight shape: torch.Size([128, 256, 3, 3]) … 2.2 Compute smooth factor based on two scales act_scales, weight_scales = register_collect_smoothquant_hook(model, test_loader, 200) scales = {} for name, act_scale, weight_scale in zip(act_scales.keys(), act_scales.values(), weight_scales.values()): scale = torch.sqrt(act_scale / weight_scale) scales[name] = scale.view(1, -1, 1, 1).to(device) 2.3 Apply scaling For activation, we use hook to modify the input everytime it comes to a Conv2d module: def register_smoothquant_act_hook(model, scales): def forward_pre_hook(module, input, name): modified_input = input[0] / scales[name] return (modified_input,) handles = [] for name, module in model.named_modules(): if isinstance(module, quant_nn.Conv2d): handle = module.register_forward_pre_hook(partial(forward_pre_hook, name=name)) handles.append(handle) return handles For weight, we modify its value offline: def register_smoothquant_weight_hook(model, scales): for name, module in model.named_modules(): if isinstance(module, quant_nn.Conv2d): with torch.no_grad(): module.weight *= scales[name] return 3.1 Validation through amax value obtained by quantizer 3.2 Validation through accuracy comparison Thinking is that the way I get the absMax value may not be on the right track. Therefore:\n4. What’s next? Try different scaling factor: Ranging from 0.05 to 0.95 (with the step of 0.05) Draw an accuracy graph respective to the change of scaling factor Check the way of getting absMax value Compute L1 loss of each layer of activation Visualize activation Increase calibration data number (200/1500) Dynamic scaling factor $ \\alpha $ ",
+  "wordCount" : "448",
+  "inLanguage": "en",
+  "datePublished": "2024-05-10T14:01:08-05:00",
+  "dateModified": "2024-05-10T14:01:08-05:00",
+  "author":{
+    "@type": "Person",
+    "name": "Banghao Chi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://banghao.live/blog/7/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Banghao's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://banghao.live/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://banghao.live/" accesskey="h" title="Banghao&#39;s Blog (Alt + H)">Banghao&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://banghao.live/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.live/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.live/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.studio/login" title="Forum App">
+                    <span>Forum App</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Meeting Discussion (7)
+    </h1>
+    <div class="post-meta"><span title='2024-05-10 14:01:08 -0500 -0500'>May 10, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Banghao Chi
+
+</div>
+  </header> 
+  <div class="post-content"><h4 id="1-table-of-contents">1. Table of Contents<a hidden class="anchor" aria-hidden="true" href="#1-table-of-contents">#</a></h4>
+<ul>
+<li>
+<p>Implementation of SmoothQuant on Conv2d: ✅</p>
+</li>
+<li>
+<p>Validation of the above implementation: ✅ (for $ \alpha = 0.5 $)</p>
+</li>
+</ul>
+<h4 id="2-implementation-of-smoothquant-operation-on-conv2d">2. Implementation of SmoothQuant operation on Conv2d<a hidden class="anchor" aria-hidden="true" href="#2-implementation-of-smoothquant-operation-on-conv2d">#</a></h4>
+<ul>
+<li>Get activation scale</li>
+<li>Get weight scale</li>
+<li>Compute smoothing factor $ s $ based on above two scales</li>
+<li>Apply scaling:
+<ul>
+<li>$\text{input} \mathrel{{/}{=}} s$</li>
+<li>$\text{weight} \mathrel{{*}{=}} s$</li>
+</ul>
+</li>
+</ul>
+<h4 id="21-get-activation--weight-scale">2.1 Get activation &amp; weight scale<a hidden class="anchor" aria-hidden="true" href="#21-get-activation--weight-scale">#</a></h4>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/11/612E3lgeHTVKsop.png" alt="img"  />
+</p>
+<ul>
+<li>Take a look at the shape of activation, output, and weight in Conv2d:</li>
+<li>Take one layer as an example:
+<ul>
+<li>Input shape: torch.Size([4, 256, 182, 182])</li>
+<li>Weight shape: torch.Size([128, 256, 3, 3])</li>
+<li>Output shape: torch.Size([4, 128, 180, 180])</li>
+</ul>
+</li>
+<li>The absMax value we get is per-channel according to SmoothQuant (above) -&gt; Means that we should have 256 number of element (max value for each channel) for this layer of activation.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">register_collect_smoothquant_hook</span>(model, data_loader, num_batch<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>):
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">.</span>eval()
+</span></span><span style="display:flex;"><span>    act_scales <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>    weight_scales <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward_hook</span>(module, input, name):
+</span></span><span style="display:flex;"><span>        hidden_dim_act <span style="color:#f92672">=</span> input[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>        tensor_act <span style="color:#f92672">=</span> input[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, hidden_dim_act)<span style="color:#f92672">.</span>abs()<span style="color:#f92672">.</span>detach()
+</span></span><span style="display:flex;"><span>        comming_max_act <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>max(tensor_act, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>float()<span style="color:#f92672">.</span>cpu()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> name <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> act_scales:
+</span></span><span style="display:flex;"><span>            act_scales[name] <span style="color:#f92672">=</span> comming_max_act
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            act_scales[name] <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>max(act_scales[name], comming_max_act)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        hidden_dim_weight <span style="color:#f92672">=</span> module<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>        tensor_weight <span style="color:#f92672">=</span> module<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, hidden_dim_weight)<span style="color:#f92672">.</span>abs()<span style="color:#f92672">.</span>detach()
+</span></span><span style="display:flex;"><span>        comming_max_weight <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>max(tensor_weight, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>float()<span style="color:#f92672">.</span>cpu()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> name <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> weight_scales:
+</span></span><span style="display:flex;"><span>            weight_scales[name] <span style="color:#f92672">=</span> comming_max_weight
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            weight_scales[name] <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>max(weight_scales[name], comming_max_weight)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    hooks <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> name, module <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>named_modules():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> isinstance(module, torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Conv2d):
+</span></span><span style="display:flex;"><span>            hook <span style="color:#f92672">=</span> module<span style="color:#f92672">.</span>register_forward_pre_hook(partial(forward_hook, name<span style="color:#f92672">=</span>name))
+</span></span><span style="display:flex;"><span>            hooks<span style="color:#f92672">.</span>append(hook)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> i, inputs <span style="color:#f92672">in</span> enumerate(tqdm(data_loader, desc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;collecting stats&#39;</span>, total<span style="color:#f92672">=</span>num_batch)):
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;=</span> num_batch:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>                load_data_to_gpu(inputs)
+</span></span><span style="display:flex;"><span>                model(inputs)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">finally</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> h <span style="color:#f92672">in</span> hooks:
+</span></span><span style="display:flex;"><span>            h<span style="color:#f92672">.</span>remove()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> act_scales, weight_scales
+</span></span></code></pre></div><ul>
+<li>Input shape: torch.Size([4, 256, 182, 182])</li>
+<li>hidden_dim_act = 256</li>
+<li>Weight shape: torch.Size([128, 256, 3, 3])</li>
+<li>…</li>
+</ul>
+<h4 id="22-compute-smooth-factor-based-on-two-scales">2.2 Compute smooth factor based on two scales<a hidden class="anchor" aria-hidden="true" href="#22-compute-smooth-factor-based-on-two-scales">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>act_scales, weight_scales <span style="color:#f92672">=</span> register_collect_smoothquant_hook(model, test_loader, <span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scales <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> name, act_scale, weight_scale <span style="color:#f92672">in</span> zip(act_scales<span style="color:#f92672">.</span>keys(), act_scales<span style="color:#f92672">.</span>values(), weight_scales<span style="color:#f92672">.</span>values()):
+</span></span><span style="display:flex;"><span>    scale <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>sqrt(act_scale <span style="color:#f92672">/</span> weight_scale)
+</span></span><span style="display:flex;"><span>    scales[name] <span style="color:#f92672">=</span> scale<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>to(device)
+</span></span></code></pre></div><h4 id="23-apply-scaling">2.3 Apply scaling<a hidden class="anchor" aria-hidden="true" href="#23-apply-scaling">#</a></h4>
+<ul>
+<li>For activation, we use hook to modify the input everytime it comes to a Conv2d module:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">register_smoothquant_act_hook</span>(model, scales):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward_pre_hook</span>(module, input, name):
+</span></span><span style="display:flex;"><span>        modified_input <span style="color:#f92672">=</span> input[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">/</span> scales[name]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (modified_input,)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    handles <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> name, module <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>named_modules():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> isinstance(module, quant_nn<span style="color:#f92672">.</span>Conv2d):
+</span></span><span style="display:flex;"><span>            handle <span style="color:#f92672">=</span> module<span style="color:#f92672">.</span>register_forward_pre_hook(partial(forward_pre_hook, name<span style="color:#f92672">=</span>name))
+</span></span><span style="display:flex;"><span>            handles<span style="color:#f92672">.</span>append(handle)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> handles
+</span></span></code></pre></div><ul>
+<li>For weight, we modify its value offline:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">register_smoothquant_weight_hook</span>(model, scales):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> name, module <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>named_modules():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> isinstance(module, quant_nn<span style="color:#f92672">.</span>Conv2d):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+</span></span><span style="display:flex;"><span>                module<span style="color:#f92672">.</span>weight <span style="color:#f92672">*=</span> scales[name]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span></code></pre></div><h4 id="31-validation-through-amax-value-obtained-by-quantizer">3.1 Validation through amax value obtained by quantizer<a hidden class="anchor" aria-hidden="true" href="#31-validation-through-amax-value-obtained-by-quantizer">#</a></h4>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/11/DYXg4x3HtG9A7Em.png" alt="image-20240510135757906"  />
+</p>
+<h4 id="32-validation-through-accuracy-comparison">3.2 Validation through accuracy comparison<a hidden class="anchor" aria-hidden="true" href="#32-validation-through-accuracy-comparison">#</a></h4>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/11/7CP9RG1mK5fuAHq.png" alt="image-20240510135910722"  />
+</p>
+<p>Thinking is that the way I get the absMax value may not be on the right track. Therefore:</p>
+<h4 id="4-whats-next">4. What’s next?<a hidden class="anchor" aria-hidden="true" href="#4-whats-next">#</a></h4>
+<ul>
+<li>Try different scaling factor:
+<ul>
+<li>Ranging from 0.05 to 0.95 (with the step of 0.05)</li>
+<li>Draw an accuracy graph respective to the change of scaling factor</li>
+</ul>
+</li>
+<li>Check the way of getting absMax value</li>
+<li>Compute L1 loss of each layer of activation</li>
+<li>Visualize activation</li>
+<li>Increase calibration data number (200/1500)</li>
+<li>Dynamic scaling factor $ \alpha $</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://banghao.live/tags/meeting-discussions/">Meeting-Discussions</a></li>
+      <li><a href="https://banghao.live/tags/research/">Research</a></li>
+      <li><a href="https://banghao.live/tags/quantization/">Quantization</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://banghao.live/blog/camera/">
+    <span class="title">Next »</span>
+    <br>
+    <span>IoT-Enabled Home Security Camera</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://banghao.live/">Banghao&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

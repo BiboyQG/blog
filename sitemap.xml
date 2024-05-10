@@ -2,16 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://banghao.live/tags/application/</loc>
-    <lastmod>2024-05-05T16:18:51-05:00</lastmod>
-  </url><url>
     <loc>https://banghao.live/</loc>
-    <lastmod>2024-05-05T16:18:51-05:00</lastmod>
+    <lastmod>2024-05-10T14:01:08-05:00</lastmod>
   </url><url>
     <loc>https://banghao.live/blog/</loc>
-    <lastmod>2024-05-05T16:18:51-05:00</lastmod>
+    <lastmod>2024-05-10T14:01:08-05:00</lastmod>
   </url><url>
     <loc>https://banghao.live/categories/</loc>
+    <lastmod>2024-05-10T14:01:08-05:00</lastmod>
+  </url><url>
+    <loc>https://banghao.live/blog/7/</loc>
+    <lastmod>2024-05-10T14:01:08-05:00</lastmod>
+  </url><url>
+    <loc>https://banghao.live/tags/meeting-discussions/</loc>
+    <lastmod>2024-05-10T14:01:08-05:00</lastmod>
+  </url><url>
+    <loc>https://banghao.live/categories/meeting-discussions/</loc>
+    <lastmod>2024-05-10T14:01:08-05:00</lastmod>
+  </url><url>
+    <loc>https://banghao.live/tags/quantization/</loc>
+    <lastmod>2024-05-10T14:01:08-05:00</lastmod>
+  </url><url>
+    <loc>https://banghao.live/tags/research/</loc>
+    <lastmod>2024-05-10T14:01:08-05:00</lastmod>
+  </url><url>
+    <loc>https://banghao.live/tags/</loc>
+    <lastmod>2024-05-10T14:01:08-05:00</lastmod>
+  </url><url>
+    <loc>https://banghao.live/tags/application/</loc>
     <lastmod>2024-05-05T16:18:51-05:00</lastmod>
   </url><url>
     <loc>https://banghao.live/tags/internet-of-things/</loc>
@@ -26,22 +44,7 @@
     <loc>https://banghao.live/tags/project/</loc>
     <lastmod>2024-05-05T16:18:51-05:00</lastmod>
   </url><url>
-    <loc>https://banghao.live/tags/</loc>
-    <lastmod>2024-05-05T16:18:51-05:00</lastmod>
-  </url><url>
     <loc>https://banghao.live/blog/6/</loc>
-    <lastmod>2024-05-02T17:04:02-05:00</lastmod>
-  </url><url>
-    <loc>https://banghao.live/tags/meeting-discussions/</loc>
-    <lastmod>2024-05-02T17:04:02-05:00</lastmod>
-  </url><url>
-    <loc>https://banghao.live/categories/meeting-discussions/</loc>
-    <lastmod>2024-05-02T17:04:02-05:00</lastmod>
-  </url><url>
-    <loc>https://banghao.live/tags/quantization/</loc>
-    <lastmod>2024-05-02T17:04:02-05:00</lastmod>
-  </url><url>
-    <loc>https://banghao.live/tags/research/</loc>
     <lastmod>2024-05-02T17:04:02-05:00</lastmod>
   </url><url>
     <loc>https://banghao.live/blog/5/</loc>

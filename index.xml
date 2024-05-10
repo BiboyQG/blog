@@ -6,8 +6,17 @@
     <description>Recent content on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 May 2024 16:18:51 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 10 May 2024 14:01:08 -0500</lastBuildDate>
     <atom:link href="https://banghao.live/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Meeting Discussion (7)</title>
+      <link>https://banghao.live/blog/7/</link>
+      <pubDate>Fri, 10 May 2024 14:01:08 -0500</pubDate>
+      <guid>https://banghao.live/blog/7/</guid>
+      <description>1. Table of Contents Implementation of SmoothQuant on Conv2d: ✅
+Validation of the above implementation: ✅ (for $ \alpha = 0.5 $)
+2. Implementation of SmoothQuant operation on Conv2d Get activation scale Get weight scale Compute smoothing factor $ s $ based on above two scales Apply scaling: $\text{input} \mathrel{{/}{=}} s$ $\text{weight} \mathrel{{*}{=}} s$ 2.1 Get activation &amp;amp; weight scale Take a look at the shape of activation, output, and weight in Conv2d: Take one layer as an example: Input shape: torch.</description>
+    </item>
     <item>
       <title>IoT-Enabled Home Security Camera</title>
       <link>https://banghao.live/blog/camera/</link>
