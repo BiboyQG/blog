@@ -6,8 +6,15 @@
     <description>Recent content in Blogs on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 May 2024 14:01:08 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 14 May 2024 14:20:16 -0500</lastBuildDate>
     <atom:link href="https://banghao.live/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Meeting Discussion (9)</title>
+      <link>https://banghao.live/blog/8/</link>
+      <pubDate>Tue, 14 May 2024 14:20:16 -0500</pubDate>
+      <guid>https://banghao.live/blog/8/</guid>
+      <description>1. Table of Contents Original implementation of SmoothQuant and why it’s not correct: ✅ The correct way of implementation IMO: ✅ 2. Original way of getting absMax values def register_collect_smoothquant_hook(model, data_loader, num_batch=200): model.eval() act_scales = {} weight_scales = {} def forward_hook(module, input, name): hidden_dim_act = input[0].shape[1] tensor_act = input[0].view(-1, hidden_dim_act).abs().detach() comming_max_act = torch.max(tensor_act, dim=0)[0].float().cpu() if name not in act_scales: act_scales[name] = comming_max_act else: act_scales[name] = torch.max(act_scales[name], comming_max_act) Input shape: [4, 256, 182, 182] hidden_dim_act = 256 tensor_act: [4*182*182, 256] torch.</description>
+    </item>
     <item>
       <title>Meeting Discussion (7)</title>
       <link>https://banghao.live/blog/7/</link>

@@ -160,6 +160,18 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Meeting Discussion (9)
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. Table of Contents Original implementation of SmoothQuant and why it’s not correct: ✅ The correct way of implementation IMO: ✅ 2. Original way of getting absMax values def register_collect_smoothquant_hook(model, data_loader, num_batch=200): model.eval() act_scales = {} weight_scales = {} def forward_hook(module, input, name): hidden_dim_act = input[0].shape[1] tensor_act = input[0].view(-1, hidden_dim_act).abs().detach() comming_max_act = torch.max(tensor_act, dim=0)[0].float().cpu() if name not in act_scales: act_scales[name] = comming_max_act else: act_scales[name] = torch.max(act_scales[name], comming_max_act) Input shape: [4, 256, 182, 182] hidden_dim_act = 256 tensor_act: [4*182*182, 256] torch....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-05-14 14:20:16 -0500 -0500'>May 14, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Banghao Chi</footer>
+  <a class="entry-link" aria-label="post link to Meeting Discussion (9)" href="https://banghao.live/blog/8/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Meeting Discussion (7)
     </h2>
   </header>
@@ -277,22 +289,6 @@ Long training period Difficulty of detecting small objects but has advantages in
   </div>
   <footer class="entry-footer"><span title='2024-03-20 06:35:10 -0500 -0500'>March 20, 2024</span>&nbsp;·&nbsp;21 min&nbsp;·&nbsp;Banghao Chi</footer>
   <a class="entry-link" aria-label="post link to Daily Log" href="https://banghao.live/blog/log/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">CATseg: A complete walk through of the model architecture
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>1. Model Architecture setup and evaluation data flow(for ade150k) CATSeg setup:
-backbone: D2SwinTransformer -&gt; Swintransformer -&gt; BasicLayer(2) -&gt; SwinTransformerBlock -&gt; WindowAttention
-sem_seg_head: CATSegHead.from_config -&gt; CATSegPredictor -&gt;
-Load CLIP model -&gt; Load text templates -&gt; class_embeddings(self.class_texts, prompt_templates, clip_model) -&gt; for each class:
-bpe encode classname in different templates and save results in variable texts (80(number of templates), 77(number of sentence length)). CLIP encode texts : texts go through token_embedding(nn.Embedding) (80,77,768(hidden_dim)) texts go through a 12 layers of ResidualAttentionBlock (80,77,768) take features of texts from the eot_token (80,768) do the above for all classes (150(number of test classes),80,768)...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-03-15 05:21:09 -0500 -0500'>March 15, 2024</span>&nbsp;·&nbsp;22 min&nbsp;·&nbsp;Banghao Chi</footer>
-  <a class="entry-link" aria-label="post link to CATseg: A complete walk through of the model architecture" href="https://banghao.live/blog/catseg/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -154,6 +154,22 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">CATseg: A complete walk through of the model architecture
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. Model Architecture setup and evaluation data flow(for ade150k) CATSeg setup:
+backbone: D2SwinTransformer -&gt; Swintransformer -&gt; BasicLayer(2) -&gt; SwinTransformerBlock -&gt; WindowAttention
+sem_seg_head: CATSegHead.from_config -&gt; CATSegPredictor -&gt;
+Load CLIP model -&gt; Load text templates -&gt; class_embeddings(self.class_texts, prompt_templates, clip_model) -&gt; for each class:
+bpe encode classname in different templates and save results in variable texts (80(number of templates), 77(number of sentence length)). CLIP encode texts : texts go through token_embedding(nn.Embedding) (80,77,768(hidden_dim)) texts go through a 12 layers of ResidualAttentionBlock (80,77,768) take features of texts from the eot_token (80,768) do the above for all classes (150(number of test classes),80,768)...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-03-15 05:21:09 -0500 -0500'>March 15, 2024</span>&nbsp;·&nbsp;22 min&nbsp;·&nbsp;Banghao Chi</footer>
+  <a class="entry-link" aria-label="post link to CATseg: A complete walk through of the model architecture" href="https://banghao.live/blog/catseg/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Argparse: a user-friendly tool to write CLI interface
     </h2>
   </header>
