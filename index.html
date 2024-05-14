@@ -200,14 +200,14 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Meeting Discussion (9)
+    <h2 class="entry-hint-parent">Meeting Discussion (8)
     </h2>
   </header>
   <div class="entry-content">
     <p>1. Table of Contents Original implementation of SmoothQuant and why it’s not correct: ✅ The correct way of implementation IMO: ✅ 2. Original way of getting absMax values def register_collect_smoothquant_hook(model, data_loader, num_batch=200): model.eval() act_scales = {} weight_scales = {} def forward_hook(module, input, name): hidden_dim_act = input[0].shape[1] tensor_act = input[0].view(-1, hidden_dim_act).abs().detach() comming_max_act = torch.max(tensor_act, dim=0)[0].float().cpu() if name not in act_scales: act_scales[name] = comming_max_act else: act_scales[name] = torch.max(act_scales[name], comming_max_act) Input shape: [4, 256, 182, 182] hidden_dim_act = 256 tensor_act: [4*182*182, 256] torch....</p>
   </div>
   <footer class="entry-footer"><span title='2024-05-14 14:20:16 -0500 -0500'>May 14, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Banghao Chi</footer>
-  <a class="entry-link" aria-label="post link to Meeting Discussion (9)" href="https://banghao.live/blog/8/"></a>
+  <a class="entry-link" aria-label="post link to Meeting Discussion (8)" href="https://banghao.live/blog/8/"></a>
 </article>
 
 <article class="post-entry"> 
