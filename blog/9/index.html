@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Meeting Discussion (9) | Banghao&#39;s Blog</title>
+<meta name="keywords" content="meeting-discussions, research, Quantization">
+<meta name="description" content="1. Table of Contents Implementation of im2col&#43;gemm operation: ✅ Add INT8-quantizer to the first operation: ✅ Add SmoothQuant to the second operation: ✅ Verify operation through different example inputs: ✅ Integrate im2col&#43;gemm SmoothQuant INT8-quantized layer into model: ✅ Validate the accuracy of the final model: through different example inputs: ✅ through actual data flow of the model: ✅ through accuracy: In progress… (due to Delta only comes back online really late) 2.">
+<meta name="author" content="Banghao Chi">
+<link rel="canonical" href="https://banghao.live/blog/9/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8d6d0999b7a3d50c6d5a00541fc8078c4695a82720ad160b4078dab1d4edf114.css" integrity="sha256-jW0Jmbej1QxtWgBUH8gHjEaVqCcgrRYLQHjasdTt8RQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://banghao.live/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://banghao.live/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://banghao.live/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://banghao.live/apple-touch-icon.png">
+<link rel="mask-icon" href="https://banghao.live/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://banghao.live/blog/9/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Meeting Discussion (9)" />
+<meta property="og:description" content="1. Table of Contents Implementation of im2col&#43;gemm operation: ✅ Add INT8-quantizer to the first operation: ✅ Add SmoothQuant to the second operation: ✅ Verify operation through different example inputs: ✅ Integrate im2col&#43;gemm SmoothQuant INT8-quantized layer into model: ✅ Validate the accuracy of the final model: through different example inputs: ✅ through actual data flow of the model: ✅ through accuracy: In progress… (due to Delta only comes back online really late) 2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://banghao.live/blog/9/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2024-05-17T18:10:55-05:00" />
+<meta property="article:modified_time" content="2024-05-17T18:10:55-05:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Meeting Discussion (9)"/>
+<meta name="twitter:description" content="1. Table of Contents Implementation of im2col&#43;gemm operation: ✅ Add INT8-quantizer to the first operation: ✅ Add SmoothQuant to the second operation: ✅ Verify operation through different example inputs: ✅ Integrate im2col&#43;gemm SmoothQuant INT8-quantized layer into model: ✅ Validate the accuracy of the final model: through different example inputs: ✅ through actual data flow of the model: ✅ through accuracy: In progress… (due to Delta only comes back online really late) 2."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://banghao.live/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Meeting Discussion (9)",
+      "item": "https://banghao.live/blog/9/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Meeting Discussion (9)",
+  "name": "Meeting Discussion (9)",
+  "description": "1. Table of Contents Implementation of im2col+gemm operation: ✅ Add INT8-quantizer to the first operation: ✅ Add SmoothQuant to the second operation: ✅ Verify operation through different example inputs: ✅ Integrate im2col+gemm SmoothQuant INT8-quantized layer into model: ✅ Validate the accuracy of the final model: through different example inputs: ✅ through actual data flow of the model: ✅ through accuracy: In progress… (due to Delta only comes back online really late) 2.",
+  "keywords": [
+    "meeting-discussions", "research", "Quantization"
+  ],
+  "articleBody": "1. Table of Contents Implementation of im2col+gemm operation: ✅ Add INT8-quantizer to the first operation: ✅ Add SmoothQuant to the second operation: ✅ Verify operation through different example inputs: ✅ Integrate im2col+gemm SmoothQuant INT8-quantized layer into model: ✅ Validate the accuracy of the final model: through different example inputs: ✅ through actual data flow of the model: ✅ through accuracy: In progress… (due to Delta only comes back online really late) 2. Implementation of im2col+gemm operation class MyConv2d(nn.Module): def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1): super(MyQuantConv2d, self).__init__() self.in_channels = in_channels self.out_channels = out_channels self.kernel_size = kernel_size self.stride = stride self.padding = padding self.dilation = dilation self.weight = Parameter(torch.Tensor(out_channels, in_channels, kernel_size, kernel_size)).to(DEVICE) def forward(self, input): h_in, w_in = input.shape[2:] h_out = math.floor((h_in + 2*self.padding - self.dilation*(self.kernel_size-1)-1)/self.stride+1) w_out = math.floor((w_in + 2*self.padding - self.dilation*(self.kernel_size-1)-1)/self.stride+1) # x: [bs ksize num_sliding] (im2col) x = torch.nn.functional.unfold(input, kernel_size=self.kernel_size, padding=self.padding, stride=self.stride) bs = input.shape[0] ksize = self.in_channels*self.kernel_size*self.kernel_size num_sliding = x.shape[2] assert x.shape[1] == ksize # x: [bs*num_sliding ksize] x = torch.transpose(x, 1, 2).reshape(-1, ksize) weight_flat = self.weight.view(self.out_channels, ksize) # (gemm) x = torch.mm(x, weight_flat.t()) x = x.reshape(bs, num_sliding, self.out_channels) x = torch.transpose(x, 1, 2) x = x.reshape(bs, self.out_channels, h_out, w_out) return x 3. Add INT8-quantizer to im2col+gemm class MyInitQuantConv2d(nn.Module): def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, input_quantizer=None, weight_quantizer=None): super(MyQuantConv2d, self).__init__() self.in_channels = in_channels self.out_channels = out_channels self.kernel_size = kernel_size self.stride = stride self.padding = padding self.dilation = dilation self._input_quantizer = input_quantizer self._weight_quantizer = weight_quantizer self.weight = Parameter(torch.Tensor(out_channels, in_channels, kernel_size, kernel_size)).to(DEVICE) def forward(self, input): h_in, w_in = input.shape[2:] h_out = math.floor((h_in + 2*self.padding - self.dilation*(self.kernel_size-1)-1)/self.stride+1) w_out = math.floor((w_in + 2*self.padding - self.dilation*(self.kernel_size-1)-1)/self.stride+1) # x: [bs ksize num_sliding] x = torch.nn.functional.unfold(input, kernel_size=self.kernel_size, padding=self.padding, stride=self.stride) bs = input.shape[0] ksize = self.in_channels*self.kernel_size*self.kernel_size num_sliding = x.shape[2] assert x.shape[1] == ksize # x: [bs*num_sliding ksize] (im2col) x = torch.transpose(x, 1, 2).reshape(-1, ksize) weight_flat = self.weight.view(self.out_channels, ksize) x = self._input_quantizer(x) weight_flat = self._weight_quantizer(weight_flat) # (gemm) x = torch.mm(x, weight_flat.t()) x = x.reshape(bs, num_sliding, self.out_channels) x = torch.transpose(x, 1, 2) x = x.reshape(bs, self.out_channels, h_out, w_out) return x 4. Add SmoothQuant to im2col+gemm W8A8 quantized layer class MyQuantConv2d(nn.Module): def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, input_quantizer=None, weight_quantizer=None): super(MyQuantConv2d, self).__init__() self.in_channels = in_channels self.out_channels = out_channels self.kernel_size = kernel_size self.stride = stride self.padding = padding self.dilation = dilation self._input_quantizer = input_quantizer self._weight_quantizer = weight_quantizer self.weight = Parameter(torch.Tensor(out_channels, in_channels, kernel_size, kernel_size)).to(DEVICE) def forward(self, input): h_in, w_in = input.shape[2:] h_out = math.floor((h_in + 2*self.padding - self.dilation*(self.kernel_size-1)-1)/self.stride+1) w_out = math.floor((w_in + 2*self.padding - self.dilation*(self.kernel_size-1)-1)/self.stride+1) # x: [bs ksize num_sliding] x = torch.nn.functional.unfold(input, kernel_size=self.kernel_size, padding=self.padding, stride=self.stride) bs = input.shape[0] ksize = self.in_channels*self.kernel_size*self.kernel_size num_sliding = x.shape[2] assert x.shape[1] == ksize # x: [bs*num_sliding ksize] (im2col) x = torch.transpose(x, 1, 2).reshape(-1, ksize) weight_flat = self.weight.view(self.out_channels, ksize) tensor_x = x.abs().detach() tensor_weight = weight_flat.abs().detach() act_scale = torch.max(tensor_x, dim=0)[0] weight_scale = torch.max(tensor_weight, dim=0)[0] scale = torch.sqrt(act_scale/weight_scale) x /= scale weight_flat = weight_flat * scale x = self._input_quantizer(x) weight_flat = self._weight_quantizer(weight_flat) # (gemm) x = torch.mm(x, weight_flat.t()) x = x.reshape(bs, num_sliding, self.out_channels) x = torch.transpose(x, 1, 2) x = x.reshape(bs, self.out_channels, h_out, w_out) return x 5.1 Verify operation through different example inputs 5.2 Verify operation through actual model As we can see, the L1loss between SmoothQuanted and original model is much lower (1/4) than the right hand side, meaning that the combination of im2col+gemm and SmoothQuanted works.\n6. What’s next? Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits. Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss). Get the accuracy results of the model by only replacing Conv2d layers that are inside ‘backbone_2d’ group. Dive into the problem of “why merely transforming quantized convolution operation into quantized im2col+gemm already decreases the L1loss a lot”. ",
+  "wordCount" : "625",
+  "inLanguage": "en",
+  "datePublished": "2024-05-17T18:10:55-05:00",
+  "dateModified": "2024-05-17T18:10:55-05:00",
+  "author":{
+    "@type": "Person",
+    "name": "Banghao Chi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://banghao.live/blog/9/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Banghao's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://banghao.live/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://banghao.live/" accesskey="h" title="Banghao&#39;s Blog (Alt + H)">Banghao&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://banghao.live/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.live/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.live/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://banghao.studio/login" title="Forum App">
+                    <span>Forum App</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Meeting Discussion (9)
+    </h1>
+    <div class="post-meta"><span title='2024-05-17 18:10:55 -0500 -0500'>May 17, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Banghao Chi
+
+</div>
+  </header> 
+  <div class="post-content"><h4 id="1-table-of-contents">1. Table of Contents<a hidden class="anchor" aria-hidden="true" href="#1-table-of-contents">#</a></h4>
+<ul>
+<li>Implementation of im2col+gemm operation: ✅</li>
+<li>Add INT8-quantizer to the first operation: ✅</li>
+<li>Add SmoothQuant to the second operation: ✅</li>
+<li>Verify operation through different example inputs: ✅</li>
+<li>Integrate im2col+gemm SmoothQuant INT8-quantized layer into model: ✅</li>
+<li>Validate the accuracy of the final model:
+<ul>
+<li>through different example inputs: ✅</li>
+<li>through actual data flow of the model: ✅</li>
+<li>through accuracy: In progress… (due to Delta only comes back online really late)</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-implementation-of-im2colgemm-operation">2. Implementation of im2col+gemm operation<a hidden class="anchor" aria-hidden="true" href="#2-implementation-of-im2colgemm-operation">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyConv2d</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, in_channels, out_channels, kernel_size, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, dilation<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        super(MyQuantConv2d, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>in_channels <span style="color:#f92672">=</span> in_channels
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>out_channels <span style="color:#f92672">=</span> out_channels
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>kernel_size <span style="color:#f92672">=</span> kernel_size
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>stride <span style="color:#f92672">=</span> stride
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>padding <span style="color:#f92672">=</span> padding
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dilation <span style="color:#f92672">=</span> dilation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>weight <span style="color:#f92672">=</span> Parameter(torch<span style="color:#f92672">.</span>Tensor(out_channels, in_channels, kernel_size, kernel_size))<span style="color:#f92672">.</span>to(DEVICE)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, input):
+</span></span><span style="display:flex;"><span>        h_in, w_in <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">2</span>:]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        h_out <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>floor((h_in <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>padding <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>dilation<span style="color:#f92672">*</span>(self<span style="color:#f92672">.</span>kernel_size<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>self<span style="color:#f92672">.</span>stride<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        w_out <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>floor((w_in <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>padding <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>dilation<span style="color:#f92672">*</span>(self<span style="color:#f92672">.</span>kernel_size<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>self<span style="color:#f92672">.</span>stride<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># x: [bs ksize num_sliding] (im2col)</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>functional<span style="color:#f92672">.</span>unfold(input, kernel_size<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>kernel_size, padding<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>padding, stride<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>stride)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        bs <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>        ksize <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>in_channels<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>kernel_size<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>kernel_size
+</span></span><span style="display:flex;"><span>        num_sliding <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> x<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> ksize
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># x: [bs*num_sliding ksize]</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>transpose(x, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, ksize)
+</span></span><span style="display:flex;"><span>        weight_flat <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>view(self<span style="color:#f92672">.</span>out_channels, ksize)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># (gemm)</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>mm(x, weight_flat<span style="color:#f92672">.</span>t())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>reshape(bs, num_sliding, self<span style="color:#f92672">.</span>out_channels)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>transpose(x, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>reshape(bs, self<span style="color:#f92672">.</span>out_channels, h_out, w_out)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x
+</span></span></code></pre></div><h4 id="3-add-int8-quantizer-to-im2colgemm">3. Add INT8-quantizer to im2col+gemm<a hidden class="anchor" aria-hidden="true" href="#3-add-int8-quantizer-to-im2colgemm">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyInitQuantConv2d</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, in_channels, out_channels, kernel_size, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, dilation<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, input_quantizer<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, weight_quantizer<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        super(MyQuantConv2d, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>in_channels <span style="color:#f92672">=</span> in_channels
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>out_channels <span style="color:#f92672">=</span> out_channels
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>kernel_size <span style="color:#f92672">=</span> kernel_size
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>stride <span style="color:#f92672">=</span> stride
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>padding <span style="color:#f92672">=</span> padding
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dilation <span style="color:#f92672">=</span> dilation
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_input_quantizer <span style="color:#f92672">=</span> input_quantizer
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_weight_quantizer <span style="color:#f92672">=</span> weight_quantizer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>weight <span style="color:#f92672">=</span> Parameter(torch<span style="color:#f92672">.</span>Tensor(out_channels, in_channels, kernel_size, kernel_size))<span style="color:#f92672">.</span>to(DEVICE)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, input):
+</span></span><span style="display:flex;"><span>        h_in, w_in <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">2</span>:]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        h_out <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>floor((h_in <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>padding <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>dilation<span style="color:#f92672">*</span>(self<span style="color:#f92672">.</span>kernel_size<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>self<span style="color:#f92672">.</span>stride<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        w_out <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>floor((w_in <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>padding <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>dilation<span style="color:#f92672">*</span>(self<span style="color:#f92672">.</span>kernel_size<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>self<span style="color:#f92672">.</span>stride<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># x: [bs ksize num_sliding]</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>functional<span style="color:#f92672">.</span>unfold(input, kernel_size<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>kernel_size, padding<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>padding, stride<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>stride)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        bs <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>        ksize <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>in_channels<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>kernel_size<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>kernel_size
+</span></span><span style="display:flex;"><span>        num_sliding <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> x<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> ksize
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># x: [bs*num_sliding ksize] (im2col)</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>transpose(x, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, ksize)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        weight_flat <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>view(self<span style="color:#f92672">.</span>out_channels, ksize)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_input_quantizer(x)
+</span></span><span style="display:flex;"><span>        weight_flat <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_weight_quantizer(weight_flat)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># (gemm)</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>mm(x, weight_flat<span style="color:#f92672">.</span>t())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>reshape(bs, num_sliding, self<span style="color:#f92672">.</span>out_channels)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>transpose(x, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>reshape(bs, self<span style="color:#f92672">.</span>out_channels, h_out, w_out)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x
+</span></span></code></pre></div><h4 id="4-add-smoothquant-to-im2colgemm-w8a8-quantized-layer">4. Add SmoothQuant to im2col+gemm W8A8 quantized layer<a hidden class="anchor" aria-hidden="true" href="#4-add-smoothquant-to-im2colgemm-w8a8-quantized-layer">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyQuantConv2d</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, in_channels, out_channels, kernel_size, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, dilation<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, input_quantizer<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, weight_quantizer<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        super(MyQuantConv2d, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>in_channels <span style="color:#f92672">=</span> in_channels
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>out_channels <span style="color:#f92672">=</span> out_channels
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>kernel_size <span style="color:#f92672">=</span> kernel_size
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>stride <span style="color:#f92672">=</span> stride
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>padding <span style="color:#f92672">=</span> padding
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dilation <span style="color:#f92672">=</span> dilation
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_input_quantizer <span style="color:#f92672">=</span> input_quantizer
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_weight_quantizer <span style="color:#f92672">=</span> weight_quantizer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>weight <span style="color:#f92672">=</span> Parameter(torch<span style="color:#f92672">.</span>Tensor(out_channels, in_channels, kernel_size, kernel_size))<span style="color:#f92672">.</span>to(DEVICE)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, input):
+</span></span><span style="display:flex;"><span>        h_in, w_in <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">2</span>:]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        h_out <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>floor((h_in <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>padding <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>dilation<span style="color:#f92672">*</span>(self<span style="color:#f92672">.</span>kernel_size<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>self<span style="color:#f92672">.</span>stride<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        w_out <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>floor((w_in <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>padding <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>dilation<span style="color:#f92672">*</span>(self<span style="color:#f92672">.</span>kernel_size<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>self<span style="color:#f92672">.</span>stride<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># x: [bs ksize num_sliding]</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>functional<span style="color:#f92672">.</span>unfold(input, kernel_size<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>kernel_size, padding<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>padding, stride<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>stride)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        bs <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>        ksize <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>in_channels<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>kernel_size<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>kernel_size
+</span></span><span style="display:flex;"><span>        num_sliding <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> x<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> ksize
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># x: [bs*num_sliding ksize] (im2col)</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>transpose(x, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, ksize)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        weight_flat <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>view(self<span style="color:#f92672">.</span>out_channels, ksize)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        tensor_x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>abs()<span style="color:#f92672">.</span>detach()
+</span></span><span style="display:flex;"><span>        tensor_weight <span style="color:#f92672">=</span> weight_flat<span style="color:#f92672">.</span>abs()<span style="color:#f92672">.</span>detach()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        act_scale <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>max(tensor_x, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>        weight_scale <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>max(tensor_weight, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        scale <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>sqrt(act_scale<span style="color:#f92672">/</span>weight_scale)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">/=</span> scale
+</span></span><span style="display:flex;"><span>        weight_flat <span style="color:#f92672">=</span> weight_flat <span style="color:#f92672">*</span> scale
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_input_quantizer(x)
+</span></span><span style="display:flex;"><span>        weight_flat <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_weight_quantizer(weight_flat)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># (gemm)</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>mm(x, weight_flat<span style="color:#f92672">.</span>t())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>reshape(bs, num_sliding, self<span style="color:#f92672">.</span>out_channels)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>transpose(x, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>reshape(bs, self<span style="color:#f92672">.</span>out_channels, h_out, w_out)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x
+</span></span></code></pre></div><h4 id="51-verify-operation-through-different-example-inputs">5.1 Verify operation through different example inputs<a hidden class="anchor" aria-hidden="true" href="#51-verify-operation-through-different-example-inputs">#</a></h4>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/18/p2uoX9qzG1Cl8v5.png" alt="img"  />
+</p>
+<h4 id="52-verify-operation-through-actual-model">5.2 Verify operation through actual model<a hidden class="anchor" aria-hidden="true" href="#52-verify-operation-through-actual-model">#</a></h4>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/18/RFoasGmtAMIxQ2J.png" alt="image-20240517180654035"  />
+</p>
+<p>As we can see, the L1loss between SmoothQuanted and original model is much lower (1/4) than the right hand side, meaning that the combination of im2col+gemm and SmoothQuanted works.</p>
+<h4 id="6-whats-next">6. What’s next?<a hidden class="anchor" aria-hidden="true" href="#6-whats-next">#</a></h4>
+<ul>
+<li>Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits.</li>
+<li>Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss).</li>
+<li>Get the accuracy results of the model by only replacing Conv2d layers that are inside <strong>‘backbone_2d’</strong> group.</li>
+<li>Dive into the problem of “why merely transforming quantized convolution operation into quantized im2col+gemm already decreases the L1loss a lot”.</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://banghao.live/tags/meeting-discussions/">Meeting-Discussions</a></li>
+      <li><a href="https://banghao.live/tags/research/">Research</a></li>
+      <li><a href="https://banghao.live/tags/quantization/">Quantization</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://banghao.live/blog/8/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Meeting Discussion (8)</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://banghao.live/">Banghao&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
