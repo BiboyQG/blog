@@ -6,8 +6,15 @@
     <description>Recent content in Quantization on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 17 May 2024 18:10:55 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 21 May 2024 18:26:33 -0500</lastBuildDate>
     <atom:link href="https://banghao.live/tags/quantization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Meeting Discussion (10)</title>
+      <link>https://banghao.live/blog/10/</link>
+      <pubDate>Tue, 21 May 2024 18:26:33 -0500</pubDate>
+      <guid>https://banghao.live/blog/10/</guid>
+      <description>1. Table of Contents: Recap of model structure: ✅ Recap of initial status: ✅ Finalize our methods and bridge the gap and : ✅ 2. Model structure: backbone_3d map_to_bev backbone_2d: Conv2d dense_head Conv2d 3. Initial status: Baseline methods (W8A8 quantization): which quantize all activation of Conv2d (in both backbone_2d and dense_head) with signed quantization. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.</description>
+    </item>
     <item>
       <title>Meeting Discussion (9)</title>
       <link>https://banghao.live/blog/9/</link>

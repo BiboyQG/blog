@@ -200,6 +200,18 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Meeting Discussion (10)
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. Table of Contents: Recap of model structure: ✅ Recap of initial status: ✅ Finalize our methods and bridge the gap and : ✅ 2. Model structure: backbone_3d map_to_bev backbone_2d: Conv2d dense_head Conv2d 3. Initial status: Baseline methods (W8A8 quantization): which quantize all activation of Conv2d (in both backbone_2d and dense_head) with signed quantization. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-05-21 18:26:33 -0500 -0500'>May 21, 2024</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Banghao Chi</footer>
+  <a class="entry-link" aria-label="post link to Meeting Discussion (10)" href="https://banghao.live/blog/10/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Meeting Discussion (9)
     </h2>
   </header>
@@ -314,19 +326,6 @@ Setup nuScenes training and validation dataset for MMDetection3D framework: ✅ 
   </div>
   <footer class="entry-footer"><span title='2024-04-02 18:18:50 -0500 -0500'>April 2, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Banghao Chi</footer>
   <a class="entry-link" aria-label="post link to Meeting Discussion (3)" href="https://banghao.live/blog/3/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Quantization on CenterPoint
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Take mmdetection as an example First find the Runner class: This is the place where the build of the model is completed:
-class Runner: def __init__(...): ... ... self.model = self.build_model(model) # wrap model self.model = self.wrap_model( self.cfg.get(&#39;model_wrapper_cfg&#39;), self.model) # get model name from the model class if hasattr(self.model, &#39;module&#39;): self._model_name = self.model.module.__class__.__name__ else: self._model_name = self.model.__class__.__name__ ... ... Learn about how pytorch-quantization works by diving into its source code: Code about the quantization function respect to a specific Pytorch model as input: quant_utils....</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-04-01 16:32:18 -0500 -0500'>April 1, 2024</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Banghao Chi</footer>
-  <a class="entry-link" aria-label="post link to Quantization on CenterPoint" href="https://banghao.live/blog/quant/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
