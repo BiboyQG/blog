@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow">
 <title>Meeting Discussion (10) | Banghao&#39;s Blog</title>
 <meta name="keywords" content="meeting-discussions, research, Quantization">
-<meta name="description" content="1. Table of Contents: Recap of model structure: ✅ Recap of initial status: ✅ Finalize our methods and bridge the gap and : ✅ 2. Model structure: backbone_3d map_to_bev backbone_2d: Conv2d dense_head Conv2d 3. Initial status: Baseline methods (W8A8 quantization): which quantize all activation of Conv2d (in both backbone_2d and dense_head) with signed quantization. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.">
+<meta name="description" content="1. Table of Contents: Final results and comparison: ✅ Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits: ✅ Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss): ✅ Lots of experiments to analyze the accuracy loss: ✅ Modify the model based on the above experiments: ✅ Validate the accuracy of the final model: through mAP and NDS: ✅ 2.">
 <meta name="author" content="Banghao Chi">
 <link rel="canonical" href="https://banghao.live/blog/10/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8d6d0999b7a3d50c6d5a00541fc8078c4695a82720ad160b4078dab1d4edf114.css" integrity="sha256-jW0Jmbej1QxtWgBUH8gHjEaVqCcgrRYLQHjasdTt8RQ=" rel="preload stylesheet" as="style">
@@ -56,7 +56,7 @@
 
     </style>
 </noscript><meta property="og:title" content="Meeting Discussion (10)" />
-<meta property="og:description" content="1. Table of Contents: Recap of model structure: ✅ Recap of initial status: ✅ Finalize our methods and bridge the gap and : ✅ 2. Model structure: backbone_3d map_to_bev backbone_2d: Conv2d dense_head Conv2d 3. Initial status: Baseline methods (W8A8 quantization): which quantize all activation of Conv2d (in both backbone_2d and dense_head) with signed quantization. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0." />
+<meta property="og:description" content="1. Table of Contents: Final results and comparison: ✅ Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits: ✅ Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss): ✅ Lots of experiments to analyze the accuracy loss: ✅ Modify the model based on the above experiments: ✅ Validate the accuracy of the final model: through mAP and NDS: ✅ 2." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://banghao.live/blog/10/" /><meta property="article:section" content="blog" />
 <meta property="article:published_time" content="2024-05-21T18:26:33-05:00" />
@@ -64,7 +64,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Meeting Discussion (10)"/>
-<meta name="twitter:description" content="1. Table of Contents: Recap of model structure: ✅ Recap of initial status: ✅ Finalize our methods and bridge the gap and : ✅ 2. Model structure: backbone_3d map_to_bev backbone_2d: Conv2d dense_head Conv2d 3. Initial status: Baseline methods (W8A8 quantization): which quantize all activation of Conv2d (in both backbone_2d and dense_head) with signed quantization. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0."/>
+<meta name="twitter:description" content="1. Table of Contents: Final results and comparison: ✅ Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits: ✅ Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss): ✅ Lots of experiments to analyze the accuracy loss: ✅ Modify the model based on the above experiments: ✅ Validate the accuracy of the final model: through mAP and NDS: ✅ 2."/>
 
 
 <script type="application/ld+json">
@@ -93,12 +93,12 @@
   "@type": "BlogPosting",
   "headline": "Meeting Discussion (10)",
   "name": "Meeting Discussion (10)",
-  "description": "1. Table of Contents: Recap of model structure: ✅ Recap of initial status: ✅ Finalize our methods and bridge the gap and : ✅ 2. Model structure: backbone_3d map_to_bev backbone_2d: Conv2d dense_head Conv2d 3. Initial status: Baseline methods (W8A8 quantization): which quantize all activation of Conv2d (in both backbone_2d and dense_head) with signed quantization. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.",
+  "description": "1. Table of Contents: Final results and comparison: ✅ Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits: ✅ Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss): ✅ Lots of experiments to analyze the accuracy loss: ✅ Modify the model based on the above experiments: ✅ Validate the accuracy of the final model: through mAP and NDS: ✅ 2.",
   "keywords": [
     "meeting-discussions", "research", "Quantization"
   ],
-  "articleBody": "1. Table of Contents: Recap of model structure: ✅ Recap of initial status: ✅ Finalize our methods and bridge the gap and : ✅ 2. Model structure: backbone_3d map_to_bev backbone_2d: Conv2d dense_head Conv2d 3. Initial status: Baseline methods (W8A8 quantization): which quantize all activation of Conv2d (in both backbone_2d and dense_head) with signed quantization. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.5782 - 0.5804) (0.6482 - 0.6499) signed quantization for all activation of Conv2d (in both backbone_2d and dense_head) Our methods 4.1 Baseline methods: Signed activation quantization -\u003e unsigned activation quantization for all Conv2d layers due to ReLU Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.5782 - 0.5804) -\u003e (0.5882 - 0.5888) (0.6482 - 0.6499) -\u003e 0.6603 signed -\u003e unsigned quantization for all activation of Conv2d (in both backbone_2d and dense_head) Our methods 4.2 Our methods: Replace original model’s all Conv2d layers with our layers (including Conv2d in both “backbone_2d” and “dense_head”) Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.5882 - 0.5888) 0.6603 unsigned quantization for all activation of Conv2d (in both backbone_2d and dense_head) Our methods 0.0332 0.1086 Replace original model’s all Conv2d layers with our layers (including Conv2d in both backbone_2d and dense_head) with scaling factor = 0.5 meaning that head is really sensitive to both SQ operation and quantization. Therefore, in the next section, we will take a look at\n4.3 Our methods: Replace original model’s backbone_2d’s Conv2d layers with our layers and all its dense_head’s Conv2d with baseline methods (standard W8A8)) Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.5882 - 0.5888) 0.6603 unsigned quantization for all activation of Conv2d (in both backbone_2d and dense_head) Our methods 0.0332 -\u003e 0.5889 0.1086 -\u003e 0.6607 Replace original model’s backbone_2d’s Conv2d layers with our layers with scaling factor = 0.5, and all its dense_head’s Conv2d with baseline methods (standard W8A8)). At this stage, the result is good, but the scaling factor for SmoothQuant is 0.5 for now, and we have no idea what about other factors. Therefore, we will try different scaling factors to see which will be the best scaling factor.\n4.4 Our methods: with different scaling factor mAP: NDS: meaning that scaling factor = 0.5 may be a good and stable choice. Hence, in the following experiments, we are gonna stick with scaling factor = 0.5.\n4.5 Test: Only quantizing the Conv2d in dense_head (standard W8A8) without quantizing the Conv2d in backbone_2d (W16A16) The goal of this experiment is to test which module still cause the accuracy gap. So we only quantize the Conv2d in dense_head:\nIf the accuracy stays the same compared with our current method’s results, then it means that the accuracy gap is caused by quantization of Conv2d in dense_head, since we only quantized the Conv2d in dense_head here. If accuracy doesn’t stay the same, then the accuracy gap is caused by something else. It turns out:\nModel mAP NDS Our methods 0.5889 -\u003e 0.5891 0.6607 -\u003e 0.6607 which doesn’t make much difference. Hence, it means that the accuracy gap is caused by quantization of Conv2d in dense_head, which further indicates that we should selectively enable of quantization of Conv2d in dense_head.\n4.6 Compare the dense_head activation L1loss between (the original model and the standard W8A8-quantized Conv2d in backbone_2d and our method’s Conv2d in dense_head) and (the original model and fully standard W8A8-quantized model) to get the selective list. In this case, we compare the L1loss layer by layer within dense_head and find a list of Conv2d’s name that shouldn’t be quantized (either with too large L1loss or NaN in L1loss):\ndense_head.heads_list.0.center.1 dense_head.heads_list.0.center_z.1 dense_head.heads_list.0.dim.1 dense_head.heads_list.0.rot.1 dense_head.heads_list.0.vel.1 dense_head.heads_list.0.hm.0.0 dense_head.heads_list.0.hm.1 dense_head.heads_list.1.center.1 dense_head.heads_list.1.center_z.1 dense_head.heads_list.1.dim.1 dense_head.heads_list.1.rot.1 dense_head.heads_list.1.vel.1 dense_head.heads_list.1.hm.0.0 dense_head.heads_list.1.hm.1 dense_head.heads_list.2.center.1 dense_head.heads_list.2.dim.1 dense_head.heads_list.2.rot.1 dense_head.heads_list.2.vel.1 dense_head.heads_list.2.hm.0.0 dense_head.heads_list.2.hm.1 dense_head.heads_list.3.center.1 dense_head.heads_list.3.dim.1 dense_head.heads_list.3.vel.1 dense_head.heads_list.3.hm.0.0 dense_head.heads_list.3.hm.1 dense_head.heads_list.4.center.1 dense_head.heads_list.4.dim.1 dense_head.heads_list.4.vel.1 dense_head.heads_list.4.hm.0.0 dense_head.heads_list.4.hm.1 dense_head.heads_list.5.center.1 dense_head.heads_list.5.dim.1 dense_head.heads_list.5.vel.1 dense_head.heads_list.5.hm.0.0 dense_head.heads_list.5.hm.1 Therefore, in the following experiment, we would just apply standard W8A8 quantization to these Conv2d or even not quantize them at all.\n4.7 Two more experiments as compared to the No.5 test. Standard W8A8-quantized Conv2d in the above list and backbone_2d, with other Conv2d quantized with our methods (rest in dense_head): The mAP is 0.5881. Standard W8A8-quantized Conv2d in the above list, with other Conv2d quantized with our methods (rest in dense_head and all in backbone_2d): The mAP turns to 0.5889. No.5 test: Only quantizing the Conv2d in dense_head (standard W8A8) without quantizing the Conv2d in backbone_2d (W16A16): The mAP is 0.5889. This shows that our methods are indeed working, and the issue lies within the dense_head part. Therefore, to prove our methods work, we will not quantize Conv2d in the above list.\n4.8 Baseline methods: Only quantize Conv2d in backbone_2d with quantizer of Conv2d in dense_head set to 16 num_bits Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.5882 - 0.5888) -\u003e 0.5903 0.6603 -\u003e 0.6626 Only quantize Conv2d in backbone_2d with quantizer of Conv2d in dense_head set to 16 num_bits Our methods 0.5889 0.6607 Replace original model’s backbone_2d’s Conv2d layers with our layers with scaling factor = 0.5, and all its dense_head’s Conv2d with baseline methods (standard W8A8)). 4.9 Our methods: Replace all original model’s backbone_2d’s Conv2d layers and dense_head’s Conv2d layers with our layers with scaling factor = 0.5, except for the Conv2d in the above list. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) 0.5903 0.6626 Only quantize Conv2d in backbone_2d with quantizer of Conv2d in dense_head set to 16 num_bits Our methods 0.5889 -\u003e 0.5914 0.6607 -\u003e 0.6638 Replace all original model’s backbone_2d’s Conv2d layers and dense_head’s Conv2d layers with our layers with scaling factor = 0.5, except for the Conv2d in the above list, but the quantizer still exist in them. But the W16A16 Conv2d quantizer for those which are in the above list still exist, so we delete them since they are useless in the case of W16A16 and will also cause accuracy loss after applying static PTQ.\n4.10 Our methods: Delete the W16A16 Conv2d quantizer for those which are in the above list. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) 0.5903 0.6626 Only quantize Conv2d in backbone_2d with quantizer of Conv2d in dense_head set to 16 num_bits Our methods 0.5914 -\u003e 0.5921 0.6638 -\u003e 0.6641 Replace all original model’s backbone_2d’s Conv2d layers and dense_head’s Conv2d layers with our layers with scaling factor = 0.5, except for the Conv2d in the above list. which proves that our methods are effective.\n5 What’s next? To be continued…\n",
-  "wordCount" : "1115",
+  "articleBody": "1. Table of Contents: Final results and comparison: ✅ Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits: ✅ Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss): ✅ Lots of experiments to analyze the accuracy loss: ✅ Modify the model based on the above experiments: ✅ Validate the accuracy of the final model: through mAP and NDS: ✅ 2. Final results and comparison: From the graph, we can clearly see that our method fill in the accuracy gap brought by standard W8A8 quantization by migrating the quantization diffculty from activation to weight.\n3. Verify our method by example inputs We can clearly see the benefits of applying SmoothQuant to Convolutional operation from the graph due to lower L1loss.\n4. Multiple tests on 50X input with different scaling factors After doing multiple tests on our method with example 50X scaled inputs, we found that bigger the scaling factor is, better the results are. But this may not be always the case since here it is only example inputs. We are going to do a similar tests on the entire model in the following section.\n5. Initial status: Baseline methods (W8A8 quantization): which quantize all activation of Conv2d (in both backbone_2d and dense_head) with signed quantization. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.5782 - 0.5804) (0.6482 - 0.6499) signed quantization for all activation of Conv2d (in both backbone_2d and dense_head) Our methods 5.1 Baseline methods: Signed activation quantization -\u003e unsigned activation quantization for all Conv2d layers due to ReLU Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.5782 - 0.5804) -\u003e (0.5882 - 0.5888) (0.6482 - 0.6499) -\u003e 0.6603 signed -\u003e unsigned quantization for all activation of Conv2d (in both backbone_2d and dense_head) Our methods 5.2 Our methods: Replace original model’s all Conv2d layers with our layers (including Conv2d in both “backbone_2d” and “dense_head”) Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.5882 - 0.5888) 0.6603 unsigned quantization for all activation of Conv2d (in both backbone_2d and dense_head) Our methods 0.0332 0.1086 Replace original model’s all Conv2d layers with our layers (including Conv2d in both backbone_2d and dense_head) with scaling factor = 0.5 meaning that head is really sensitive to both SQ operation and quantization. Therefore, in the next section, we will take a look at\n5.3 Our methods: Replace original model’s backbone_2d’s Conv2d layers with our layers and all its dense_head’s Conv2d with baseline methods (standard W8A8)) Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.5882 - 0.5888) 0.6603 unsigned quantization for all activation of Conv2d (in both backbone_2d and dense_head) Our methods 0.0332 -\u003e 0.5889 0.1086 -\u003e 0.6607 Replace original model’s backbone_2d’s Conv2d layers with our layers with scaling factor = 0.5, and all its dense_head’s Conv2d with baseline methods (standard W8A8)). At this stage, the result is good, but the scaling factor for SmoothQuant is 0.5 for now, and we have no idea what about other factors. Therefore, we will try different scaling factors to see which will be the best scaling factor.\n5.4 Our methods: with different scaling factor mAP: NDS: meaning that scaling factor = 0.5 may be a good and stable choice. Hence, in the following experiments, we are gonna stick with scaling factor = 0.5.\n5.5 Test: Only quantizing the Conv2d in dense_head (standard W8A8) without quantizing the Conv2d in backbone_2d (W16A16) The goal of this experiment is to test which module still cause the accuracy gap. So we only quantize the Conv2d in dense_head:\nIf the accuracy stays the same compared with our current method’s results, then it means that the accuracy gap is caused by quantization of Conv2d in dense_head, since we only quantized the Conv2d in dense_head here. If accuracy doesn’t stay the same, then the accuracy gap is caused by something else. It turns out:\nModel mAP NDS Our methods 0.5889 -\u003e 0.5891 0.6607 -\u003e 0.6607 which doesn’t make much difference. Hence, it means that the accuracy gap is caused by quantization of Conv2d in dense_head, which further indicates that we should selectively enable of quantization of Conv2d in dense_head.\n5.6 Compare the dense_head activation L1loss between (the original model and the standard W8A8-quantized Conv2d in backbone_2d and our method’s Conv2d in dense_head) and (the original model and fully standard W8A8-quantized model) to get the selective list. In this case, we compare the L1loss layer by layer within dense_head and find a list of Conv2d’s name that shouldn’t be quantized (either with too large L1loss or NaN in L1loss):\ndense_head.heads_list.0.center.1 dense_head.heads_list.0.center_z.1 dense_head.heads_list.0.dim.1 dense_head.heads_list.0.rot.1 dense_head.heads_list.0.vel.1 dense_head.heads_list.0.hm.0.0 dense_head.heads_list.0.hm.1 dense_head.heads_list.1.center.1 dense_head.heads_list.1.center_z.1 dense_head.heads_list.1.dim.1 dense_head.heads_list.1.rot.1 dense_head.heads_list.1.vel.1 dense_head.heads_list.1.hm.0.0 dense_head.heads_list.1.hm.1 dense_head.heads_list.2.center.1 dense_head.heads_list.2.dim.1 dense_head.heads_list.2.rot.1 dense_head.heads_list.2.vel.1 dense_head.heads_list.2.hm.0.0 dense_head.heads_list.2.hm.1 dense_head.heads_list.3.center.1 dense_head.heads_list.3.dim.1 dense_head.heads_list.3.vel.1 dense_head.heads_list.3.hm.0.0 dense_head.heads_list.3.hm.1 dense_head.heads_list.4.center.1 dense_head.heads_list.4.dim.1 dense_head.heads_list.4.vel.1 dense_head.heads_list.4.hm.0.0 dense_head.heads_list.4.hm.1 dense_head.heads_list.5.center.1 dense_head.heads_list.5.dim.1 dense_head.heads_list.5.vel.1 dense_head.heads_list.5.hm.0.0 dense_head.heads_list.5.hm.1 Therefore, in the following experiment, we would just apply standard W8A8 quantization to these Conv2d or even not quantize them at all.\n5.7 Two more experiments as compared to the No.5 test. Standard W8A8-quantized Conv2d in the above list and backbone_2d, with other Conv2d quantized with our methods (rest in dense_head): The mAP is 0.5881. Standard W8A8-quantized Conv2d in the above list, with other Conv2d quantized with our methods (rest in dense_head and all in backbone_2d): The mAP turns to 0.5889. No.5 test: Only quantizing the Conv2d in dense_head (standard W8A8) without quantizing the Conv2d in backbone_2d (W16A16): The mAP is 0.5889. This shows that our methods are indeed working, and the issue lies within the dense_head part. Therefore, to prove our methods work, we will not quantize Conv2d in the above list.\n5.8 Baseline methods: Only quantize Conv2d in backbone_2d without quantization of Conv2d in dense_head Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.5882 - 0.5888) -\u003e 0.5912 0.6603 -\u003e 0.6630 Only quantize Conv2d in backbone_2d without quantization of Conv2d in dense_head Our methods 0.5889 0.6607 Replace original model’s backbone_2d’s Conv2d layers with our layers with scaling factor = 0.5, and all its dense_head’s Conv2d with baseline methods (standard W8A8)). 5.9 Our methods: Replace all original model’s backbone_2d’s Conv2d layers and dense_head’s Conv2d layers with our layers with scaling factor = 0.5, except for the Conv2d in the above list. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) 0.5912 0.6630 Only quantize Conv2d in backbone_2d without quantization of Conv2d in dense_head Our methods 0.5889 -\u003e 0.5914 0.6607 -\u003e 0.6638 Replace all original model’s backbone_2d’s Conv2d layers and dense_head’s Conv2d layers with our layers with scaling factor = 0.5, except for the Conv2d in the above list, but the quantizer still exist in them. But the W16A16 Conv2d quantizer for those which are in the above list still exist, so we delete them since they are useless in the case of W16A16 and will also cause accuracy loss after applying static PTQ.\n5.10 Our methods: Delete the W16A16 Conv2d quantizer for those which are in the above list. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) 0.5912 0.6630 Only quantize Conv2d in backbone_2d without quantization of Conv2d in dense_head Our methods 0.5914 -\u003e 0.5921 0.6638 -\u003e 0.6641 Replace all original model’s backbone_2d’s Conv2d layers and dense_head’s Conv2d layers with our layers with scaling factor = 0.5, except for the Conv2d in the above list. which proves that our methods are effective.\n6 What’s next? Since what we now implement is Dynamic SmoothQuant operation: We can try static SmoothQuant operation. Different quantization combo on both baseline method and our method: W16A8, W16A4 W16A3, W16A2 W8A16, W4A16 W3A16, W2A16 W8A8, W8A4, W4A8, W4A4 ",
+  "wordCount" : "1307",
   "inLanguage": "en",
   "datePublished": "2024-05-21T18:26:33-05:00",
   "dateModified": "2024-05-21T18:26:33-05:00",
@@ -199,32 +199,36 @@
     <h1 class="post-title entry-hint-parent">
       Meeting Discussion (10)
     </h1>
-    <div class="post-meta"><span title='2024-05-21 18:26:33 -0500 -0500'>May 21, 2024</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Banghao Chi
+    <div class="post-meta"><span title='2024-05-21 18:26:33 -0500 -0500'>May 21, 2024</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Banghao Chi
 
 </div>
   </header> 
   <div class="post-content"><h4 id="1-table-of-contents">1. Table of Contents:<a hidden class="anchor" aria-hidden="true" href="#1-table-of-contents">#</a></h4>
 <ul>
-<li>Recap of model structure: ✅</li>
-<li>Recap of initial status: ✅</li>
-<li>Finalize our methods and bridge the gap and : ✅</li>
-</ul>
-<h4 id="2-model-structure">2. Model structure:<a hidden class="anchor" aria-hidden="true" href="#2-model-structure">#</a></h4>
+<li>Final results and comparison: ✅</li>
+<li>Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits: ✅</li>
+<li>Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss): ✅</li>
+<li>Lots of experiments to analyze the accuracy loss: ✅</li>
+<li>Modify the model based on the above experiments: ✅</li>
+<li>Validate the accuracy of the final model:
 <ul>
-<li>backbone_3d</li>
-<li>map_to_bev</li>
-<li>backbone_2d:
-<ul>
-<li>Conv2d</li>
-</ul>
-</li>
-<li>dense_head
-<ul>
-<li>Conv2d</li>
+<li>through mAP and NDS: ✅</li>
 </ul>
 </li>
 </ul>
-<h4 id="3-initial-status">3. Initial status:<a hidden class="anchor" aria-hidden="true" href="#3-initial-status">#</a></h4>
+<h4 id="2-final-results-and-comparison">2. Final results and comparison:<a hidden class="anchor" aria-hidden="true" href="#2-final-results-and-comparison">#</a></h4>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/24/Y9ZNhDfTIHrLROB.png" alt="image-20240523143346185"  />
+</p>
+<p>From the graph, we can clearly see that our method fill in the accuracy gap brought by standard W8A8 quantization by migrating the quantization diffculty from activation to weight.</p>
+<h4 id="3-verify-our-method-by-example-inputs">3. Verify our method by example inputs<a hidden class="anchor" aria-hidden="true" href="#3-verify-our-method-by-example-inputs">#</a></h4>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/24/anip4uIC1y79XoM.png" alt="L1loss"  />
+</p>
+<p>We can clearly see the benefits of applying SmoothQuant to Convolutional operation from the graph due to lower L1loss.</p>
+<h4 id="4-multiple-tests-on-50x-input-with-different-scaling-factors">4. Multiple tests on 50X input with different scaling factors<a hidden class="anchor" aria-hidden="true" href="#4-multiple-tests-on-50x-input-with-different-scaling-factors">#</a></h4>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/24/9zMBltN5ITxCFWR.png" alt="scaling"  />
+</p>
+<p>After doing multiple tests on our method with example 50X scaled inputs, we found that bigger the scaling factor is, better the results are. But this may not be always the case since here it is only example inputs. We are going to do a similar tests on the entire model in the following section.</p>
+<h4 id="5-initial-status">5. Initial status:<a hidden class="anchor" aria-hidden="true" href="#5-initial-status">#</a></h4>
 <ul>
 <li>Baseline methods (W8A8 quantization):
 <ul>
@@ -262,7 +266,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="41-baseline-methods-signed-activation-quantization---unsigned-activation-quantization-for-all-conv2d-layers-due-to-relu">4.1 Baseline methods: Signed activation quantization -&gt; unsigned activation quantization for all Conv2d layers due to ReLU<a hidden class="anchor" aria-hidden="true" href="#41-baseline-methods-signed-activation-quantization---unsigned-activation-quantization-for-all-conv2d-layers-due-to-relu">#</a></h4>
+<h4 id="51-baseline-methods-signed-activation-quantization---unsigned-activation-quantization-for-all-conv2d-layers-due-to-relu">5.1 Baseline methods: Signed activation quantization -&gt; unsigned activation quantization for all Conv2d layers due to ReLU<a hidden class="anchor" aria-hidden="true" href="#51-baseline-methods-signed-activation-quantization---unsigned-activation-quantization-for-all-conv2d-layers-due-to-relu">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -293,7 +297,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="42-our-methods-replace-original-models-all-conv2d-layers-with-our-layers-including-conv2d-in-both-_backbone_2d_-and-_dense_head_">4.2 Our methods: Replace original model&rsquo;s all Conv2d layers with our layers (including Conv2d in both &ldquo;<em>backbone_2d</em>&rdquo; and &ldquo;<em>dense_head</em>&rdquo;)<a hidden class="anchor" aria-hidden="true" href="#42-our-methods-replace-original-models-all-conv2d-layers-with-our-layers-including-conv2d-in-both-_backbone_2d_-and-_dense_head_">#</a></h4>
+<h4 id="52-our-methods-replace-original-models-all-conv2d-layers-with-our-layers-including-conv2d-in-both-_backbone_2d_-and-_dense_head_">5.2 Our methods: Replace original model&rsquo;s all Conv2d layers with our layers (including Conv2d in both &ldquo;<em>backbone_2d</em>&rdquo; and &ldquo;<em>dense_head</em>&rdquo;)<a hidden class="anchor" aria-hidden="true" href="#52-our-methods-replace-original-models-all-conv2d-layers-with-our-layers-including-conv2d-in-both-_backbone_2d_-and-_dense_head_">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -325,7 +329,7 @@
 </tbody>
 </table>
 <p>meaning that head is really sensitive to both SQ operation and quantization. Therefore, in the next section, we will take a look at</p>
-<h4 id="43-our-methods-replace-original-models-backbone_2ds-conv2d-layers-with-our-layers-and-all-its-dense_heads-conv2d-with-baseline-methods-standard-w8a8">4.3 Our methods: Replace original model&rsquo;s backbone_2d&rsquo;s Conv2d layers with our layers and all its dense_head&rsquo;s Conv2d with baseline methods (standard W8A8))<a hidden class="anchor" aria-hidden="true" href="#43-our-methods-replace-original-models-backbone_2ds-conv2d-layers-with-our-layers-and-all-its-dense_heads-conv2d-with-baseline-methods-standard-w8a8">#</a></h4>
+<h4 id="53-our-methods-replace-original-models-backbone_2ds-conv2d-layers-with-our-layers-and-all-its-dense_heads-conv2d-with-baseline-methods-standard-w8a8">5.3 Our methods: Replace original model&rsquo;s backbone_2d&rsquo;s Conv2d layers with our layers and all its dense_head&rsquo;s Conv2d with baseline methods (standard W8A8))<a hidden class="anchor" aria-hidden="true" href="#53-our-methods-replace-original-models-backbone_2ds-conv2d-layers-with-our-layers-and-all-its-dense_heads-conv2d-with-baseline-methods-standard-w8a8">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -357,7 +361,7 @@
 </tbody>
 </table>
 <p>At this stage, the result is good, but the scaling factor for SmoothQuant is 0.5 for now, and we have no idea what about other factors. Therefore, we will try different scaling factors to see which will be the best scaling factor.</p>
-<h4 id="44-our-methods-with-different-scaling-factor">4.4 Our methods: with different scaling factor<a hidden class="anchor" aria-hidden="true" href="#44-our-methods-with-different-scaling-factor">#</a></h4>
+<h4 id="54-our-methods-with-different-scaling-factor">5.4 Our methods: with different scaling factor<a hidden class="anchor" aria-hidden="true" href="#54-our-methods-with-different-scaling-factor">#</a></h4>
 <ul>
 <li>mAP:</li>
 </ul>
@@ -369,7 +373,7 @@
 <p><img loading="lazy" src="https://s2.loli.net/2024/05/22/arl7sKGBpqew5yM.png" alt="nds"  />
 </p>
 <p>meaning that scaling factor = 0.5 may be a <strong>good and stable</strong> choice. Hence, in the following experiments, we are gonna stick with scaling factor = 0.5.</p>
-<h4 id="45-test-only-quantizing-the-conv2d-in-dense_head-standard-w8a8-without-quantizing-the-conv2d-in-backbone_2d-w16a16">4.5 Test: Only quantizing the Conv2d in dense_head (standard W8A8) without quantizing the Conv2d in backbone_2d (W16A16)<a hidden class="anchor" aria-hidden="true" href="#45-test-only-quantizing-the-conv2d-in-dense_head-standard-w8a8-without-quantizing-the-conv2d-in-backbone_2d-w16a16">#</a></h4>
+<h4 id="55-test-only-quantizing-the-conv2d-in-dense_head-standard-w8a8-without-quantizing-the-conv2d-in-backbone_2d-w16a16">5.5 Test: Only quantizing the Conv2d in dense_head (standard W8A8) without quantizing the Conv2d in backbone_2d (W16A16)<a hidden class="anchor" aria-hidden="true" href="#55-test-only-quantizing-the-conv2d-in-dense_head-standard-w8a8-without-quantizing-the-conv2d-in-backbone_2d-w16a16">#</a></h4>
 <p>The goal of this experiment is to test which module still cause the accuracy gap. So we only quantize the Conv2d in <strong><em>dense_head</em></strong>:</p>
 <ul>
 <li>If the accuracy stays the same compared with our current method&rsquo;s results, then it means that the accuracy gap is caused by quantization of Conv2d in <strong><em>dense_head</em></strong>, since we only quantized the Conv2d in <strong><em>dense_head</em></strong> here.</li>
@@ -393,7 +397,7 @@
 </tbody>
 </table>
 <p>which doesn&rsquo;t make much difference. Hence, it means that the accuracy gap is caused by quantization of Conv2d in <strong><em>dense_head</em></strong>, which further indicates that we should selectively enable of quantization of Conv2d in <strong><em>dense_head</em></strong>.</p>
-<h4 id="46-compare-the-dense_head-activation-l1loss-between-the-original-model-and-the-standard-w8a8-quantized-conv2d-in-backbone_2d-and-our-methods-conv2d-in-dense_head-and-the-original-model-and-fully-standard-w8a8-quantized-model-to-get-the-selective-list">4.6 Compare the dense_head activation L1loss between (the original model and the standard W8A8-quantized Conv2d in backbone_2d and our method&rsquo;s Conv2d in dense_head) and (the original model and fully standard W8A8-quantized model) to get the selective list.<a hidden class="anchor" aria-hidden="true" href="#46-compare-the-dense_head-activation-l1loss-between-the-original-model-and-the-standard-w8a8-quantized-conv2d-in-backbone_2d-and-our-methods-conv2d-in-dense_head-and-the-original-model-and-fully-standard-w8a8-quantized-model-to-get-the-selective-list">#</a></h4>
+<h4 id="56-compare-the-dense_head-activation-l1loss-between-the-original-model-and-the-standard-w8a8-quantized-conv2d-in-backbone_2d-and-our-methods-conv2d-in-dense_head-and-the-original-model-and-fully-standard-w8a8-quantized-model-to-get-the-selective-list">5.6 Compare the dense_head activation L1loss between (the original model and the standard W8A8-quantized Conv2d in backbone_2d and our method&rsquo;s Conv2d in dense_head) and (the original model and fully standard W8A8-quantized model) to get the selective list.<a hidden class="anchor" aria-hidden="true" href="#56-compare-the-dense_head-activation-l1loss-between-the-original-model-and-the-standard-w8a8-quantized-conv2d-in-backbone_2d-and-our-methods-conv2d-in-dense_head-and-the-original-model-and-fully-standard-w8a8-quantized-model-to-get-the-selective-list">#</a></h4>
 <p><img loading="lazy" src="https://s2.loli.net/2024/05/22/1cFqtkOBTS6G8EY.png" alt="image-20240521165153103"  />
 </p>
 <p>In this case, we compare the L1loss layer by layer within dense_head and find a list of Conv2d&rsquo;s name that shouldn&rsquo;t be quantized (either with too large L1loss or NaN in L1loss):</p>
@@ -435,7 +439,7 @@
 <li>dense_head.heads_list.5.hm.1</li>
 </ul>
 <p>Therefore, in the following experiment, we would just apply standard W8A8 quantization to these Conv2d or even not quantize them at all.</p>
-<h4 id="47-two-more-experiments-as-compared-to-the-no5-test">4.7 Two more experiments as compared to the No.5 test.<a hidden class="anchor" aria-hidden="true" href="#47-two-more-experiments-as-compared-to-the-no5-test">#</a></h4>
+<h4 id="57-two-more-experiments-as-compared-to-the-no5-test">5.7 Two more experiments as compared to the No.5 test.<a hidden class="anchor" aria-hidden="true" href="#57-two-more-experiments-as-compared-to-the-no5-test">#</a></h4>
 <ul>
 <li>Standard W8A8-quantized Conv2d in the above list and <strong><em>backbone_2d</em></strong>, with other Conv2d quantized with our methods (rest in <strong><em>dense_head</em></strong>):
 <ul>
@@ -454,7 +458,7 @@
 </li>
 </ul>
 <p>This shows that our methods are indeed working, and the issue lies within the <strong><em>dense_head</em></strong> part. Therefore, to prove our methods work, we will not quantize Conv2d in the above list.</p>
-<h4 id="48-baseline-methods-only-quantize-conv2d-in-backbone_2d-with-quantizer-of-conv2d-in-dense_head-set-to-16-num_bits">4.8 Baseline methods: Only quantize Conv2d in backbone_2d with quantizer of Conv2d in dense_head set to 16 num_bits<a hidden class="anchor" aria-hidden="true" href="#48-baseline-methods-only-quantize-conv2d-in-backbone_2d-with-quantizer-of-conv2d-in-dense_head-set-to-16-num_bits">#</a></h4>
+<h4 id="58-baseline-methods-only-quantize-conv2d-in-backbone_2d-without-quantization-of-conv2d-in-dense_head">5.8 Baseline methods: Only quantize Conv2d in backbone_2d without quantization of Conv2d in dense_head<a hidden class="anchor" aria-hidden="true" href="#58-baseline-methods-only-quantize-conv2d-in-backbone_2d-without-quantization-of-conv2d-in-dense_head">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -473,9 +477,9 @@
 </tr>
 <tr>
 <td>Baseline methods (W8A8 quantization)</td>
-<td><del>(0.5882 - 0.5888)</del> -&gt; 0.5903</td>
-<td><del>0.6603</del> -&gt; 0.6626</td>
-<td>Only quantize Conv2d in <strong><em>backbone_2d</em></strong> with quantizer of Conv2d in dense_head set to 16 num_bits</td>
+<td><del>(0.5882 - 0.5888)</del> -&gt; 0.5912</td>
+<td><del>0.6603</del> -&gt; 0.6630</td>
+<td>Only quantize Conv2d in <strong><em>backbone_2d</em></strong> without quantization of Conv2d in dense_head</td>
 </tr>
 <tr>
 <td>Our methods</td>
@@ -485,7 +489,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="49-our-methods-replace-all-original-models-_backbone_2d_s-conv2d-layers-and-_dense_head_s-conv2d-layers-with-our-layers-with-scaling-factor--05-except-for-the-conv2d-in-the-above-list">4.9 Our methods: Replace all original model&rsquo;s <strong><em>backbone_2d</em></strong>&rsquo;s Conv2d layers and <strong><em>dense_head</em></strong>&rsquo;s Conv2d layers with our layers with scaling factor = 0.5, except for the Conv2d in the above list.<a hidden class="anchor" aria-hidden="true" href="#49-our-methods-replace-all-original-models-_backbone_2d_s-conv2d-layers-and-_dense_head_s-conv2d-layers-with-our-layers-with-scaling-factor--05-except-for-the-conv2d-in-the-above-list">#</a></h4>
+<h4 id="59-our-methods-replace-all-original-models-_backbone_2d_s-conv2d-layers-and-_dense_head_s-conv2d-layers-with-our-layers-with-scaling-factor--05-except-for-the-conv2d-in-the-above-list">5.9 Our methods: Replace all original model&rsquo;s <strong><em>backbone_2d</em></strong>&rsquo;s Conv2d layers and <strong><em>dense_head</em></strong>&rsquo;s Conv2d layers with our layers with scaling factor = 0.5, except for the Conv2d in the above list.<a hidden class="anchor" aria-hidden="true" href="#59-our-methods-replace-all-original-models-_backbone_2d_s-conv2d-layers-and-_dense_head_s-conv2d-layers-with-our-layers-with-scaling-factor--05-except-for-the-conv2d-in-the-above-list">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -504,9 +508,9 @@
 </tr>
 <tr>
 <td>Baseline methods (W8A8 quantization)</td>
-<td>0.5903</td>
-<td>0.6626</td>
-<td>Only quantize Conv2d in <strong><em>backbone_2d</em></strong> with quantizer of Conv2d in dense_head set to 16 num_bits</td>
+<td>0.5912</td>
+<td>0.6630</td>
+<td>Only quantize Conv2d in <strong><em>backbone_2d</em></strong> without quantization of Conv2d in dense_head</td>
 </tr>
 <tr>
 <td>Our methods</td>
@@ -517,7 +521,7 @@
 </tbody>
 </table>
 <p>But the W16A16 Conv2d quantizer for those which are in the above list still exist, so we delete them since they are useless in the case of W16A16 and will also cause accuracy loss after applying static PTQ.</p>
-<h4 id="410-our-methods-delete-the-w16a16-conv2d-quantizer-for-those-which-are-in-the-above-list">4.10 Our methods: Delete the W16A16 Conv2d quantizer for those which are in the above list.<a hidden class="anchor" aria-hidden="true" href="#410-our-methods-delete-the-w16a16-conv2d-quantizer-for-those-which-are-in-the-above-list">#</a></h4>
+<h4 id="510-our-methods-delete-the-w16a16-conv2d-quantizer-for-those-which-are-in-the-above-list">5.10 Our methods: Delete the W16A16 Conv2d quantizer for those which are in the above list.<a hidden class="anchor" aria-hidden="true" href="#510-our-methods-delete-the-w16a16-conv2d-quantizer-for-those-which-are-in-the-above-list">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -536,9 +540,9 @@
 </tr>
 <tr>
 <td>Baseline methods (W8A8 quantization)</td>
-<td>0.5903</td>
-<td>0.6626</td>
-<td>Only quantize Conv2d in <strong><em>backbone_2d</em></strong> with quantizer of Conv2d in dense_head set to 16 num_bits</td>
+<td>0.5912</td>
+<td>0.6630</td>
+<td>Only quantize Conv2d in <strong><em>backbone_2d</em></strong> without quantization of Conv2d in dense_head</td>
 </tr>
 <tr>
 <td>Our methods</td>
@@ -549,8 +553,21 @@
 </tbody>
 </table>
 <p>which proves that our methods are effective.</p>
-<h4 id="5-whats-next">5 What&rsquo;s next?<a hidden class="anchor" aria-hidden="true" href="#5-whats-next">#</a></h4>
-<p>To be continued&hellip;</p>
+<h4 id="6-whats-next">6 What&rsquo;s next?<a hidden class="anchor" aria-hidden="true" href="#6-whats-next">#</a></h4>
+<ul>
+<li>Since what we now implement is Dynamic SmoothQuant operation:
+<ul>
+<li>We can try static SmoothQuant operation.</li>
+</ul>
+</li>
+<li>Different quantization combo on both baseline method and our method:
+<ul>
+<li>W16A8, W16A4 W16A3, W16A2</li>
+<li>W8A16, W4A16 W3A16, W2A16</li>
+<li>W8A8, W8A4, W4A8, W4A4</li>
+</ul>
+</li>
+</ul>
 
 
   </div>

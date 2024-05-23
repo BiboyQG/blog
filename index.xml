@@ -13,7 +13,7 @@
       <link>https://banghao.live/blog/10/</link>
       <pubDate>Tue, 21 May 2024 18:26:33 -0500</pubDate>
       <guid>https://banghao.live/blog/10/</guid>
-      <description>1. Table of Contents: Recap of model structure: ✅ Recap of initial status: ✅ Finalize our methods and bridge the gap and : ✅ 2. Model structure: backbone_3d map_to_bev backbone_2d: Conv2d dense_head Conv2d 3. Initial status: Baseline methods (W8A8 quantization): which quantize all activation of Conv2d (in both backbone_2d and dense_head) with signed quantization. Model mAP NDS Structure Original model (0.5921 - 0.5922) 0.6648 No change Baseline methods (W8A8 quantization) (0.</description>
+      <description>1. Table of Contents: Final results and comparison: ✅ Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits: ✅ Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss): ✅ Lots of experiments to analyze the accuracy loss: ✅ Modify the model based on the above experiments: ✅ Validate the accuracy of the final model: through mAP and NDS: ✅ 2.</description>
     </item>
     <item>
       <title>Meeting Discussion (9)</title>
