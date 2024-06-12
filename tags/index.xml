@@ -6,8 +6,36 @@
     <description>Recent content in Tags on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 May 2024 18:26:33 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 12 Jun 2024 19:24:12 +0800</lastBuildDate>
     <atom:link href="https://banghao.live/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LLM</title>
+      <link>https://banghao.live/tags/llm/</link>
+      <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
+      <guid>https://banghao.live/tags/llm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>NLP</title>
+      <link>https://banghao.live/tags/nlp/</link>
+      <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
+      <guid>https://banghao.live/tags/nlp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Project</title>
+      <link>https://banghao.live/tags/project/</link>
+      <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
+      <guid>https://banghao.live/tags/project/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Research</title>
+      <link>https://banghao.live/tags/research/</link>
+      <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
+      <guid>https://banghao.live/tags/research/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Meeting-Discussions</title>
       <link>https://banghao.live/tags/meeting-discussions/</link>
@@ -23,24 +51,10 @@
       <description></description>
     </item>
     <item>
-      <title>Research</title>
-      <link>https://banghao.live/tags/research/</link>
-      <pubDate>Tue, 21 May 2024 18:26:33 -0500</pubDate>
-      <guid>https://banghao.live/tags/research/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Byte Pair Encoding</title>
       <link>https://banghao.live/tags/byte-pair-encoding/</link>
       <pubDate>Wed, 08 May 2024 14:15:07 -0500</pubDate>
       <guid>https://banghao.live/tags/byte-pair-encoding/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>NLP</title>
-      <link>https://banghao.live/tags/nlp/</link>
-      <pubDate>Wed, 08 May 2024 14:15:07 -0500</pubDate>
-      <guid>https://banghao.live/tags/nlp/</guid>
       <description></description>
     </item>
     <item>
@@ -62,13 +76,6 @@
       <link>https://banghao.live/tags/internet-of-things/</link>
       <pubDate>Sun, 05 May 2024 16:18:51 -0500</pubDate>
       <guid>https://banghao.live/tags/internet-of-things/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Project</title>
-      <link>https://banghao.live/tags/project/</link>
-      <pubDate>Sun, 05 May 2024 16:18:51 -0500</pubDate>
-      <guid>https://banghao.live/tags/project/</guid>
       <description></description>
     </item>
     <item>

@@ -6,8 +6,18 @@
     <description>Recent content in Blogs on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 May 2024 18:26:33 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 12 Jun 2024 19:24:12 +0800</lastBuildDate>
     <atom:link href="https://banghao.live/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Automatic Short Answer Grading (ASAG) System</title>
+      <link>https://banghao.live/blog/asag/</link>
+      <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
+      <guid>https://banghao.live/blog/asag/</guid>
+      <description>This is the official repo for Automatic Short Answer Grading (ASAG) project from Xi&amp;rsquo;an Jiaotong Liverpool University (XJTLU).
+Using vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
+Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.
+Prompt-learning enables LLMs to handle downstream tasks even without fintuning.</description>
+    </item>
     <item>
       <title>Meeting Discussion (10)</title>
       <link>https://banghao.live/blog/10/</link>
