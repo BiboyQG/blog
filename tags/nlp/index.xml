@@ -13,10 +13,9 @@
       <link>https://banghao.live/blog/asag/</link>
       <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
       <guid>https://banghao.live/blog/asag/</guid>
-      <description>This is the official repo for Automatic Short Answer Grading (ASAG) project from Xi&amp;rsquo;an Jiaotong Liverpool University (XJTLU).
+      <description>This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi&amp;rsquo;an Jiaotong Liverpool University (XJTLU).
 Using vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
-Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.
-Prompt-learning enables LLMs to handle downstream tasks even without fintuning.</description>
+Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.</description>
     </item>
     <item>
       <title>Let&#39;s build GPT from scratch with BPE!</title>
