@@ -6,7 +6,7 @@ categories = ['Research']
 tags = ['LLM', 'NLP', 'research', 'Project']
 +++
 
-[This](https://github.com/BiboyQG/ASAG) is the official repo for **Automatic Short Answer Grading (ASAG)** project from **Xi'an Jiaotong Liverpool University (XJTLU)**.
+[This](https://github.com/BiboyQG/LLMarking) is the official repo for **Automatic Short Answer Grading (ASAG)** project, **named LLMarking**, from **Xi'an Jiaotong Liverpool University (XJTLU)**.
 
 Using [vLLM](https://github.com/vllm-project/vllm) as the Large Language Model (LLM) inference framework and [FastAPI](https://github.com/tiangolo/fastapi) as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
 
