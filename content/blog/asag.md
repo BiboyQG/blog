@@ -1,5 +1,5 @@
 +++
-title = 'Automatic Short Answer Grading (ASAG) System'
+title = 'LLMarking'
 date = 2024-06-12T19:24:12+08:00
 draft = false
 categories = ['Research']
@@ -39,7 +39,7 @@ This project aims to achieve high concurrency automatic short answer grading (AS
 
 ### Requirements
 
-> [!IMPORTANT]
+> **IMPORTANT**:
 >
 > The requirement below is mandatory. And we've only tested our project on the following platform.
 
@@ -57,7 +57,7 @@ This project aims to achieve high concurrency automatic short answer grading (AS
 | scipy         | 1.13.0      |
 | FastAPI       | 0.111.0     |
 
-> [!TIP]
+> **TIP**:
 >
 > Use `pip install -r requirement.txt` to install all the requirement if you want to create a new environment on your own or stick with existing environment.
 
@@ -79,7 +79,7 @@ Currently, we don't provide docker image or dockerfile, but instead we offer con
 
 Therefore, you can simply copy and run the following in your terminal to quickly setup the environment:
 
-> [!NOTE]
+> **NOTE**:
 >
 > You can rename `my_new_env` to any name you want.
 
@@ -97,7 +97,7 @@ python vllm_server.py -m [index of the model in the above list]
 
 If you launch the server with the specific model you specify for the first time, the server would automatically download the model and save the files to `.cache/huggingface/hub`.
 
-> [!NOTE]
+> **NOTE**:
 >
 > Some users may find it difficult to download model files from Huggingface due to internet issues. Hence, we provide the following solution.
 
@@ -121,7 +121,7 @@ After that, we can either start the student entry or client side to pass our inp
 
 - **For student entry:**
 
-> [!NOTE]
+> **NOTE**:
 >
 > `0` stands for using zero-shot prompt, while `1` for one-shot, and `2` for few-shot.
 
@@ -131,7 +131,7 @@ python student_entry.py -n [0, 1, 2]
 
 - **For casual client:**
 
-> [!NOTE]
+> **NOTE**:
 >
 > `-s` stands for get response in a streaming way, which is optional.
 
