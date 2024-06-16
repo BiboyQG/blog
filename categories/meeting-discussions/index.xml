@@ -6,8 +6,15 @@
     <description>Recent content in Meeting-Discussions on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 May 2024 18:26:33 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 16 Jun 2024 18:48:25 +0800</lastBuildDate>
     <atom:link href="https://banghao.live/categories/meeting-discussions/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Meeting Discussion (11)</title>
+      <link>https://banghao.live/blog/11/</link>
+      <pubDate>Sun, 16 Jun 2024 18:48:25 +0800</pubDate>
+      <guid>https://banghao.live/blog/11/</guid>
+      <description>1. Table of Contents The feasibility of quantization and SQ on SparseConv3d: ✅ The discussion of sparse conv3d: Find where the computation for sparse conv3d is done: ✅ Inside ops.implicit_gemm: ✅ How can we implement it: Quantization of the activation and weight: ✅ Application of SQ during quantization process: ✅ Evaluation of current method: Whether SQ is effective or not depends on the value of the inputs and weight: ✅ Actual implementation: In progress… 2.</description>
+    </item>
     <item>
       <title>Meeting Discussion (10)</title>
       <link>https://banghao.live/blog/10/</link>
