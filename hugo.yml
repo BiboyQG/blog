@@ -12,13 +12,13 @@ params:
   homeInfoParams:
     Title: "👋 Welcome to Banghao's Blog"
     Content: >
-      Hi! This is Banghao Chi, an undergraduate student from University of Illinois at Urbana-Champaign and also a Research Assistant advised by [Prof. Minjia Zhang](https://minjiazhang.github.io/).
+      Hi! This is Banghao Chi, an undergraduate student from University of Illinois at Urbana-Champaign and also a Research Assistant advised by [Prof. Minjia Zhang](https://minjiazhang.github.io/). I'm also under the supervision of [Kevin Chang](https://siebelschool.illinois.edu/about/people/faculty/kcchang) in an internship at [National Center for Supercomputing Applications(NCSA)](https://www.ncsa.illinois.edu/).
 
       - · I’m documenting my learning notes in this blog 😄
 
       - · This is a space where I will mostly be sharing about **Computer Vision** & **NLP** 🙂
 
-      - · I also work on Fullstack development with **React** and **SpringBoot** (*^▽^*)
+      - · I also work on Fullstack development with **React**, **Golang and SpringBoot** (*^▽^*)
 
   socialIcons:
     - name: Github
@@ -46,7 +46,7 @@ menu:
       name: Archives
       url: /archives/
       weight: 30
-    - identifier: forum
-      name: Forum App
-      url: "https://banghao.studio/login"
+    - identifier: homepage
+      name: Home Page
+      url: "https://biboyqg.github.io/"
       weight: 40
