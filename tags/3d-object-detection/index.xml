@@ -10,9 +10,9 @@
     <atom:link href="https://biboyqg.github.io/blog/tags/3d-object-detection/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Quantization on CenterPoint</title>
-      <link>https://biboyqg.github.io/blog/blog/quant/</link>
+      <link>https://biboyqg.github.io/blog/blog/quantization-on-centerpoint/</link>
       <pubDate>Mon, 01 Apr 2024 16:32:18 -0500</pubDate>
-      <guid>https://biboyqg.github.io/blog/blog/quant/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/quantization-on-centerpoint/</guid>
       <description>Take mmdetection as an example First find the Runner class: This is the place where the build of the model is completed:
 class Runner: def __init__(...): ... ... self.model = self.build_model(model) # wrap model self.model = self.wrap_model( self.cfg.get(&amp;#39;model_wrapper_cfg&amp;#39;), self.model) # get model name from the model class if hasattr(self.model, &amp;#39;module&amp;#39;): self._model_name = self.model.module.__class__.__name__ else: self._model_name = self.model.__class__.__name__ ... ... Learn about how pytorch-quantization works by diving into its source code: Code about the quantization function respect to a specific Pytorch model as input: quant_utils.</description>
     </item>

@@ -10,9 +10,9 @@
     <atom:link href="https://biboyqg.github.io/blog/tags/tokenization/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Let&#39;s build GPT from scratch with BPE!</title>
-      <link>https://biboyqg.github.io/blog/blog/token/</link>
+      <link>https://biboyqg.github.io/blog/blog/bpe/</link>
       <pubDate>Wed, 08 May 2024 14:15:07 -0500</pubDate>
-      <guid>https://biboyqg.github.io/blog/blog/token/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/bpe/</guid>
       <description>1. Workshop Description Quick question: Have you ever thought about a string being transformed into a word vector so that it can be further fed into a machine learning algorithm?
 In this workshop, we are going to dive into the fascinating world of Natural Language Processing (NLP) with our focus on Byte Pair Encoding (BPE) algorithm. We will discover how this powerful technique segments text into subword units, enabling efficient representation of words as vectors.</description>
     </item>

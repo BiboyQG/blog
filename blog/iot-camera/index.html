@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>IoT-Enabled Home Security Camera | Banghao&#39;s Blog</title>
+<meta name="keywords" content="Project, Application, Internet of Things">
+<meta name="description" content="Video GitHub
+1. Motivation Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work.">
+<meta name="author" content="Banghao Chi">
+<link rel="canonical" href="https://biboyqg.github.io/blog/blog/iot-camera/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.7ece0b63e4dea9482286a19834da3b9806c50613b62e3908ed11bcc65688c436.css" integrity="sha256-fs4LY&#43;TeqUgihqGYNNo7mAbFBhO2LjkI7RG8xlaIxDY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://biboyqg.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://biboyqg.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://biboyqg.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://biboyqg.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://biboyqg.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://biboyqg.github.io/blog/blog/iot-camera/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="IoT-Enabled Home Security Camera" />
+<meta property="og:description" content="Video GitHub
+1. Motivation Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://biboyqg.github.io/blog/blog/iot-camera/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2024-05-05T16:18:51-05:00" />
+<meta property="article:modified_time" content="2024-05-05T16:18:51-05:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="IoT-Enabled Home Security Camera"/>
+<meta name="twitter:description" content="Video GitHub
+1. Motivation Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://biboyqg.github.io/blog/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "IoT-Enabled Home Security Camera",
+      "item": "https://biboyqg.github.io/blog/blog/iot-camera/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "IoT-Enabled Home Security Camera",
+  "name": "IoT-Enabled Home Security Camera",
+  "description": "Video GitHub\n1. Motivation Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work.",
+  "keywords": [
+    "Project", "Application", "Internet of Things"
+  ],
+  "articleBody": "Video GitHub\n1. Motivation Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work. Whether it is a concern over low-quality security cameras, which make it hard to review footage afterwards, or a 20-year-old system used for working every day, many aspects of banks can be improved upon with simple computer vision implementations. For logging into work, a secure application allowing for user authentication is an easy starting point. When logging into a social media account, a website, or even a phone, one easy way people prefer to verify their identity is using facial recognition.\nHowever, implementing a barebones facial recognition system is problematic. While facial recognition provides a sense of security in regards to the fact that it is not something that can be physically stolen, like a credit card or key to an account, it faces other concerns in terms of its accuracy and efficiency when granting access to a user; What if this facial recognition was not effective? On a home security system, an intruder could unlock a door and invade one’s home or take their belongings. Alternatively, people could pretend to be someone else and gain access to personal information or accounts, with unimaginable consequences. One can imagine the horror of a poor model allowing even slightly similar faces to be verified, or for extremely poor models, potentially even a picture or cutout of the account owner’s face. For this reason, many put their trust into those creating these systems, hoping for the most efficient facial recognition.\nOur project aims to meet the hopes of those using facial recognition, creating an efficient and consistent facial recognition program that can store and retrieve facial data to be used whenever needed. Using machine learning and training on datasets, we created an accurate facial recognition system that will avoid false positives and allow only the appropriate users access to their most personal information. In addition, we leverage the flexibility of such models to recognize information such as body language/position and license plate text, which come in handy identifying suspicious individuals and recording information about those who have committed a crime such as robbery at a bank, who may get away before physical intervention can occur. Overall, developing a program utilizing a camera for facial recognition and other computer vision provides opportunities to address security challenges, enhance user experiences, and contribute to technological advancements across various industries.\n2. Technical Approach In designing the technical approach for this system, we adopted a modular architecture consisting of a frontend using React, two backends implemented by Flask and SpringBoot, and a Raspberry Pi acting as the hardware intermediary. The React frontend provides the user interface, enabling interaction with the system, while the Flask backend handles server-side detecting algorithm and detection results requests with SpringBoot dealing with user operation API. The Raspberry Pi serves as the bridge between the software and the hardware, facilitating image capture from the camera module and executing image processing tasks using OpenCV. The data flow within the system follows a structured path: the Raspberry Pi continuously captures images, which are then processed using the Histogram of Oriented Gradients (HOG) algorithm for object recognition and facial identification. The processed data is subsequently transmitted to the Flask backend for storage or further analysis. Finally, the React frontend communicates with the Flask backend to request processed data and display it to the user, completing the data flow loop.\n3. Implementation Details In implementing this system, a combination of software packages, hardware modules, algorithms, and data structures were utilized. The software stack includes React for frontend development, Flask and SpringBoot for backend server implementation, OpenCV for image processing tasks on the Raspberry Pi, and HOG for machine learning-based tasks.\nHardware components essential to the system include a Raspberry Pi and a camera for image capture. Additionally, a remote server which has public IPv4 ip address are critical for the owner of the system to get access to the system no matter where he/she is.\nData transfer between components was facilitated using TCP and tailscale to accomplish LAN access, while Pickle was employed for serializing and deserializing complex Python objects for storage. This comprehensive implementation ensured the system’s efficiency and accuracy in real-time image processing and recognition tasks.\nThe main datasets, or their libraries for code modeling and importing functions, were as follows:\nhttps://www.tomshardware.com/how-to/raspberry-pi-facial-recognition for facial recognition https://github.com/pm1715/HAR_Project/tree/main for actions based on body position https://github.com/opencv/opencv/tree/master/data/haarcascades, pytesseract for facial recognition, license plate reading General libraries and related datasets for React, Flask, SpringBoot, OpenCV The overall structure of our application can be found above.\n",
+  "wordCount" : "818",
+  "inLanguage": "en",
+  "datePublished": "2024-05-05T16:18:51-05:00",
+  "dateModified": "2024-05-05T16:18:51-05:00",
+  "author":{
+    "@type": "Person",
+    "name": "Banghao Chi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://biboyqg.github.io/blog/blog/iot-camera/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Banghao's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://biboyqg.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://biboyqg.github.io/blog/" accesskey="h" title="Banghao&#39;s Blog (Alt + H)">Banghao&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://biboyqg.github.io/blog/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/blog/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/blog/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/" title="Home Page">
+                    <span>Home Page</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      IoT-Enabled Home Security Camera
+    </h1>
+    <div class="post-meta"><span title='2024-05-05 16:18:51 -0500 -0500'>May 5, 2024</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Banghao Chi
+
+</div>
+  </header> 
+  <div class="post-content"><p><a href="https://www.youtube.com/watch?v=Pth99K0GmAg">Video</a> <a href="https://github.com/IoT-God">GitHub</a></p>
+<h4 id="1-motivation">1. Motivation<a hidden class="anchor" aria-hidden="true" href="#1-motivation">#</a></h4>
+<p>Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work. Whether it is a concern over low-quality security cameras, which make it hard to review footage afterwards, or a 20-year-old system used for working every day, many aspects of banks can be improved upon with simple computer vision implementations. For logging into work, a secure application allowing for user authentication is an easy starting point. When logging into a social media account, a website, or even a phone, one easy way people prefer to verify their identity is using facial recognition.</p>
+<p>However, implementing a barebones facial recognition system is problematic. While facial recognition provides a sense of security in regards to the fact that it is not something that can be physically stolen, like a credit card or key to an account, it faces other concerns in terms of its accuracy and efficiency when granting access to a user; What if this facial recognition was not effective? On a home security system, an intruder could unlock a door and invade one’s home or take their belongings. Alternatively, people could pretend to be someone else and gain access to personal information or accounts, with unimaginable consequences. One can imagine the horror of a poor model allowing even slightly similar faces to be verified, or for extremely poor models, potentially even a picture or cutout of the account owner’s face. For this reason, many put their trust into those creating these systems, hoping for the most efficient facial recognition.</p>
+<p>Our project aims to meet the hopes of those using facial recognition, creating an efficient and consistent facial recognition program that can store and retrieve facial data to be used whenever needed. Using machine learning and training on datasets, we created an accurate facial recognition system that will avoid false positives and allow only the appropriate users access to their most personal information. In addition, we leverage the flexibility of such models to recognize information such as body language/position and license plate text, which come in handy identifying suspicious individuals and recording information about those who have committed a crime such as robbery at a bank, who may get away before physical intervention can occur. Overall, developing a program utilizing a camera for facial recognition and other computer vision provides opportunities to address security challenges, enhance user experiences, and contribute to technological advancements across various industries.</p>
+<h4 id="2-technical-approach">2. Technical Approach<a hidden class="anchor" aria-hidden="true" href="#2-technical-approach">#</a></h4>
+<p><img loading="lazy" src="https://s2.loli.net/2024/05/06/NCoqD9iTL7RVx4z.png" alt="img"  />
+</p>
+<p>In designing the technical approach for this system, we adopted a modular architecture consisting of a frontend using React, two backends implemented by Flask and SpringBoot, and a Raspberry Pi acting as the hardware intermediary. The React frontend provides the user interface, enabling interaction with the system, while the Flask backend handles server-side detecting algorithm and detection results requests with SpringBoot dealing with user operation API. The Raspberry Pi serves as the bridge between the software and the hardware, facilitating image capture from the camera module and executing image processing tasks using OpenCV. The data flow within the system follows a structured path: the Raspberry Pi continuously captures images, which are then processed using the Histogram of Oriented Gradients (HOG) algorithm for object recognition and facial identification. The processed data is subsequently transmitted to the Flask backend for storage or further analysis. Finally, the React frontend communicates with the Flask backend to request processed data and display it to the user, completing the data flow loop.</p>
+<h4 id="3-implementation-details">3. Implementation Details<a hidden class="anchor" aria-hidden="true" href="#3-implementation-details">#</a></h4>
+<p>In implementing this system, a combination of software packages, hardware modules, algorithms, and data structures were utilized. The software stack includes React for frontend development, Flask and SpringBoot for backend server implementation, OpenCV for image processing tasks on the Raspberry Pi, and HOG for machine learning-based tasks.</p>
+<p>Hardware components essential to the system include a Raspberry Pi and a camera for image capture. Additionally, a remote server which has public IPv4 ip address are critical for the owner of the system to get access to the system no matter where he/she is.</p>
+<p>Data transfer between components was facilitated using TCP and tailscale to accomplish LAN access, while Pickle was employed for serializing and deserializing complex Python objects for storage. This comprehensive implementation ensured the system&rsquo;s efficiency and accuracy in real-time image processing and recognition tasks.</p>
+<p>The main datasets, or their libraries for code modeling and importing functions, were as follows:</p>
+<ul>
+<li><a href="https://www.tomshardware.com/how-to/raspberry-pi-facial-recognition">https://www.tomshardware.com/how-to/raspberry-pi-facial-recognition</a> for facial recognition</li>
+<li><a href="https://github.com/pm1715/HAR_Project/tree/main">https://github.com/pm1715/HAR_Project/tree/main</a> for actions based on body position</li>
+<li><a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">https://github.com/opencv/opencv/tree/master/data/haarcascades</a>, pytesseract for facial recognition, license plate reading</li>
+<li>General libraries and related datasets for React, Flask, SpringBoot, OpenCV</li>
+</ul>
+<p>The overall structure of our application can be found above.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://biboyqg.github.io/blog/tags/project/">Project</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/application/">Application</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/internet-of-things/">Internet of Things</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://biboyqg.github.io/blog/blog/bpe/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Let&#39;s build GPT from scratch with BPE!</span>
+  </a>
+  <a class="next" href="https://biboyqg.github.io/blog/blog/quantization-on-centerpoint/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Quantization on CenterPoint</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2025 <a href="https://biboyqg.github.io/blog/">Banghao&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

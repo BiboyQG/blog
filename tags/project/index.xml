@@ -10,26 +10,26 @@
     <atom:link href="https://biboyqg.github.io/blog/tags/project/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LLMarking</title>
-      <link>https://biboyqg.github.io/blog/blog/asag/</link>
+      <link>https://biboyqg.github.io/blog/blog/llmarking/</link>
       <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
-      <guid>https://biboyqg.github.io/blog/blog/asag/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/llmarking/</guid>
       <description>This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi&amp;rsquo;an Jiaotong Liverpool University (XJTLU).
 Using vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
 Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.</description>
     </item>
     <item>
       <title>IoT-Enabled Home Security Camera</title>
-      <link>https://biboyqg.github.io/blog/blog/camera/</link>
+      <link>https://biboyqg.github.io/blog/blog/iot-camera/</link>
       <pubDate>Sun, 05 May 2024 16:18:51 -0500</pubDate>
-      <guid>https://biboyqg.github.io/blog/blog/camera/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/iot-camera/</guid>
       <description>Video GitHub
 1. Motivation Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work.</description>
     </item>
     <item>
       <title>Real-time Object Recognition in Chess: Personalized Tuning and Hardware Acceleration</title>
-      <link>https://biboyqg.github.io/blog/blog/chess/</link>
+      <link>https://biboyqg.github.io/blog/blog/object-detection-chess/</link>
       <pubDate>Sat, 05 Aug 2023 16:53:11 -0500</pubDate>
-      <guid>https://biboyqg.github.io/blog/blog/chess/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/object-detection-chess/</guid>
       <description>1. Selected and customized the YOLOv5 model for Chinese chess annotation data. 2. Conducted testing and analysis of the model. The results indicated exceptional accuracy in recognition capabilities. However, a significant shortfall was identified in terms of efficiency, with the model taking approximately 6 seconds to process a single image.
 3. Implemented model optimization. We substitute the YOLOv5 model with a more lightweight variant, YOLOv5-lite and convert the model into the ONNX format to leverage hardware acceleration, thereby enhancing computational efficiency.</description>
     </item>

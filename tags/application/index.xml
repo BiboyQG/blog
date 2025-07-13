@@ -10,9 +10,9 @@
     <atom:link href="https://biboyqg.github.io/blog/tags/application/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>IoT-Enabled Home Security Camera</title>
-      <link>https://biboyqg.github.io/blog/blog/camera/</link>
+      <link>https://biboyqg.github.io/blog/blog/iot-camera/</link>
       <pubDate>Sun, 05 May 2024 16:18:51 -0500</pubDate>
-      <guid>https://biboyqg.github.io/blog/blog/camera/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/iot-camera/</guid>
       <description>Video GitHub
 1. Motivation Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work.</description>
     </item>

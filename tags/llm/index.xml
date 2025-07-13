@@ -10,9 +10,9 @@
     <atom:link href="https://biboyqg.github.io/blog/tags/llm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LLMarking</title>
-      <link>https://biboyqg.github.io/blog/blog/asag/</link>
+      <link>https://biboyqg.github.io/blog/blog/llmarking/</link>
       <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
-      <guid>https://biboyqg.github.io/blog/blog/asag/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/llmarking/</guid>
       <description>This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi&amp;rsquo;an Jiaotong Liverpool University (XJTLU).
 Using vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
 Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.</description>

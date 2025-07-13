@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>LLMarking | Banghao&#39;s Blog</title>
+<meta name="keywords" content="LLM, NLP, research, Project">
+<meta name="description" content="This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi&rsquo;an Jiaotong Liverpool University (XJTLU).
+Using vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
+Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.">
+<meta name="author" content="Banghao Chi">
+<link rel="canonical" href="https://biboyqg.github.io/blog/blog/llmarking/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.7ece0b63e4dea9482286a19834da3b9806c50613b62e3908ed11bcc65688c436.css" integrity="sha256-fs4LY&#43;TeqUgihqGYNNo7mAbFBhO2LjkI7RG8xlaIxDY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://biboyqg.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://biboyqg.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://biboyqg.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://biboyqg.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://biboyqg.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://biboyqg.github.io/blog/blog/llmarking/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="LLMarking" />
+<meta property="og:description" content="This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi&rsquo;an Jiaotong Liverpool University (XJTLU).
+Using vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
+Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://biboyqg.github.io/blog/blog/llmarking/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2024-06-12T19:24:12+08:00" />
+<meta property="article:modified_time" content="2024-06-12T19:24:12+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LLMarking"/>
+<meta name="twitter:description" content="This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi&rsquo;an Jiaotong Liverpool University (XJTLU).
+Using vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
+Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://biboyqg.github.io/blog/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "LLMarking",
+      "item": "https://biboyqg.github.io/blog/blog/llmarking/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LLMarking",
+  "name": "LLMarking",
+  "description": "This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi\u0026rsquo;an Jiaotong Liverpool University (XJTLU).\nUsing vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.\nFeature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.",
+  "keywords": [
+    "LLM", "NLP", "research", "Project"
+  ],
+  "articleBody": "This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi’an Jiaotong Liverpool University (XJTLU).\nUsing vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.\nFeature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.\nPrompt-learning enables LLMs to handle downstream tasks even without fintuning. We implemented zero-shot, one-shot, and few-shot to test the performances of different LLMs. LoRA/QLoRA enables us to finetune to model with less GPU resources such as memory and computation capacity. This can be happening when continuous poor performances was witnessed even after trials of various prompt-learning. vLLM supports Continuous batching of incoming requests, using an extra thread for inferencing. vLLM provides abstracts of asyncio, using asyncio http framework after abstracts of uvicorn+FastAPI to achieve http api privision. Supported models Qwen/Qwen1.5-14B-Chat-GPTQ-Int4 Qwen/Qwen1.5-32B-Chat-AWQ internlm/internlm2-chat-7b 01-ai/Yi-1.5-9B-Chat modelscope/Yi-1.5-34B-Chat-AWQ CohereForAI/aya-23-8B meta-llama/Meta-Llama-3-8B-Instruct THUDM/glm-4-9b-chat Qwen/Qwen2-7B-Instruct google/gemma-1.1-7b-it mistralai/Mistral-7B-Instruct-v0.3 microsoft/Phi-3-small-8k-instruct openbmb/MiniCPM-2B-dpo-bf16 Getting Started Requirements IMPORTANT:\nThe requirement below is mandatory. And we’ve only tested our project on the following platform.\nMandatory Recommended Python 3.8 CUDA 12.1 torch 2.1 einops 0.8.0 transformers 4.41.0 accelerate 0.30.1 vLLM 0.4.3 tiktoken 0.6.0 sentencepiece 0.2.0 scipy 1.13.0 FastAPI 0.111.0 TIP:\nUse pip install -r requirement.txt to install all the requirement if you want to create a new environment on your own or stick with existing environment.\nQuickstart Repo Download We first clone the whole project by git clone this repo:\ngit clone git@github.com:BiboyQG/ASAG.git \u0026\u0026 cd ASAG Environment Setup Then, it is necessary for us to setup a virtual environmrnt in order to run the project.\nCurrently, we don’t provide docker image or dockerfile, but instead we offer conda(Anaconda/Miniconda) environment config file inside env folder.\nTherefore, you can simply copy and run the following in your terminal to quickly setup the environment:\nNOTE:\nYou can rename my_new_env to any name you want.\nconda env create -n my_new_env -f env/environment.yml \u0026\u0026 conda activate my_new_env Launch Server Then we need to setup server-side to provide the service to the clients. To launch our HTTP server, simply:\npython vllm_server.py -m [index of the model in the above list] If you launch the server with the specific model you specify for the first time, the server would automatically download the model and save the files to .cache/huggingface/hub.\nNOTE:\nSome users may find it difficult to download model files from Huggingface due to internet issues. Hence, we provide the following solution.\nFor users that don’t have access to Huggingface, you need to do the following things:\nImport snapshot_download from modelscope instead of from huggingface_hub: from modelscope import snapshot_download Enable the use of modelscope by uncommenting this line of code within vllm_server.py: os.environ['VLLM_USE_MODELSCOPE']='True' Request and Response After that, we can either start the student entry or client side to pass our inputs to the server:\nFor student entry: NOTE:\n0 stands for using zero-shot prompt, while 1 for one-shot, and 2 for few-shot.\npython student_entry.py -n [0, 1, 2] For casual client: NOTE:\n-s stands for get response in a streaming way, which is optional.\npython student_entry.py [-s] WebUI After launching vllm_server, you can also run gradio_webui.py which is a webui based on gradio. This can achieve a chat-liked format like ChatGPT, which is more user-friendly.\npython gradio_webui.py Data and Results Example data: example.json\nZero-shot pormpt template:\nTest on different LLMs with prompt template and example data: results. Acknowledgement vllm_server.py referenced from vLLM official implementation - server. vllm_client.py referenced from vLLM official implementation - client. ",
+  "wordCount" : "595",
+  "inLanguage": "en",
+  "datePublished": "2024-06-12T19:24:12+08:00",
+  "dateModified": "2024-06-12T19:24:12+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Banghao Chi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://biboyqg.github.io/blog/blog/llmarking/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Banghao's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://biboyqg.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://biboyqg.github.io/blog/" accesskey="h" title="Banghao&#39;s Blog (Alt + H)">Banghao&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://biboyqg.github.io/blog/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/blog/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/blog/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/" title="Home Page">
+                    <span>Home Page</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      LLMarking
+    </h1>
+    <div class="post-meta"><span title='2024-06-12 19:24:12 +0800 +0800'>June 12, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Banghao Chi
+
+</div>
+  </header> 
+  <div class="post-content"><p><a href="https://github.com/BiboyQG/LLMarking">This</a> is the official repo for <strong>Automatic Short Answer Grading (ASAG)</strong> project, <strong>named LLMarking</strong>, from <strong>Xi&rsquo;an Jiaotong Liverpool University (XJTLU)</strong>.</p>
+<p>Using <a href="https://github.com/vllm-project/vllm">vLLM</a> as the Large Language Model (LLM) inference framework and <a href="https://github.com/tiangolo/fastapi">FastAPI</a> as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.</p>
+<h2 id="feature">Feature<a hidden class="anchor" aria-hidden="true" href="#feature">#</a></h2>
+<p>This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.</p>
+<ul>
+<li>Prompt-learning enables LLMs to handle downstream tasks even without fintuning. We implemented zero-shot, one-shot, and few-shot to test the performances of different LLMs.</li>
+<li>LoRA/QLoRA enables us to finetune to model with less GPU resources such as memory and computation capacity. This can be happening when continuous poor performances was witnessed even after trials of various prompt-learning.</li>
+<li>vLLM supports Continuous batching of incoming requests, using an extra thread for inferencing.</li>
+<li>vLLM provides abstracts of asyncio, using asyncio http framework after abstracts of uvicorn+FastAPI to achieve http api privision.</li>
+</ul>
+<h2 id="supported-models">Supported models<a hidden class="anchor" aria-hidden="true" href="#supported-models">#</a></h2>
+<ul>
+<li><code>Qwen/Qwen1.5-14B-Chat-GPTQ-Int4</code></li>
+<li><code>Qwen/Qwen1.5-32B-Chat-AWQ</code></li>
+<li><code>internlm/internlm2-chat-7b</code></li>
+<li><code>01-ai/Yi-1.5-9B-Chat</code></li>
+<li><code>modelscope/Yi-1.5-34B-Chat-AWQ</code></li>
+<li><code>CohereForAI/aya-23-8B</code></li>
+<li><code>meta-llama/Meta-Llama-3-8B-Instruct</code></li>
+<li><code>THUDM/glm-4-9b-chat</code></li>
+<li><code>Qwen/Qwen2-7B-Instruct</code></li>
+<li><code>google/gemma-1.1-7b-it</code></li>
+<li><code>mistralai/Mistral-7B-Instruct-v0.3</code></li>
+<li><code>microsoft/Phi-3-small-8k-instruct</code></li>
+<li><code>openbmb/MiniCPM-2B-dpo-bf16</code></li>
+</ul>
+<h2 id="getting-started">Getting Started<a hidden class="anchor" aria-hidden="true" href="#getting-started">#</a></h2>
+<h3 id="requirements">Requirements<a hidden class="anchor" aria-hidden="true" href="#requirements">#</a></h3>
+<blockquote>
+<p><strong>IMPORTANT</strong>:</p>
+<p>The requirement below is mandatory. And we&rsquo;ve only tested our project on the following platform.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Mandatory</th>
+<th>Recommended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>3.8</td>
+</tr>
+<tr>
+<td>CUDA</td>
+<td>12.1</td>
+</tr>
+<tr>
+<td>torch</td>
+<td>2.1</td>
+</tr>
+<tr>
+<td>einops</td>
+<td>0.8.0</td>
+</tr>
+<tr>
+<td>transformers</td>
+<td>4.41.0</td>
+</tr>
+<tr>
+<td>accelerate</td>
+<td>0.30.1</td>
+</tr>
+<tr>
+<td>vLLM</td>
+<td>0.4.3</td>
+</tr>
+<tr>
+<td>tiktoken</td>
+<td>0.6.0</td>
+</tr>
+<tr>
+<td>sentencepiece</td>
+<td>0.2.0</td>
+</tr>
+<tr>
+<td>scipy</td>
+<td>1.13.0</td>
+</tr>
+<tr>
+<td>FastAPI</td>
+<td>0.111.0</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>TIP</strong>:</p>
+<p>Use <code>pip install -r requirement.txt</code> to install all the requirement if you want to create a new environment on your own or stick with existing environment.</p>
+</blockquote>
+<h3 id="quickstart">Quickstart<a hidden class="anchor" aria-hidden="true" href="#quickstart">#</a></h3>
+<h4 id="repo-download">Repo Download<a hidden class="anchor" aria-hidden="true" href="#repo-download">#</a></h4>
+<p>We first clone the whole project by git clone this repo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone git@github.com:BiboyQG/ASAG.git <span style="color:#f92672">&amp;&amp;</span> cd ASAG
+</span></span></code></pre></div><h4 id="environment-setup">Environment Setup<a hidden class="anchor" aria-hidden="true" href="#environment-setup">#</a></h4>
+<p>Then, it is necessary for us to setup a virtual environmrnt in order to run the project.</p>
+<p>Currently, we don&rsquo;t provide docker image or dockerfile, but instead we offer conda(Anaconda/Miniconda) environment config file inside <code>env</code> folder.</p>
+<p>Therefore, you can simply copy and run the following in your terminal to quickly setup the environment:</p>
+<blockquote>
+<p><strong>NOTE</strong>:</p>
+<p>You can rename <code>my_new_env</code> to any name you want.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>conda env create -n my_new_env -f env/environment.yml <span style="color:#f92672">&amp;&amp;</span> conda activate my_new_env
+</span></span></code></pre></div><h4 id="launch-server">Launch Server<a hidden class="anchor" aria-hidden="true" href="#launch-server">#</a></h4>
+<p>Then we need to setup server-side to provide the service to the clients. To launch our HTTP server, simply:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>python vllm_server.py -m [index of the model in the above list]
+</span></span></code></pre></div><p>If you launch the server with the specific model you specify for the first time, the server would automatically download the model and save the files to <code>.cache/huggingface/hub</code>.</p>
+<blockquote>
+<p><strong>NOTE</strong>:</p>
+<p>Some users may find it difficult to download model files from Huggingface due to internet issues. Hence, we provide the following solution.</p>
+</blockquote>
+<p>For users that don&rsquo;t have access to Huggingface, you need to do the following things:</p>
+<ul>
+<li>Import <code>snapshot_download</code> from <code>modelscope</code> instead of from <code>huggingface_hub</code>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> modelscope <span style="color:#f92672">import</span> snapshot_download
+</span></span></code></pre></div><ul>
+<li>Enable the use of <code>modelscope</code> by uncommenting this line of code within <code>vllm_server.py</code>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;VLLM_USE_MODELSCOPE&#39;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;True&#39;</span>
+</span></span></code></pre></div><h4 id="request-and-response">Request and Response<a hidden class="anchor" aria-hidden="true" href="#request-and-response">#</a></h4>
+<p>After that, we can either start the student entry or client side to pass our inputs to the server:</p>
+<ul>
+<li><strong>For student entry:</strong></li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong>:</p>
+<p><code>0</code> stands for using zero-shot prompt, while <code>1</code> for one-shot, and <code>2</code> for few-shot.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python student_entry.py -n <span style="color:#f92672">[</span>0, 1, 2<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
+<li><strong>For casual client:</strong></li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong>:</p>
+<p><code>-s</code> stands for get response in a streaming way, which is optional.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python student_entry.py <span style="color:#f92672">[</span>-s<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h4 id="webui">WebUI<a hidden class="anchor" aria-hidden="true" href="#webui">#</a></h4>
+<p>After launching vllm_server, you can also run gradio_webui.py which is a webui based on gradio. This can achieve a chat-liked format like ChatGPT, which is more user-friendly.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python gradio_webui.py
+</span></span></code></pre></div><h2 id="data-and-results">Data and Results<a hidden class="anchor" aria-hidden="true" href="#data-and-results">#</a></h2>
+<ul>
+<li>
+<p>Example data: <a href="https://github.com/BiboyQG/ASAG/blob/master/data/example.json">example.json</a></p>
+</li>
+<li>
+<p>Zero-shot pormpt template:</p>
+</li>
+</ul>
+<p><img loading="lazy" src="https://s2.loli.net/2024/06/11/8UOoJBshVgtKS1l.png" alt="image-20240611154055447"  />
+</p>
+<ul>
+<li>Test on different LLMs with prompt template and example data: <a href="https://github.com/BiboyQG/ASAG/tree/master/results">results</a>.</li>
+</ul>
+<h2 id="acknowledgement">Acknowledgement<a hidden class="anchor" aria-hidden="true" href="#acknowledgement">#</a></h2>
+<ul>
+<li><a href="https://github.com/BiboyQG/ASAG/blob/master/vllm_server.py">vllm_server.py</a> referenced from <a href="https://github.com/vllm-project/vllm/blob/main/vllm/entrypoints/api_server.py">vLLM official implementation - server</a>.</li>
+<li><a href="https://github.com/BiboyQG/ASAG/blob/master/vllm_client.py">vllm_client.py</a> referenced from <a href="https://github.com/vllm-project/vllm/blob/main/examples/api_client.py">vLLM official implementation - client</a>.</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://biboyqg.github.io/blog/tags/llm/">LLM</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/nlp/">NLP</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/research/">Research</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/project/">Project</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://biboyqg.github.io/blog/blog/bpe/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Let&#39;s build GPT from scratch with BPE!</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2025 <a href="https://biboyqg.github.io/blog/">Banghao&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

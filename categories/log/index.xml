@@ -10,9 +10,9 @@
     <atom:link href="https://biboyqg.github.io/blog/categories/log/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Daily Log</title>
-      <link>https://biboyqg.github.io/blog/blog/log/</link>
+      <link>https://biboyqg.github.io/blog/blog/daily-log-1/</link>
       <pubDate>Wed, 20 Mar 2024 06:35:10 -0500</pubDate>
-      <guid>https://biboyqg.github.io/blog/blog/log/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/daily-log-1/</guid>
       <description>3.12 Managed to understand the whole code base of the CLIP repo from OpenAI. Planned to take a look at CAT-Seg: Cost Aggregation for Open-Vocabulary Semantic Segmentation, to understand how to implement Open-Vocabulary Segmentation (OVS) using CLIP.
 3.13 1. DETR Got a basic understanding of DETR, which is an awesome end-to-end 2D object detection architecture, with its downside lies in:
 Long training period Difficulty of detecting small objects but has advantages in:</description>
