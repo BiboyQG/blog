@@ -1,3 +1,3 @@
 # Banghao's Blog
 
-Preview: [https://banghao.github.io/blog/](https://banghao.github.io/blog/)
+Preview: [https://biboyqg.github.io/blog/](https://biboyqg.github.io/blog/)
