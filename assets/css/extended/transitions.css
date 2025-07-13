@@ -1,0 +1,107 @@
+/* Add smooth transitions for theme switching */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Specific transitions for common elements */
+body {
+  transition: background-color 0.3s ease;
+}
+
+.post-entry {
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    transform 0.1s ease;
+}
+
+.footer {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav {
+  transition: background-color 0.3s ease;
+}
+
+/* Theme toggle button transitions */
+#theme-toggle {
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+#theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Menu items transitions */
+#menu a {
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+/* Social icons transitions */
+.social-icons a {
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.1);
+}
+
+/* Post tags transitions */
+.post-tags a {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+}
+
+/* Top link transitions */
+.top-link {
+  transition: visibility 0.5s ease, opacity 0.8s ease,
+    background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Code blocks transitions */
+code,
+pre {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Links transitions */
+a {
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+/* Headers transitions */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  transition: color 0.3s ease;
+}
+
+/* Buttons transitions */
+.button {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+}
+
+/* Terms tags transitions */
+.terms-tags a {
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+/* Search results transitions */
+#searchResults li {
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+/* Pagination transitions */
+.pagination a {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Share buttons transitions */
+.share-buttons a {
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.share-buttons a:hover {
+  transform: scale(1.1);
+}
