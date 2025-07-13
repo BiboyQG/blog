@@ -1,0 +1,49 @@
+/* Minimal transitions that won't interfere with theme toggle */
+body {
+  transition: background-color 0.3s ease;
+}
+
+/* Only apply transitions to elements that change during theme switching */
+.post-entry {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.footer {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav {
+  transition: background-color 0.3s ease;
+}
+
+/* Theme toggle button - minimal transition */
+#theme-toggle {
+  transition: color 0.3s ease;
+}
+
+/* Text elements - only color transitions */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+a {
+  transition: color 0.3s ease;
+}
+
+/* Code elements */
+code,
+pre {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Disable all transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
