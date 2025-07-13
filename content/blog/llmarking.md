@@ -147,8 +147,6 @@ After launching vllm_server, you can also run gradio_webui.py which is a webui b
 python gradio_webui.py
 ```
 
-![webui](https://s2.loli.net/2024/06/11/duwy9Q4j7JM1PVp.png)
-
 ## Data and Results
 
 - Example data: [example.json](https://github.com/BiboyQG/ASAG/blob/master/data/example.json)

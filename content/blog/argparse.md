@@ -1,5 +1,5 @@
 +++
-title = 'Argparse: a user-friendly tool to write CLI interface'
+title = 'Argparse: A User-friendly Tool to Write CLI Interface'
 date = 2024-03-08T07:38:30-05:00
 categories = ['python']
 tags = ['argparse', 'yolov5']
