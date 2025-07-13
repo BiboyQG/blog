@@ -2,129 +2,129 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Banghao&#39;s Blog</title>
-    <link>https://banghao.live/tags/</link>
+    <link>https://biboyqg.github.io/blog/tags/</link>
     <description>Recent content in Tags on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Jun 2024 19:24:12 +0800</lastBuildDate>
-    <atom:link href="https://banghao.live/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://biboyqg.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LLM</title>
-      <link>https://banghao.live/tags/llm/</link>
+      <link>https://biboyqg.github.io/blog/tags/llm/</link>
       <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
-      <guid>https://banghao.live/tags/llm/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/llm/</guid>
       <description></description>
     </item>
     <item>
       <title>NLP</title>
-      <link>https://banghao.live/tags/nlp/</link>
+      <link>https://biboyqg.github.io/blog/tags/nlp/</link>
       <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
-      <guid>https://banghao.live/tags/nlp/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/nlp/</guid>
       <description></description>
     </item>
     <item>
       <title>Project</title>
-      <link>https://banghao.live/tags/project/</link>
+      <link>https://biboyqg.github.io/blog/tags/project/</link>
       <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
-      <guid>https://banghao.live/tags/project/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/project/</guid>
       <description></description>
     </item>
     <item>
       <title>Research</title>
-      <link>https://banghao.live/tags/research/</link>
+      <link>https://biboyqg.github.io/blog/tags/research/</link>
       <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
-      <guid>https://banghao.live/tags/research/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/research/</guid>
       <description></description>
     </item>
     <item>
       <title>Byte Pair Encoding</title>
-      <link>https://banghao.live/tags/byte-pair-encoding/</link>
+      <link>https://biboyqg.github.io/blog/tags/byte-pair-encoding/</link>
       <pubDate>Wed, 08 May 2024 14:15:07 -0500</pubDate>
-      <guid>https://banghao.live/tags/byte-pair-encoding/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/byte-pair-encoding/</guid>
       <description></description>
     </item>
     <item>
       <title>Tokenization</title>
-      <link>https://banghao.live/tags/tokenization/</link>
+      <link>https://biboyqg.github.io/blog/tags/tokenization/</link>
       <pubDate>Wed, 08 May 2024 14:15:07 -0500</pubDate>
-      <guid>https://banghao.live/tags/tokenization/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/tokenization/</guid>
       <description></description>
     </item>
     <item>
       <title>Application</title>
-      <link>https://banghao.live/tags/application/</link>
+      <link>https://biboyqg.github.io/blog/tags/application/</link>
       <pubDate>Sun, 05 May 2024 16:18:51 -0500</pubDate>
-      <guid>https://banghao.live/tags/application/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/application/</guid>
       <description></description>
     </item>
     <item>
       <title>Internet of Things</title>
-      <link>https://banghao.live/tags/internet-of-things/</link>
+      <link>https://biboyqg.github.io/blog/tags/internet-of-things/</link>
       <pubDate>Sun, 05 May 2024 16:18:51 -0500</pubDate>
-      <guid>https://banghao.live/tags/internet-of-things/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/internet-of-things/</guid>
       <description></description>
     </item>
     <item>
       <title>3D Object Detection</title>
-      <link>https://banghao.live/tags/3d-object-detection/</link>
+      <link>https://biboyqg.github.io/blog/tags/3d-object-detection/</link>
       <pubDate>Mon, 01 Apr 2024 16:32:18 -0500</pubDate>
-      <guid>https://banghao.live/tags/3d-object-detection/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/3d-object-detection/</guid>
       <description></description>
     </item>
     <item>
       <title>CenterPoint</title>
-      <link>https://banghao.live/tags/centerpoint/</link>
+      <link>https://biboyqg.github.io/blog/tags/centerpoint/</link>
       <pubDate>Mon, 01 Apr 2024 16:32:18 -0500</pubDate>
-      <guid>https://banghao.live/tags/centerpoint/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/centerpoint/</guid>
       <description></description>
     </item>
     <item>
       <title>Quantization</title>
-      <link>https://banghao.live/tags/quantization/</link>
+      <link>https://biboyqg.github.io/blog/tags/quantization/</link>
       <pubDate>Mon, 01 Apr 2024 16:32:18 -0500</pubDate>
-      <guid>https://banghao.live/tags/quantization/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/quantization/</guid>
       <description></description>
     </item>
     <item>
       <title>Deep Learning</title>
-      <link>https://banghao.live/tags/deep-learning/</link>
+      <link>https://biboyqg.github.io/blog/tags/deep-learning/</link>
       <pubDate>Wed, 20 Mar 2024 06:35:10 -0500</pubDate>
-      <guid>https://banghao.live/tags/deep-learning/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/deep-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>CLIP</title>
-      <link>https://banghao.live/tags/clip/</link>
+      <link>https://biboyqg.github.io/blog/tags/clip/</link>
       <pubDate>Fri, 15 Mar 2024 05:21:09 -0500</pubDate>
-      <guid>https://banghao.live/tags/clip/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/clip/</guid>
       <description></description>
     </item>
     <item>
       <title>Open Vocabulary Segmentation</title>
-      <link>https://banghao.live/tags/open-vocabulary-segmentation/</link>
+      <link>https://biboyqg.github.io/blog/tags/open-vocabulary-segmentation/</link>
       <pubDate>Fri, 15 Mar 2024 05:21:09 -0500</pubDate>
-      <guid>https://banghao.live/tags/open-vocabulary-segmentation/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/open-vocabulary-segmentation/</guid>
       <description></description>
     </item>
     <item>
       <title>Swin Transformer</title>
-      <link>https://banghao.live/tags/swin-transformer/</link>
+      <link>https://biboyqg.github.io/blog/tags/swin-transformer/</link>
       <pubDate>Fri, 15 Mar 2024 05:21:09 -0500</pubDate>
-      <guid>https://banghao.live/tags/swin-transformer/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/swin-transformer/</guid>
       <description></description>
     </item>
     <item>
       <title>Argparse</title>
-      <link>https://banghao.live/tags/argparse/</link>
+      <link>https://biboyqg.github.io/blog/tags/argparse/</link>
       <pubDate>Fri, 08 Mar 2024 07:38:30 -0500</pubDate>
-      <guid>https://banghao.live/tags/argparse/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/argparse/</guid>
       <description></description>
     </item>
     <item>
       <title>Yolov5</title>
-      <link>https://banghao.live/tags/yolov5/</link>
+      <link>https://biboyqg.github.io/blog/tags/yolov5/</link>
       <pubDate>Fri, 08 Mar 2024 07:38:30 -0500</pubDate>
-      <guid>https://banghao.live/tags/yolov5/</guid>
+      <guid>https://biboyqg.github.io/blog/tags/yolov5/</guid>
       <description></description>
     </item>
   </channel>

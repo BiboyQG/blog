@@ -2,59 +2,59 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Banghao&#39;s Blog</title>
-    <link>https://banghao.live/</link>
+    <link>https://biboyqg.github.io/blog/</link>
     <description>Recent content on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Jun 2024 19:24:12 +0800</lastBuildDate>
-    <atom:link href="https://banghao.live/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://biboyqg.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LLMarking</title>
-      <link>https://banghao.live/blog/asag/</link>
+      <link>https://biboyqg.github.io/blog/blog/asag/</link>
       <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
-      <guid>https://banghao.live/blog/asag/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/asag/</guid>
       <description>This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi&amp;rsquo;an Jiaotong Liverpool University (XJTLU).
 Using vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
 Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.</description>
     </item>
     <item>
       <title>Let&#39;s build GPT from scratch with BPE!</title>
-      <link>https://banghao.live/blog/token/</link>
+      <link>https://biboyqg.github.io/blog/blog/token/</link>
       <pubDate>Wed, 08 May 2024 14:15:07 -0500</pubDate>
-      <guid>https://banghao.live/blog/token/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/token/</guid>
       <description>1. Workshop Description Quick question: Have you ever thought about a string being transformed into a word vector so that it can be further fed into a machine learning algorithm?
 In this workshop, we are going to dive into the fascinating world of Natural Language Processing (NLP) with our focus on Byte Pair Encoding (BPE) algorithm. We will discover how this powerful technique segments text into subword units, enabling efficient representation of words as vectors.</description>
     </item>
     <item>
       <title>IoT-Enabled Home Security Camera</title>
-      <link>https://banghao.live/blog/camera/</link>
+      <link>https://biboyqg.github.io/blog/blog/camera/</link>
       <pubDate>Sun, 05 May 2024 16:18:51 -0500</pubDate>
-      <guid>https://banghao.live/blog/camera/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/camera/</guid>
       <description>Video GitHub
 1. Motivation Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work.</description>
     </item>
     <item>
       <title>Quantization on CenterPoint</title>
-      <link>https://banghao.live/blog/quant/</link>
+      <link>https://biboyqg.github.io/blog/blog/quant/</link>
       <pubDate>Mon, 01 Apr 2024 16:32:18 -0500</pubDate>
-      <guid>https://banghao.live/blog/quant/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/quant/</guid>
       <description>Take mmdetection as an example First find the Runner class: This is the place where the build of the model is completed:
 class Runner: def __init__(...): ... ... self.model = self.build_model(model) # wrap model self.model = self.wrap_model( self.cfg.get(&amp;#39;model_wrapper_cfg&amp;#39;), self.model) # get model name from the model class if hasattr(self.model, &amp;#39;module&amp;#39;): self._model_name = self.model.module.__class__.__name__ else: self._model_name = self.model.__class__.__name__ ... ... Learn about how pytorch-quantization works by diving into its source code: Code about the quantization function respect to a specific Pytorch model as input: quant_utils.</description>
     </item>
     <item>
       <title>Daily Log</title>
-      <link>https://banghao.live/blog/log/</link>
+      <link>https://biboyqg.github.io/blog/blog/log/</link>
       <pubDate>Wed, 20 Mar 2024 06:35:10 -0500</pubDate>
-      <guid>https://banghao.live/blog/log/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/log/</guid>
       <description>3.12 Managed to understand the whole code base of the CLIP repo from OpenAI. Planned to take a look at CAT-Seg: Cost Aggregation for Open-Vocabulary Semantic Segmentation, to understand how to implement Open-Vocabulary Segmentation (OVS) using CLIP.
 3.13 1. DETR Got a basic understanding of DETR, which is an awesome end-to-end 2D object detection architecture, with its downside lies in:
 Long training period Difficulty of detecting small objects but has advantages in:</description>
     </item>
     <item>
       <title>CATseg: A complete walk through of the model architecture</title>
-      <link>https://banghao.live/blog/catseg/</link>
+      <link>https://biboyqg.github.io/blog/blog/catseg/</link>
       <pubDate>Fri, 15 Mar 2024 05:21:09 -0500</pubDate>
-      <guid>https://banghao.live/blog/catseg/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/catseg/</guid>
       <description>1. Model Architecture setup and evaluation data flow(for ade150k) CATSeg setup:
 backbone: D2SwinTransformer -&amp;gt; Swintransformer -&amp;gt; BasicLayer(2) -&amp;gt; SwinTransformerBlock -&amp;gt; WindowAttention
 sem_seg_head: CATSegHead.from_config -&amp;gt; CATSegPredictor -&amp;gt;
@@ -63,16 +63,16 @@ bpe encode classname in different templates and save results in variable texts (
     </item>
     <item>
       <title>Argparse: a user-friendly tool to write CLI interface</title>
-      <link>https://banghao.live/blog/argparse/</link>
+      <link>https://biboyqg.github.io/blog/blog/argparse/</link>
       <pubDate>Fri, 08 Mar 2024 07:38:30 -0500</pubDate>
-      <guid>https://banghao.live/blog/argparse/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/argparse/</guid>
       <description>1. Introduction Hello fellows! Today I&amp;rsquo;m excited to share insights about the argparse module, a robust and intuitive tool for creating command-line interfaces in Python. What makes argparse particularly fascinating to me is its ability to enable users to quickly leverage Python scripts with custom configurations and functionalities, without the need to dive into the underlying source code. This feature of argparse has captured my interest and again, showcasing its value in making Python files reusable and accessible for diverse applications.</description>
     </item>
     <item>
       <title>Real-time Object Recognition in Chess: Personalized Tuning and Hardware Acceleration</title>
-      <link>https://banghao.live/blog/chess/</link>
+      <link>https://biboyqg.github.io/blog/blog/chess/</link>
       <pubDate>Sat, 05 Aug 2023 16:53:11 -0500</pubDate>
-      <guid>https://banghao.live/blog/chess/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/chess/</guid>
       <description>1. Selected and customized the YOLOv5 model for Chinese chess annotation data. 2. Conducted testing and analysis of the model. The results indicated exceptional accuracy in recognition capabilities. However, a significant shortfall was identified in terms of efficiency, with the model taking approximately 6 seconds to process a single image.
 3. Implemented model optimization. We substitute the YOLOv5 model with a more lightweight variant, YOLOv5-lite and convert the model into the ONNX format to leverage hardware acceleration, thereby enhancing computational efficiency.</description>
     </item>

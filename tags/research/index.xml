@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Research on Banghao&#39;s Blog</title>
-    <link>https://banghao.live/tags/research/</link>
+    <link>https://biboyqg.github.io/blog/tags/research/</link>
     <description>Recent content in Research on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Jun 2024 19:24:12 +0800</lastBuildDate>
-    <atom:link href="https://banghao.live/tags/research/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://biboyqg.github.io/blog/tags/research/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LLMarking</title>
-      <link>https://banghao.live/blog/asag/</link>
+      <link>https://biboyqg.github.io/blog/blog/asag/</link>
       <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
-      <guid>https://banghao.live/blog/asag/</guid>
+      <guid>https://biboyqg.github.io/blog/blog/asag/</guid>
       <description>This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi&amp;rsquo;an Jiaotong Liverpool University (XJTLU).
 Using vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
 Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.</description>

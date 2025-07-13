@@ -2,52 +2,52 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on Banghao&#39;s Blog</title>
-    <link>https://banghao.live/categories/</link>
+    <link>https://biboyqg.github.io/blog/categories/</link>
     <description>Recent content in Categories on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Jun 2024 19:24:12 +0800</lastBuildDate>
-    <atom:link href="https://banghao.live/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://biboyqg.github.io/blog/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Research</title>
-      <link>https://banghao.live/categories/research/</link>
+      <link>https://biboyqg.github.io/blog/categories/research/</link>
       <pubDate>Wed, 12 Jun 2024 19:24:12 +0800</pubDate>
-      <guid>https://banghao.live/categories/research/</guid>
+      <guid>https://biboyqg.github.io/blog/categories/research/</guid>
       <description></description>
     </item>
     <item>
       <title>Workshop</title>
-      <link>https://banghao.live/categories/workshop/</link>
+      <link>https://biboyqg.github.io/blog/categories/workshop/</link>
       <pubDate>Wed, 08 May 2024 14:15:07 -0500</pubDate>
-      <guid>https://banghao.live/categories/workshop/</guid>
+      <guid>https://biboyqg.github.io/blog/categories/workshop/</guid>
       <description></description>
     </item>
     <item>
       <title>Internet of Things</title>
-      <link>https://banghao.live/categories/internet-of-things/</link>
+      <link>https://biboyqg.github.io/blog/categories/internet-of-things/</link>
       <pubDate>Sun, 05 May 2024 16:18:51 -0500</pubDate>
-      <guid>https://banghao.live/categories/internet-of-things/</guid>
+      <guid>https://biboyqg.github.io/blog/categories/internet-of-things/</guid>
       <description></description>
     </item>
     <item>
       <title>Log</title>
-      <link>https://banghao.live/categories/log/</link>
+      <link>https://biboyqg.github.io/blog/categories/log/</link>
       <pubDate>Wed, 20 Mar 2024 06:35:10 -0500</pubDate>
-      <guid>https://banghao.live/categories/log/</guid>
+      <guid>https://biboyqg.github.io/blog/categories/log/</guid>
       <description></description>
     </item>
     <item>
       <title>Computer Vision</title>
-      <link>https://banghao.live/categories/computer-vision/</link>
+      <link>https://biboyqg.github.io/blog/categories/computer-vision/</link>
       <pubDate>Fri, 15 Mar 2024 05:21:09 -0500</pubDate>
-      <guid>https://banghao.live/categories/computer-vision/</guid>
+      <guid>https://biboyqg.github.io/blog/categories/computer-vision/</guid>
       <description></description>
     </item>
     <item>
       <title>Python</title>
-      <link>https://banghao.live/categories/python/</link>
+      <link>https://biboyqg.github.io/blog/categories/python/</link>
       <pubDate>Fri, 08 Mar 2024 07:38:30 -0500</pubDate>
-      <guid>https://banghao.live/categories/python/</guid>
+      <guid>https://biboyqg.github.io/blog/categories/python/</guid>
       <description></description>
     </item>
   </channel>
