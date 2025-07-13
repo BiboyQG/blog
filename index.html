@@ -200,18 +200,6 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Meeting Discussion (11)
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>1. Table of Contents The feasibility of quantization and SQ on SparseConv3d: ✅ The discussion of sparse conv3d: Find where the computation for sparse conv3d is done: ✅ Inside ops.implicit_gemm: ✅ How can we implement it: Quantization of the activation and weight: ✅ Application of SQ during quantization process: ✅ Evaluation of current method: Whether SQ is effective or not depends on the value of the inputs and weight: ✅ Actual implementation: In progress… 2....</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-06-16 18:48:25 +0800 +0800'>June 16, 2024</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Banghao Chi</footer>
-  <a class="entry-link" aria-label="post link to Meeting Discussion (11)" href="https://banghao.live/blog/11/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">LLMarking
     </h2>
   </header>
@@ -222,56 +210,6 @@ Feature This project aims to achieve high concurrency automatic short answer gra
   </div>
   <footer class="entry-footer"><span title='2024-06-12 19:24:12 +0800 +0800'>June 12, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Banghao Chi</footer>
   <a class="entry-link" aria-label="post link to LLMarking" href="https://banghao.live/blog/asag/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Meeting Discussion (10)
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>1. Table of Contents: Final results and comparison: ✅ Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits: ✅ Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss): ✅ Lots of experiments to analyze the accuracy loss: ✅ Modify the model based on the above experiments: ✅ Validate the accuracy of the final model: through mAP and NDS: ✅ 2....</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-05-21 18:26:33 -0500 -0500'>May 21, 2024</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Banghao Chi</footer>
-  <a class="entry-link" aria-label="post link to Meeting Discussion (10)" href="https://banghao.live/blog/10/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Meeting Discussion (9)
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>1. Table of Contents Implementation of im2col&#43;gemm operation: ✅ Add INT8-quantizer to the first operation: ✅ Add SmoothQuant to the second operation: ✅ Verify operation through different example inputs: ✅ Integrate im2col&#43;gemm SmoothQuant INT8-quantized layer into model: ✅ Validate the accuracy of the layer by: through different example inputs: ✅ through actual data flow of the model: ✅ through accuracy: In progress… (due to Delta only comes back online really late) 2....</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-05-17 18:10:55 -0500 -0500'>May 17, 2024</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Banghao Chi</footer>
-  <a class="entry-link" aria-label="post link to Meeting Discussion (9)" href="https://banghao.live/blog/9/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Meeting Discussion (8)
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>1. Table of Contents Original implementation of SmoothQuant and why it’s not correct: ✅ The correct way of implementation IMO: ✅ 2. Original way of getting absMax values def register_collect_smoothquant_hook(model, data_loader, num_batch=200): model.eval() act_scales = {} weight_scales = {} def forward_hook(module, input, name): hidden_dim_act = input[0].shape[1] tensor_act = input[0].view(-1, hidden_dim_act).abs().detach() comming_max_act = torch.max(tensor_act, dim=0)[0].float().cpu() if name not in act_scales: act_scales[name] = comming_max_act else: act_scales[name] = torch.max(act_scales[name], comming_max_act) Input shape: [4, 256, 182, 182] hidden_dim_act = 256 tensor_act: [4*182*182, 256] torch....</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-05-14 14:20:16 -0500 -0500'>May 14, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Banghao Chi</footer>
-  <a class="entry-link" aria-label="post link to Meeting Discussion (8)" href="https://banghao.live/blog/8/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Meeting Discussion (7)
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>1. Table of Contents Implementation of SmoothQuant on Conv2d: ✅
-Validation of the above implementation: ✅ (for $ \alpha = 0.5 $)
-2. Implementation of SmoothQuant operation on Conv2d Get activation scale Get weight scale Compute smoothing factor $ s $ based on above two scales Apply scaling: $\text{input} \mathrel{{/}{=}} s$ $\text{weight} \mathrel{{*}{=}} s$ 2.1 Get activation &amp; weight scale Take a look at the shape of activation, output, and weight in Conv2d: Take one layer as an example: Input shape: torch....</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-05-10 14:01:08 -0500 -0500'>May 10, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Banghao Chi</footer>
-  <a class="entry-link" aria-label="post link to Meeting Discussion (7)" href="https://banghao.live/blog/7/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -302,38 +240,71 @@ In this workshop, we are going to dive into the fascinating world of Natural Lan
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Meeting Discussion (6)
+    <h2 class="entry-hint-parent">Quantization on CenterPoint
     </h2>
   </header>
   <div class="entry-content">
-    <p>1. Table of Contents In-depth Memory Usage Visualization: ✅
-Ideas about how to implement quantization of sparse conv3d: ✅
-Ideas about how to implement SmoothQuant operation on conv2d: ✅
-2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -&gt; Backbone 2d Backbone 2d Head Below are structure for each major chunk:
-Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d?...</p>
+    <p>Take mmdetection as an example First find the Runner class: This is the place where the build of the model is completed:
+class Runner: def __init__(...): ... ... self.model = self.build_model(model) # wrap model self.model = self.wrap_model( self.cfg.get(&#39;model_wrapper_cfg&#39;), self.model) # get model name from the model class if hasattr(self.model, &#39;module&#39;): self._model_name = self.model.module.__class__.__name__ else: self._model_name = self.model.__class__.__name__ ... ... Learn about how pytorch-quantization works by diving into its source code: Code about the quantization function respect to a specific Pytorch model as input: quant_utils....</p>
   </div>
-  <footer class="entry-footer"><span title='2024-05-02 17:04:02 -0500 -0500'>May 2, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Banghao Chi</footer>
-  <a class="entry-link" aria-label="post link to Meeting Discussion (6)" href="https://banghao.live/blog/6/"></a>
+  <footer class="entry-footer"><span title='2024-04-01 16:32:18 -0500 -0500'>April 1, 2024</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Banghao Chi</footer>
+  <a class="entry-link" aria-label="post link to Quantization on CenterPoint" href="https://banghao.live/blog/quant/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Meeting Discussion (5)
+    <h2 class="entry-hint-parent">Daily Log
     </h2>
   </header>
   <div class="entry-content">
-    <p>1. Table of Contents Accuracy graph under diffrerent quantization metrics: ✅ Max value within the layers: ✅ 2. Accuracy graph under diffrerent quantization metrics: As we can observe from both graphs, activation is clearly influced more by quantization.
-3. Max value within the layers In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53....</p>
+    <p>3.12 Managed to understand the whole code base of the CLIP repo from OpenAI. Planned to take a look at CAT-Seg: Cost Aggregation for Open-Vocabulary Semantic Segmentation, to understand how to implement Open-Vocabulary Segmentation (OVS) using CLIP.
+3.13 1. DETR Got a basic understanding of DETR, which is an awesome end-to-end 2D object detection architecture, with its downside lies in:
+Long training period Difficulty of detecting small objects but has advantages in:...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-05-01 16:48:28 -0500 -0500'>May 1, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Banghao Chi</footer>
-  <a class="entry-link" aria-label="post link to Meeting Discussion (5)" href="https://banghao.live/blog/5/"></a>
+  <footer class="entry-footer"><span title='2024-03-20 06:35:10 -0500 -0500'>March 20, 2024</span>&nbsp;·&nbsp;21 min&nbsp;·&nbsp;Banghao Chi</footer>
+  <a class="entry-link" aria-label="post link to Daily Log" href="https://banghao.live/blog/log/"></a>
 </article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="next" href="https://banghao.live/page/2/">Next&nbsp;&nbsp;»
-    </a>
-  </nav>
-</footer>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">CATseg: A complete walk through of the model architecture
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. Model Architecture setup and evaluation data flow(for ade150k) CATSeg setup:
+backbone: D2SwinTransformer -&gt; Swintransformer -&gt; BasicLayer(2) -&gt; SwinTransformerBlock -&gt; WindowAttention
+sem_seg_head: CATSegHead.from_config -&gt; CATSegPredictor -&gt;
+Load CLIP model -&gt; Load text templates -&gt; class_embeddings(self.class_texts, prompt_templates, clip_model) -&gt; for each class:
+bpe encode classname in different templates and save results in variable texts (80(number of templates), 77(number of sentence length)). CLIP encode texts : texts go through token_embedding(nn.Embedding) (80,77,768(hidden_dim)) texts go through a 12 layers of ResidualAttentionBlock (80,77,768) take features of texts from the eot_token (80,768) do the above for all classes (150(number of test classes),80,768)...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-03-15 05:21:09 -0500 -0500'>March 15, 2024</span>&nbsp;·&nbsp;22 min&nbsp;·&nbsp;Banghao Chi</footer>
+  <a class="entry-link" aria-label="post link to CATseg: A complete walk through of the model architecture" href="https://banghao.live/blog/catseg/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Argparse: a user-friendly tool to write CLI interface
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. Introduction Hello fellows! Today I’m excited to share insights about the argparse module, a robust and intuitive tool for creating command-line interfaces in Python. What makes argparse particularly fascinating to me is its ability to enable users to quickly leverage Python scripts with custom configurations and functionalities, without the need to dive into the underlying source code. This feature of argparse has captured my interest and again, showcasing its value in making Python files reusable and accessible for diverse applications....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-03-08 07:38:30 -0500 -0500'>March 8, 2024</span>&nbsp;·&nbsp;10 min&nbsp;·&nbsp;Banghao Chi</footer>
+  <a class="entry-link" aria-label="post link to Argparse: a user-friendly tool to write CLI interface" href="https://banghao.live/blog/argparse/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Real-time Object Recognition in Chess: Personalized Tuning and Hardware Acceleration
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. Selected and customized the YOLOv5 model for Chinese chess annotation data. 2. Conducted testing and analysis of the model. The results indicated exceptional accuracy in recognition capabilities. However, a significant shortfall was identified in terms of efficiency, with the model taking approximately 6 seconds to process a single image.
+3. Implemented model optimization. We substitute the YOLOv5 model with a more lightweight variant, YOLOv5-lite and convert the model into the ONNX format to leverage hardware acceleration, thereby enhancing computational efficiency....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-05 16:53:11 -0500 -0500'>August 5, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Banghao Chi</footer>
+  <a class="entry-link" aria-label="post link to Real-time Object Recognition in Chess: Personalized Tuning and Hardware Acceleration" href="https://banghao.live/blog/chess/"></a>
+</article>
     </main>
     
 <footer class="footer">

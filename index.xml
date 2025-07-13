@@ -6,15 +6,8 @@
     <description>Recent content on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Jun 2024 18:48:25 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 12 Jun 2024 19:24:12 +0800</lastBuildDate>
     <atom:link href="https://banghao.live/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Meeting Discussion (11)</title>
-      <link>https://banghao.live/blog/11/</link>
-      <pubDate>Sun, 16 Jun 2024 18:48:25 +0800</pubDate>
-      <guid>https://banghao.live/blog/11/</guid>
-      <description>1. Table of Contents The feasibility of quantization and SQ on SparseConv3d: ✅ The discussion of sparse conv3d: Find where the computation for sparse conv3d is done: ✅ Inside ops.implicit_gemm: ✅ How can we implement it: Quantization of the activation and weight: ✅ Application of SQ during quantization process: ✅ Evaluation of current method: Whether SQ is effective or not depends on the value of the inputs and weight: ✅ Actual implementation: In progress… 2.</description>
-    </item>
     <item>
       <title>LLMarking</title>
       <link>https://banghao.live/blog/asag/</link>
@@ -23,36 +16,6 @@
       <description>This is the official repo for Automatic Short Answer Grading (ASAG) project, named LLMarking, from Xi&amp;rsquo;an Jiaotong Liverpool University (XJTLU).
 Using vLLM as the Large Language Model (LLM) inference framework and FastAPI as the HTTP service framework, this project can achieve high throughput of both LLM tokens delivered and request handling.
 Feature This project aims to achieve high concurrency automatic short answer grading (ASAG) system and implement the construction of service.</description>
-    </item>
-    <item>
-      <title>Meeting Discussion (10)</title>
-      <link>https://banghao.live/blog/10/</link>
-      <pubDate>Tue, 21 May 2024 18:26:33 -0500</pubDate>
-      <guid>https://banghao.live/blog/10/</guid>
-      <description>1. Table of Contents: Final results and comparison: ✅ Do L1loss tests within the model again to see which part (SmoothQuant or transformation) has greater benefits: ✅ Do multiple tests on 50X input-scale with the scaling factor of SmoothQuant changing to see if other factors can provide better results (lower L1loss): ✅ Lots of experiments to analyze the accuracy loss: ✅ Modify the model based on the above experiments: ✅ Validate the accuracy of the final model: through mAP and NDS: ✅ 2.</description>
-    </item>
-    <item>
-      <title>Meeting Discussion (9)</title>
-      <link>https://banghao.live/blog/9/</link>
-      <pubDate>Fri, 17 May 2024 18:10:55 -0500</pubDate>
-      <guid>https://banghao.live/blog/9/</guid>
-      <description>1. Table of Contents Implementation of im2col+gemm operation: ✅ Add INT8-quantizer to the first operation: ✅ Add SmoothQuant to the second operation: ✅ Verify operation through different example inputs: ✅ Integrate im2col+gemm SmoothQuant INT8-quantized layer into model: ✅ Validate the accuracy of the layer by: through different example inputs: ✅ through actual data flow of the model: ✅ through accuracy: In progress… (due to Delta only comes back online really late) 2.</description>
-    </item>
-    <item>
-      <title>Meeting Discussion (8)</title>
-      <link>https://banghao.live/blog/8/</link>
-      <pubDate>Tue, 14 May 2024 14:20:16 -0500</pubDate>
-      <guid>https://banghao.live/blog/8/</guid>
-      <description>1. Table of Contents Original implementation of SmoothQuant and why it’s not correct: ✅ The correct way of implementation IMO: ✅ 2. Original way of getting absMax values def register_collect_smoothquant_hook(model, data_loader, num_batch=200): model.eval() act_scales = {} weight_scales = {} def forward_hook(module, input, name): hidden_dim_act = input[0].shape[1] tensor_act = input[0].view(-1, hidden_dim_act).abs().detach() comming_max_act = torch.max(tensor_act, dim=0)[0].float().cpu() if name not in act_scales: act_scales[name] = comming_max_act else: act_scales[name] = torch.max(act_scales[name], comming_max_act) Input shape: [4, 256, 182, 182] hidden_dim_act = 256 tensor_act: [4*182*182, 256] torch.</description>
-    </item>
-    <item>
-      <title>Meeting Discussion (7)</title>
-      <link>https://banghao.live/blog/7/</link>
-      <pubDate>Fri, 10 May 2024 14:01:08 -0500</pubDate>
-      <guid>https://banghao.live/blog/7/</guid>
-      <description>1. Table of Contents Implementation of SmoothQuant on Conv2d: ✅
-Validation of the above implementation: ✅ (for $ \alpha = 0.5 $)
-2. Implementation of SmoothQuant operation on Conv2d Get activation scale Get weight scale Compute smoothing factor $ s $ based on above two scales Apply scaling: $\text{input} \mathrel{{/}{=}} s$ $\text{weight} \mathrel{{*}{=}} s$ 2.1 Get activation &amp;amp; weight scale Take a look at the shape of activation, output, and weight in Conv2d: Take one layer as an example: Input shape: torch.</description>
     </item>
     <item>
       <title>Let&#39;s build GPT from scratch with BPE!</title>
@@ -69,40 +32,6 @@ In this workshop, we are going to dive into the fascinating world of Natural Lan
       <guid>https://banghao.live/blog/camera/</guid>
       <description>Video GitHub
 1. Motivation Facial recognition technology has become prevalent in all areas of life. Whether you work in security, law enforcement, or manufacture personal devices, the presence of facial recognition for various purposes is evident. Our project seeks to dive into this increasingly common technology and apply it to a place that needs upgrades, such as banks. Many banks are on old applications or using outdated technology, limiting the effectiveness of their work.</description>
-    </item>
-    <item>
-      <title>Meeting Discussion (6)</title>
-      <link>https://banghao.live/blog/6/</link>
-      <pubDate>Thu, 02 May 2024 17:04:02 -0500</pubDate>
-      <guid>https://banghao.live/blog/6/</guid>
-      <description>1. Table of Contents In-depth Memory Usage Visualization: ✅
-Ideas about how to implement quantization of sparse conv3d: ✅
-Ideas about how to implement SmoothQuant operation on conv2d: ✅
-2. Large Chunk GPU Memory Usage Overview Data loader Backbone 3d Backbone 3d -&amp;gt; Backbone 2d Backbone 2d Head Below are structure for each major chunk:
-Data Loader Backbone 3d 3d feature to 2d feature Backbone 2d Head 3. How to implement quantization of sparse conv3d?</description>
-    </item>
-    <item>
-      <title>Meeting Discussion (5)</title>
-      <link>https://banghao.live/blog/5/</link>
-      <pubDate>Wed, 01 May 2024 16:48:28 -0500</pubDate>
-      <guid>https://banghao.live/blog/5/</guid>
-      <description>1. Table of Contents Accuracy graph under diffrerent quantization metrics: ✅ Max value within the layers: ✅ 2. Accuracy graph under diffrerent quantization metrics: As we can observe from both graphs, activation is clearly influced more by quantization.
-3. Max value within the layers In the first graph, we can see that the max value within the weigh ranges from 0.1 to 2.94, while in the second graph, we can find an interesting max value pattern, with its value ranging from 8 to 53.</description>
-    </item>
-    <item>
-      <title>Meeting Discussion (4)</title>
-      <link>https://banghao.live/blog/4/</link>
-      <pubDate>Fri, 26 Apr 2024 15:32:56 -0500</pubDate>
-      <guid>https://banghao.live/blog/4/</guid>
-      <description>1. Table of Contents The strcuture of the CenterPoint-Vexel model: ✅ Inference time of each layer: ✅ Memory usage of each layer: ✅ Storage usage of each layer: ✅ Quantization of the model: ✅ 2. The strcuture of the CenterPoint-Vexel model CenterPoint( (vfe): MeanVFE() (backbone_3d): VoxelResBackBone8x( (conv_input): SparseSequential( (0): SubMConv3d(5, 16, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[1, 1, 1], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm) (1): BatchNorm1d(16, eps=0.</description>
-    </item>
-    <item>
-      <title>Meeting Discussion (3)</title>
-      <link>https://banghao.live/blog/3/</link>
-      <pubDate>Tue, 02 Apr 2024 18:18:50 -0500</pubDate>
-      <guid>https://banghao.live/blog/3/</guid>
-      <description>What has been done? This week&amp;rsquo;s work:
-Setup nuScenes training and validation dataset for MMDetection3D framework: ✅ Setup waymo training and validation dataset for MMDetection3D framework: ✅ Wrote API for PTQ under pytorch-quantization framework. (Now just need model and dataloader definition): ✅ Complete walkthrough of CAT-Seg, a SOTA Open Vocabulary Segmentation (OVS) model: ✅ What to discuss? Is this quantization way appropriate? Any advice on the changing of model structure (CAT-Seg)?</description>
     </item>
     <item>
       <title>Quantization on CenterPoint</title>
