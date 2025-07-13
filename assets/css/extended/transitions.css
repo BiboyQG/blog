@@ -1,28 +1,27 @@
-/* Add smooth transitions for theme switching */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Specific transitions for common elements */
+/* Add smooth transitions for theme switching - more targeted approach */
 body {
   transition: background-color 0.3s ease;
 }
 
-.post-entry {
-  transition: background-color 0.3s ease, border-color 0.3s ease,
-    transform 0.1s ease;
+/* Main content areas */
+.main {
+  transition: background-color 0.3s ease;
 }
 
-.footer {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
+/* Navigation and header */
 .nav {
   transition: background-color 0.3s ease;
 }
 
-/* Theme toggle button transitions */
+.logo a {
+  transition: color 0.3s ease;
+}
+
+#menu a {
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+/* Theme toggle button */
 #theme-toggle {
   transition: transform 0.2s ease, color 0.3s ease;
 }
@@ -31,12 +30,26 @@ body {
   transform: scale(1.1);
 }
 
-/* Menu items transitions */
-#menu a {
+/* Post entries */
+.post-entry {
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    transform 0.1s ease;
+}
+
+.post-entry:active {
+  transform: scale(0.96);
+}
+
+/* Footer */
+.footer {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.footer a {
   transition: color 0.3s ease, border-bottom-color 0.3s ease;
 }
 
-/* Social icons transitions */
+/* Social icons */
 .social-icons a {
   transition: color 0.3s ease, transform 0.2s ease;
 }
@@ -45,29 +58,36 @@ body {
   transform: scale(1.1);
 }
 
-/* Post tags transitions */
+/* Post tags */
 .post-tags a {
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
 }
 
-/* Top link transitions */
+.post-tags a:hover {
+  background-color: var(--border);
+}
+
+/* Top link */
 .top-link {
   transition: visibility 0.5s ease, opacity 0.8s ease,
     background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Code blocks transitions */
-code,
-pre {
+/* Code blocks */
+code {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Links transitions */
+pre {
+  transition: background-color 0.3s ease;
+}
+
+/* Links */
 a {
   transition: color 0.3s ease, border-bottom-color 0.3s ease;
 }
 
-/* Headers transitions */
+/* Headers */
 h1,
 h2,
 h3,
@@ -77,31 +97,124 @@ h6 {
   transition: color 0.3s ease;
 }
 
-/* Buttons transitions */
+/* Buttons */
 .button {
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
 }
 
-/* Terms tags transitions */
+.button:active {
+  transform: scale(0.96);
+}
+
+/* Terms tags */
 .terms-tags a {
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-/* Search results transitions */
+.terms-tags a:active {
+  transform: scale(0.96);
+}
+
+/* Search results */
 #searchResults li {
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-/* Pagination transitions */
+#searchResults li:active {
+  transform: scale(0.98);
+}
+
+/* Pagination */
 .pagination a {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Share buttons transitions */
+/* Share buttons */
 .share-buttons a {
   transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .share-buttons a:hover {
   transform: scale(1.1);
+}
+
+/* First entry */
+.first-entry {
+  transition: background-color 0.3s ease;
+}
+
+/* Entry content */
+.entry-content {
+  transition: color 0.3s ease;
+}
+
+.entry-footer {
+  transition: color 0.3s ease;
+}
+
+/* Page header */
+.page-header h1 {
+  transition: color 0.3s ease;
+}
+
+/* Post content */
+.post-content {
+  transition: color 0.3s ease;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  transition: color 0.3s ease;
+}
+
+.post-content a {
+  transition: color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-content code {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.post-content pre {
+  transition: background-color 0.3s ease;
+}
+
+.post-content blockquote {
+  transition: border-left-color 0.3s ease;
+}
+
+.post-content table th,
+.post-content table td {
+  transition: border-bottom-color 0.3s ease;
+}
+
+/* Archive elements */
+.archive-year {
+  transition: border-bottom-color 0.3s ease;
+}
+
+.archive-month {
+  transition: border-bottom-color 0.3s ease;
+}
+
+/* Terms tags list */
+.terms-tags li {
+  transition: transform 0.1s ease;
+}
+
+/* Ensure theme toggle icons transition smoothly */
+#moon,
+#sun {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Disable transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
 }
