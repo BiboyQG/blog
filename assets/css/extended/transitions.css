@@ -1,48 +1,215 @@
-/* Simple transitions for theme switching - minimal approach */
+/* Add smooth transitions for theme switching - more targeted approach */
 body {
   transition: background-color 0.3s ease;
 }
 
-/* Only target elements that actually change during theme switching */
-.post-entry {
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+/* Main content areas */
+.main {
+  transition: background-color 0.3s ease;
 }
 
-.footer {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
+/* Navigation and header */
 .nav {
   transition: background-color 0.3s ease;
 }
 
-/* Theme toggle button - keep it simple */
-#theme-toggle {
+.logo a {
   transition: color 0.3s ease;
 }
 
-/* Basic text elements */
+#menu a {
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+/* Theme toggle button */
+#theme-toggle {
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+#theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Post entries */
+.post-entry {
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    transform 0.1s ease;
+}
+
+.post-entry:active {
+  transform: scale(0.96);
+}
+
+/* Footer */
+.footer {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.footer a {
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+/* Social icons */
+.social-icons a {
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.1);
+}
+
+/* Post tags */
+.post-tags a {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+}
+
+.post-tags a:hover {
+  background-color: var(--border);
+}
+
+/* Top link */
+.top-link {
+  transition: visibility 0.5s ease, opacity 0.8s ease,
+    background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Code blocks */
+code {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+pre {
+  transition: background-color 0.3s ease;
+}
+
+/* Links */
+a {
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+/* Headers */
 h1,
 h2,
 h3,
 h4,
 h5,
-h6,
-p,
-span,
-div {
+h6 {
   transition: color 0.3s ease;
 }
 
-/* Links */
-a {
-  transition: color 0.3s ease;
+/* Buttons */
+.button {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
 }
 
-/* Code elements */
-code,
-pre {
+.button:active {
+  transform: scale(0.96);
+}
+
+/* Terms tags */
+.terms-tags a {
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.terms-tags a:active {
+  transform: scale(0.96);
+}
+
+/* Search results */
+#searchResults li {
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+#searchResults li:active {
+  transform: scale(0.98);
+}
+
+/* Pagination */
+.pagination a {
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Share buttons */
+.share-buttons a {
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.share-buttons a:hover {
+  transform: scale(1.1);
+}
+
+/* First entry */
+.first-entry {
+  transition: background-color 0.3s ease;
+}
+
+/* Entry content */
+.entry-content {
+  transition: color 0.3s ease;
+}
+
+.entry-footer {
+  transition: color 0.3s ease;
+}
+
+/* Page header */
+.page-header h1 {
+  transition: color 0.3s ease;
+}
+
+/* Post content */
+.post-content {
+  transition: color 0.3s ease;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  transition: color 0.3s ease;
+}
+
+.post-content a {
+  transition: color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-content code {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.post-content pre {
+  transition: background-color 0.3s ease;
+}
+
+.post-content blockquote {
+  transition: border-left-color 0.3s ease;
+}
+
+.post-content table th,
+.post-content table td {
+  transition: border-bottom-color 0.3s ease;
+}
+
+/* Archive elements */
+.archive-year {
+  transition: border-bottom-color 0.3s ease;
+}
+
+.archive-month {
+  transition: border-bottom-color 0.3s ease;
+}
+
+/* Terms tags list */
+.terms-tags li {
+  transition: transform 0.1s ease;
+}
+
+/* Ensure theme toggle icons transition smoothly */
+#moon,
+#sun {
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Disable transitions for users who prefer reduced motion */
