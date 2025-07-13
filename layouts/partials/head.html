@@ -1,6 +1,0 @@
-{{ $themeToggle := resources.Get "js/theme-toggle.js" | resources.Minify |
-resources.Fingerprint }}
-<script
-  src="{{ $themeToggle.RelPermalink }}"
-  integrity="{{ $themeToggle.Data.Integrity }}"
-></script>
