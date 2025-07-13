@@ -1,4 +1,4 @@
-baseURL: "https://banghao.live/"
+baseURL: "https://biboyqg.github.io/blog/"
 languageCode: en-us
 title: Banghao's Blog
 theme: PaperMod
@@ -12,9 +12,9 @@ params:
   homeInfoParams:
     Title: "👋 Welcome to Banghao's Blog"
     Content: >
-      Hi! This is Banghao Chi, an undergraduate student from University of Illinois at Urbana-Champaign and also a Research Assistant advised by [Prof. Minjia Zhang](https://minjiazhang.github.io/). I'm also under the supervision of [Kevin Chang](https://siebelschool.illinois.edu/about/people/faculty/kcchang) in an internship at [National Center for Supercomputing Applications(NCSA)](https://www.ncsa.illinois.edu/).
+      Hi! This is Banghao Chi, a M.S. CS student at the [Siebel School of Computing and Data Science](https://siebelschool.illinois.edu/), part of the [Grainger College of Engineering](https://grainger.illinois.edu/) at [University of Illinois at Urbana-Champaign](https://illinois.edu/), advised by Prof. [Minjia Zhang](https://minjiazhang.github.io/).
 
-      - · I’m documenting my learning notes in this blog 😄
+      - · I'm documenting my learning notes in this blog 😄
 
       - · This is a space where I will mostly be sharing about **Computer Vision** & **NLP** 🙂
 
@@ -25,6 +25,8 @@ params:
       url: "https://github.com/biboyqg"
     - name: Youtube
       url: "https://www.youtube.com/@biboyog"
+    - name: LinkedIn
+      url: "https://www.linkedin.com/in/banghao-chi-550737276/"
     - name: Rss
       url: "index.xml"
 
