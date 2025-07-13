@@ -1,5 +1,5 @@
-// Theme toggle functionality - wait for DOM to be ready
-function initThemeToggle() {
+// Theme toggle functionality
+document.addEventListener('DOMContentLoaded', function () {
     const themeToggle = document.getElementById('theme-toggle');
 
     if (themeToggle) {
@@ -16,36 +16,20 @@ function initThemeToggle() {
                 console.log('Switched to dark theme'); // Debug log
             }
         });
-        console.log('Theme toggle initialized successfully'); // Debug log
     } else {
         console.error('Theme toggle button not found!'); // Debug log
     }
-}
+});
 
-// Initialize theme on page load - safer approach
-function initTheme() {
-    if (document.body) {
-        const savedTheme = localStorage.getItem('pref-theme');
+// Initialize theme on page load
+(function () {
+    const savedTheme = localStorage.getItem('pref-theme');
 
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark');
-        } else if (savedTheme === 'light') {
-            document.body.classList.remove('dark');
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.body.classList.add('dark');
-        }
-        console.log('Theme initialized'); // Debug log
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+    } else if (savedTheme === 'light') {
+        document.body.classList.remove('dark');
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
     }
-}
-
-// Wait for DOM to be ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-        initTheme();
-        initThemeToggle();
-    });
-} else {
-    // DOM is already ready
-    initTheme();
-    initThemeToggle();
-}
+})();
