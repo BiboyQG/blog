@@ -1,5 +1,5 @@
 +++
-title = 'LLMarking'
+title = 'LLMarking: Adaptive Automatic Short-Answer Grading Using Large Language Models'
 date = 2024-06-12T19:24:12+08:00
 draft = false
 categories = ['Research']
