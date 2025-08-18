@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Config on Banghao&#39;s Blog</title>
+    <link>https://biboyqg.github.io/blog/tags/config/</link>
+    <description>Recent content in Config on Banghao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 17 Aug 2025 16:53:11 -0500</lastBuildDate>
+    <atom:link href="https://biboyqg.github.io/blog/tags/config/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My macOS Development Environment: A Comprehensive Dotfiles Guide</title>
+      <link>https://biboyqg.github.io/blog/blog/macos-config/</link>
+      <pubDate>Sun, 17 Aug 2025 16:53:11 -0500</pubDate>
+      <guid>https://biboyqg.github.io/blog/blog/macos-config/</guid>
+      <description>After countless hours of tweaking and optimizing, I&amp;rsquo;ve finally crafted a macOS development environment that perfectly suits my workflow. This blog post takes you through my complete dotfiles setup, explaining each component and how they work together to create a productive, efficient development experience.
+🎯 Philosophy My dotfiles are built around three core principles:
+Efficiency: Everything should be accessible with minimal keystrokes Aesthetics: A beautiful terminal environment that inspires creativity Automation: Reduce repetitive tasks through smart automation 🛠️ Core Tools Overview Here&amp;rsquo;s the complete arsenal of tools that power my development environment:</description>
+    </item>
+  </channel>
+</rss>

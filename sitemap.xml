@@ -3,13 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://biboyqg.github.io/blog/</loc>
-    <lastmod>2025-08-18T16:53:11-05:00</lastmod>
+    <lastmod>2025-08-17T16:53:11-05:00</lastmod>
   </url><url>
     <loc>https://biboyqg.github.io/blog/blog/</loc>
-    <lastmod>2025-08-18T16:53:11-05:00</lastmod>
+    <lastmod>2025-08-17T16:53:11-05:00</lastmod>
   </url><url>
     <loc>https://biboyqg.github.io/blog/categories/</loc>
-    <lastmod>2024-06-12T19:24:12+08:00</lastmod>
+    <lastmod>2025-08-17T16:53:11-05:00</lastmod>
+  </url><url>
+    <loc>https://biboyqg.github.io/blog/tags/config/</loc>
+    <lastmod>2025-08-17T16:53:11-05:00</lastmod>
+  </url><url>
+    <loc>https://biboyqg.github.io/blog/categories/config/</loc>
+    <lastmod>2025-08-17T16:53:11-05:00</lastmod>
+  </url><url>
+    <loc>https://biboyqg.github.io/blog/tags/dotfiles/</loc>
+    <lastmod>2025-08-17T16:53:11-05:00</lastmod>
+  </url><url>
+    <loc>https://biboyqg.github.io/blog/tags/macos/</loc>
+    <lastmod>2025-08-17T16:53:11-05:00</lastmod>
+  </url><url>
+    <loc>https://biboyqg.github.io/blog/categories/macos/</loc>
+    <lastmod>2025-08-17T16:53:11-05:00</lastmod>
+  </url><url>
+    <loc>https://biboyqg.github.io/blog/blog/macos-config/</loc>
+    <lastmod>2025-08-17T16:53:11-05:00</lastmod>
+  </url><url>
+    <loc>https://biboyqg.github.io/blog/tags/</loc>
+    <lastmod>2025-08-17T16:53:11-05:00</lastmod>
   </url><url>
     <loc>https://biboyqg.github.io/blog/tags/llm/</loc>
     <lastmod>2024-06-12T19:24:12+08:00</lastmod>
@@ -27,9 +48,6 @@
     <lastmod>2024-06-12T19:24:12+08:00</lastmod>
   </url><url>
     <loc>https://biboyqg.github.io/blog/categories/research/</loc>
-    <lastmod>2024-06-12T19:24:12+08:00</lastmod>
-  </url><url>
-    <loc>https://biboyqg.github.io/blog/tags/</loc>
     <lastmod>2024-06-12T19:24:12+08:00</lastmod>
   </url><url>
     <loc>https://biboyqg.github.io/blog/tags/byte-pair-encoding/</loc>

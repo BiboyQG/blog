@@ -6,8 +6,29 @@
     <description>Recent content in Tags on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jun 2024 19:24:12 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 17 Aug 2025 16:53:11 -0500</lastBuildDate>
     <atom:link href="https://biboyqg.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Config</title>
+      <link>https://biboyqg.github.io/blog/tags/config/</link>
+      <pubDate>Sun, 17 Aug 2025 16:53:11 -0500</pubDate>
+      <guid>https://biboyqg.github.io/blog/tags/config/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dotfiles</title>
+      <link>https://biboyqg.github.io/blog/tags/dotfiles/</link>
+      <pubDate>Sun, 17 Aug 2025 16:53:11 -0500</pubDate>
+      <guid>https://biboyqg.github.io/blog/tags/dotfiles/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MacOS</title>
+      <link>https://biboyqg.github.io/blog/tags/macos/</link>
+      <pubDate>Sun, 17 Aug 2025 16:53:11 -0500</pubDate>
+      <guid>https://biboyqg.github.io/blog/tags/macos/</guid>
+      <description></description>
+    </item>
     <item>
       <title>LLM</title>
       <link>https://biboyqg.github.io/blog/tags/llm/</link>

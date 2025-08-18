@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>My macOS Development Environment: A Comprehensive Dotfiles Guide | Banghao&#39;s Blog</title>
+<meta name="keywords" content="Config, macOS, dotfiles">
+<meta name="description" content="After countless hours of tweaking and optimizing, I&rsquo;ve finally crafted a macOS development environment that perfectly suits my workflow. This blog post takes you through my complete dotfiles setup, explaining each component and how they work together to create a productive, efficient development experience.
+🎯 Philosophy My dotfiles are built around three core principles:
+Efficiency: Everything should be accessible with minimal keystrokes Aesthetics: A beautiful terminal environment that inspires creativity Automation: Reduce repetitive tasks through smart automation 🛠️ Core Tools Overview Here&rsquo;s the complete arsenal of tools that power my development environment:">
+<meta name="author" content="Banghao Chi">
+<link rel="canonical" href="https://biboyqg.github.io/blog/blog/macos-config/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.7ece0b63e4dea9482286a19834da3b9806c50613b62e3908ed11bcc65688c436.css" integrity="sha256-fs4LY&#43;TeqUgihqGYNNo7mAbFBhO2LjkI7RG8xlaIxDY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://biboyqg.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://biboyqg.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://biboyqg.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://biboyqg.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://biboyqg.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://biboyqg.github.io/blog/blog/macos-config/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="My macOS Development Environment: A Comprehensive Dotfiles Guide" />
+<meta property="og:description" content="After countless hours of tweaking and optimizing, I&rsquo;ve finally crafted a macOS development environment that perfectly suits my workflow. This blog post takes you through my complete dotfiles setup, explaining each component and how they work together to create a productive, efficient development experience.
+🎯 Philosophy My dotfiles are built around three core principles:
+Efficiency: Everything should be accessible with minimal keystrokes Aesthetics: A beautiful terminal environment that inspires creativity Automation: Reduce repetitive tasks through smart automation 🛠️ Core Tools Overview Here&rsquo;s the complete arsenal of tools that power my development environment:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://biboyqg.github.io/blog/blog/macos-config/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2025-08-17T16:53:11-05:00" />
+<meta property="article:modified_time" content="2025-08-17T16:53:11-05:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="My macOS Development Environment: A Comprehensive Dotfiles Guide"/>
+<meta name="twitter:description" content="After countless hours of tweaking and optimizing, I&rsquo;ve finally crafted a macOS development environment that perfectly suits my workflow. This blog post takes you through my complete dotfiles setup, explaining each component and how they work together to create a productive, efficient development experience.
+🎯 Philosophy My dotfiles are built around three core principles:
+Efficiency: Everything should be accessible with minimal keystrokes Aesthetics: A beautiful terminal environment that inspires creativity Automation: Reduce repetitive tasks through smart automation 🛠️ Core Tools Overview Here&rsquo;s the complete arsenal of tools that power my development environment:"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://biboyqg.github.io/blog/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "My macOS Development Environment: A Comprehensive Dotfiles Guide",
+      "item": "https://biboyqg.github.io/blog/blog/macos-config/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "My macOS Development Environment: A Comprehensive Dotfiles Guide",
+  "name": "My macOS Development Environment: A Comprehensive Dotfiles Guide",
+  "description": "After countless hours of tweaking and optimizing, I\u0026rsquo;ve finally crafted a macOS development environment that perfectly suits my workflow. This blog post takes you through my complete dotfiles setup, explaining each component and how they work together to create a productive, efficient development experience.\n🎯 Philosophy My dotfiles are built around three core principles:\nEfficiency: Everything should be accessible with minimal keystrokes Aesthetics: A beautiful terminal environment that inspires creativity Automation: Reduce repetitive tasks through smart automation 🛠️ Core Tools Overview Here\u0026rsquo;s the complete arsenal of tools that power my development environment:",
+  "keywords": [
+    "Config", "macOS", "dotfiles"
+  ],
+  "articleBody": "After countless hours of tweaking and optimizing, I’ve finally crafted a macOS development environment that perfectly suits my workflow. This blog post takes you through my complete dotfiles setup, explaining each component and how they work together to create a productive, efficient development experience.\n🎯 Philosophy My dotfiles are built around three core principles:\nEfficiency: Everything should be accessible with minimal keystrokes Aesthetics: A beautiful terminal environment that inspires creativity Automation: Reduce repetitive tasks through smart automation 🛠️ Core Tools Overview Here’s the complete arsenal of tools that power my development environment:\nTool Version Purpose kitty 0.37.0 GPU-accelerated terminal emulator with advanced features zsh Latest Modern shell with powerful customization nvim Latest Extensible Vim-based text editor (LazyVim config) sketchybar Latest Highly customizable macOS status bar replacement yabai Latest Powerful tiling window manager skhd Latest Simple hotkey daemon for system shortcuts tmux 3.5a Terminal multiplexer for session management yazi Latest Blazing fast terminal file manager lazygit Latest Beautiful terminal Git UI hammerspoon Latest macOS automation framework fastfetch Latest System information display tool 🚀 Quick Setup Before diving deep, here’s how to set up everything:\n⚠️ Important: Disable System Integrity Protection (SIP) first by booting into Recovery Mode and running csrutil disable.\n# Install prerequisite tools curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash curl https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh | sh # Clone and setup dotfiles git clone git@github.com:BiboyQG/dotfiles.git \u0026\u0026 cd dotfiles zsh setup.sh 🏗️ Architecture Deep Dive Shell Configuration (.zshrc) My Zsh setup is powered by Zinit for lightning-fast plugin management and Powerlevel10k for a stunning prompt:\nKey Features: Smart History: 10,000 entries with deduplication and intelligent search Advanced Completions: Case-insensitive matching with fuzzy search Essential Plugins: zsh-syntax-highlighting - Real-time syntax highlighting zsh-autosuggestions - Intelligent command suggestions fzf-tab - Fuzzy finder for tab completions Oh My Zsh snippets for Git, kubectl, and more Power Aliases: ll # eza -alh --icons - Enhanced file listing ssh # kitten ssh - SSH through Kitty s # fastfetch - System information l # lazygit - Git UI t # sudo asitop - System monitor y # yazi function - File manager with cd support c # claude - Claude Code CLI Terminal: Kitty Configuration Kitty serves as my primary terminal with these standout features:\nPerformance: GPU-accelerated rendering with custom font fallbacks Aesthetics: 90% background opacity with blur effects Typography: JetBrains Mono Nerd Font with Monaspace for italics Functionality: Split layouts and tabs 10,000 lines of scrollback Copy-on-select behavior Custom tab styling with truncated titles Key Bindings:\nCmd+1-9: Quick tab switching Cmd+Enter: Split current directory F2: Broadcast mode for multiple panes Window Management: Yabai + SKHD This combination transforms macOS into a tiling window manager powerhouse:\nYabai Features: Binary Space Partitioning: Automatic window tiling Multi-display Support: Adaptive padding based on screen resolution Smart Focus: Automatic window focus on space/display changes App Rules: Specific apps (Raycast, Zoom) excluded from tiling SKHD Shortcuts: # Navigation Alt + h/j/k/l # Focus windows Alt + 1-9 # Switch spaces Shift + Alt + h/j/k/l # Move windows Shift + Alt + 1-4 # Move window to space # Window Management Alt + f # Toggle fullscreen Alt + z # Toggle float Alt + e # Toggle split direction Alt + n # Create new space # System Cmd + Return # Open Kitty terminal Cmd + Shift + Return # Open Arc browser Terminal Multiplexer: Tmux My tmux configuration focuses on seamless Vim integration:\nVisual: Catppuccin theme with transparent background Navigation: Vim-style pane navigation with C-h/j/k/l Splits: Intuitive | and - for horizontal/vertical splits Persistence: Sessions automatically save and restore via tmux-resurrect Performance: Minimal escape time (10ms) for responsive Vim usage Status Bar: Sketchybar A completely custom status bar written in Lua:\nSystem Monitoring: CPU, memory, network, battery widgets Media Integration: Now playing information Workspace Display: Current space and window information Custom Event System: C-based event providers for real-time updates Text Editor: Neovim (LazyVim) Built on the excellent LazyVim distribution with custom modifications:\nPlugin Management: Lazy.nvim for fast, modern plugin management Theme: Tokyo Night with consistent terminal integration Navigation: Seamless tmux integration via vim-tmux-navigator Git Integration: Lazygit integration for version control File Management: Yazi Yazi provides a modern, Rust-based file management experience:\nSpeed: Lightning-fast directory traversal Multimedia: Built-in image/video previews Integration: Custom shell function for directory changing Theme: Catppuccin Mocha for consistent aesthetics Automation: Hammerspoon Lua-powered macOS automation handles system-level tasks:\nProxy Toggle: Cmd+P to toggle ClashX proxy Auto-reply: Cmd+G to toggle WeChat message auto-reply Extensible: Modular design for easy feature additions Development Tools Integration Git Workflow Lazygit: Beautiful TUI for Git operations GitHub CLI: Integrated for pull requests and issues Git Config: Optimized settings for efficient workflows System Monitoring fastfetch: Instant system information display asitop: Real-time system resource monitoring dust: Intuitive disk usage analysis 🔧 System Optimizations The setup script applies numerous macOS tweaks for developers:\nKeyboard \u0026 Input Blazing fast key repeat (1ms delay, 20ms initial) Disabled automatic capitalization, smart quotes, and period substitution Three-finger drag enabled Finder Enhancements Show all file extensions and hidden files Path bar and status bar enabled List view as default Folders sorted first Performance Optimizations Sleep image file minimized to save disk space .DS_Store creation disabled on network/USB volumes Dock auto-hide enabled Startup sound disabled 🎨 Aesthetic Consistency The entire setup maintains visual consistency through:\nColor Scheme: Catppuccin Mocha across all applications Typography: Nerd Font integration with proper fallbacks Transparency: Consistent opacity and blur effects Spacing: Unified padding and margin values 🚦 Getting Started Prerequisites: Ensure SIP is disabled and essential tools are installed Installation: Run the automated setup script Post-setup: Configure yabai sudo permissions and start services Customization: Adjust themes and keybindings to your preferences 💡 Pro Tips Use Cmd+P frequently to toggle proxy for development Leverage the y alias for yazi to navigate and change directories efficiently Master the yabai shortcuts for lightning-fast window management Utilize tmux sessions for project separation Keep your dotfiles in version control for easy syncing across machines 🔮 Future Enhancements Integration with more development tools Enhanced automation scripts Custom Sketchybar widgets for project-specific information Advanced Hammerspoon automations for workflow optimization 📝 Conclusion This dotfiles setup represents years of refinement, creating an environment where everything works in harmony. The combination of modern tools, thoughtful configuration, and aesthetic consistency results in a development environment that’s both powerful and enjoyable to use.\nWhether you’re a seasoned developer looking to optimize your workflow or someone just starting their customization journey, I hope this setup inspires you to create your own perfect development environment.\nWant to explore the configuration files in detail? Check out the dotfiles repository for the complete source code and detailed documentation.\n",
+  "wordCount" : "1091",
+  "inLanguage": "en",
+  "datePublished": "2025-08-17T16:53:11-05:00",
+  "dateModified": "2025-08-17T16:53:11-05:00",
+  "author":{
+    "@type": "Person",
+    "name": "Banghao Chi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://biboyqg.github.io/blog/blog/macos-config/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Banghao's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://biboyqg.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://biboyqg.github.io/blog/" accesskey="h" title="Banghao&#39;s Blog (Alt + H)">Banghao&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://biboyqg.github.io/blog/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/blog/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/blog/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/" title="Home Page">
+                    <span>Home Page</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      My macOS Development Environment: A Comprehensive Dotfiles Guide
+    </h1>
+    <div class="post-meta"><span title='2025-08-17 16:53:11 -0500 -0500'>August 17, 2025</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Banghao Chi
+
+</div>
+  </header> 
+  <div class="post-content"><p>After countless hours of tweaking and optimizing, I&rsquo;ve finally crafted a macOS development environment that perfectly suits my workflow. This blog post takes you through my complete dotfiles setup, explaining each component and how they work together to create a productive, efficient development experience.</p>
+<h2 id="-philosophy">🎯 Philosophy<a hidden class="anchor" aria-hidden="true" href="#-philosophy">#</a></h2>
+<p>My dotfiles are built around three core principles:</p>
+<ul>
+<li><strong>Efficiency</strong>: Everything should be accessible with minimal keystrokes</li>
+<li><strong>Aesthetics</strong>: A beautiful terminal environment that inspires creativity</li>
+<li><strong>Automation</strong>: Reduce repetitive tasks through smart automation</li>
+</ul>
+<h2 id="-core-tools-overview">🛠️ Core Tools Overview<a hidden class="anchor" aria-hidden="true" href="#-core-tools-overview">#</a></h2>
+<p>Here&rsquo;s the complete arsenal of tools that power my development environment:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>kitty</strong></td>
+<td>0.37.0</td>
+<td>GPU-accelerated terminal emulator with advanced features</td>
+</tr>
+<tr>
+<td><strong>zsh</strong></td>
+<td>Latest</td>
+<td>Modern shell with powerful customization</td>
+</tr>
+<tr>
+<td><strong>nvim</strong></td>
+<td>Latest</td>
+<td>Extensible Vim-based text editor (LazyVim config)</td>
+</tr>
+<tr>
+<td><strong>sketchybar</strong></td>
+<td>Latest</td>
+<td>Highly customizable macOS status bar replacement</td>
+</tr>
+<tr>
+<td><strong>yabai</strong></td>
+<td>Latest</td>
+<td>Powerful tiling window manager</td>
+</tr>
+<tr>
+<td><strong>skhd</strong></td>
+<td>Latest</td>
+<td>Simple hotkey daemon for system shortcuts</td>
+</tr>
+<tr>
+<td><strong>tmux</strong></td>
+<td>3.5a</td>
+<td>Terminal multiplexer for session management</td>
+</tr>
+<tr>
+<td><strong>yazi</strong></td>
+<td>Latest</td>
+<td>Blazing fast terminal file manager</td>
+</tr>
+<tr>
+<td><strong>lazygit</strong></td>
+<td>Latest</td>
+<td>Beautiful terminal Git UI</td>
+</tr>
+<tr>
+<td><strong>hammerspoon</strong></td>
+<td>Latest</td>
+<td>macOS automation framework</td>
+</tr>
+<tr>
+<td><strong>fastfetch</strong></td>
+<td>Latest</td>
+<td>System information display tool</td>
+</tr>
+</tbody>
+</table>
+<h2 id="-quick-setup">🚀 Quick Setup<a hidden class="anchor" aria-hidden="true" href="#-quick-setup">#</a></h2>
+<p>Before diving deep, here&rsquo;s how to set up everything:</p>
+<blockquote>
+<p><strong>⚠️ Important</strong>: Disable System Integrity Protection (SIP) first by booting into Recovery Mode and running <code>csrutil disable</code>.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install prerequisite tools</span>
+</span></span><span style="display:flex;"><span>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+</span></span><span style="display:flex;"><span>curl https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh | sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Clone and setup dotfiles</span>
+</span></span><span style="display:flex;"><span>git clone git@github.com:BiboyQG/dotfiles.git <span style="color:#f92672">&amp;&amp;</span> cd dotfiles
+</span></span><span style="display:flex;"><span>zsh setup.sh
+</span></span></code></pre></div><h2 id="-architecture-deep-dive">🏗️ Architecture Deep Dive<a hidden class="anchor" aria-hidden="true" href="#-architecture-deep-dive">#</a></h2>
+<h3 id="shell-configuration-zshrc">Shell Configuration (.zshrc)<a hidden class="anchor" aria-hidden="true" href="#shell-configuration-zshrc">#</a></h3>
+<p>My Zsh setup is powered by <strong>Zinit</strong> for lightning-fast plugin management and <strong>Powerlevel10k</strong> for a stunning prompt:</p>
+<h4 id="key-features">Key Features:<a hidden class="anchor" aria-hidden="true" href="#key-features">#</a></h4>
+<ul>
+<li><strong>Smart History</strong>: 10,000 entries with deduplication and intelligent search</li>
+<li><strong>Advanced Completions</strong>: Case-insensitive matching with fuzzy search</li>
+<li><strong>Essential Plugins</strong>:
+<ul>
+<li><code>zsh-syntax-highlighting</code> - Real-time syntax highlighting</li>
+<li><code>zsh-autosuggestions</code> - Intelligent command suggestions</li>
+<li><code>fzf-tab</code> - Fuzzy finder for tab completions</li>
+<li>Oh My Zsh snippets for Git, kubectl, and more</li>
+</ul>
+</li>
+</ul>
+<h4 id="power-aliases">Power Aliases:<a hidden class="anchor" aria-hidden="true" href="#power-aliases">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ll   <span style="color:#75715e"># eza -alh --icons     - Enhanced file listing</span>
+</span></span><span style="display:flex;"><span>ssh  <span style="color:#75715e"># kitten ssh          - SSH through Kitty</span>
+</span></span><span style="display:flex;"><span>s    <span style="color:#75715e"># fastfetch           - System information</span>
+</span></span><span style="display:flex;"><span>l    <span style="color:#75715e"># lazygit             - Git UI</span>
+</span></span><span style="display:flex;"><span>t    <span style="color:#75715e"># sudo asitop         - System monitor</span>
+</span></span><span style="display:flex;"><span>y    <span style="color:#75715e"># yazi function       - File manager with cd support</span>
+</span></span><span style="display:flex;"><span>c    <span style="color:#75715e"># claude              - Claude Code CLI</span>
+</span></span></code></pre></div><h3 id="terminal-kitty-configuration">Terminal: Kitty Configuration<a hidden class="anchor" aria-hidden="true" href="#terminal-kitty-configuration">#</a></h3>
+<p>Kitty serves as my primary terminal with these standout features:</p>
+<ul>
+<li><strong>Performance</strong>: GPU-accelerated rendering with custom font fallbacks</li>
+<li><strong>Aesthetics</strong>: 90% background opacity with blur effects</li>
+<li><strong>Typography</strong>: JetBrains Mono Nerd Font with Monaspace for italics</li>
+<li><strong>Functionality</strong>:
+<ul>
+<li>Split layouts and tabs</li>
+<li>10,000 lines of scrollback</li>
+<li>Copy-on-select behavior</li>
+<li>Custom tab styling with truncated titles</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Bindings</strong>:</p>
+<ul>
+<li><code>Cmd+1-9</code>: Quick tab switching</li>
+<li><code>Cmd+Enter</code>: Split current directory</li>
+<li><code>F2</code>: Broadcast mode for multiple panes</li>
+</ul>
+<h3 id="window-management-yabai--skhd">Window Management: Yabai + SKHD<a hidden class="anchor" aria-hidden="true" href="#window-management-yabai--skhd">#</a></h3>
+<p>This combination transforms macOS into a tiling window manager powerhouse:</p>
+<h4 id="yabai-features">Yabai Features:<a hidden class="anchor" aria-hidden="true" href="#yabai-features">#</a></h4>
+<ul>
+<li><strong>Binary Space Partitioning</strong>: Automatic window tiling</li>
+<li><strong>Multi-display Support</strong>: Adaptive padding based on screen resolution</li>
+<li><strong>Smart Focus</strong>: Automatic window focus on space/display changes</li>
+<li><strong>App Rules</strong>: Specific apps (Raycast, Zoom) excluded from tiling</li>
+</ul>
+<h4 id="skhd-shortcuts">SKHD Shortcuts:<a hidden class="anchor" aria-hidden="true" href="#skhd-shortcuts">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Navigation</span>
+</span></span><span style="display:flex;"><span>Alt + h/j/k/l           <span style="color:#75715e"># Focus windows</span>
+</span></span><span style="display:flex;"><span>Alt + 1-9               <span style="color:#75715e"># Switch spaces</span>
+</span></span><span style="display:flex;"><span>Shift + Alt + h/j/k/l   <span style="color:#75715e"># Move windows</span>
+</span></span><span style="display:flex;"><span>Shift + Alt + 1-4       <span style="color:#75715e"># Move window to space</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Window Management</span>
+</span></span><span style="display:flex;"><span>Alt + f                 <span style="color:#75715e"># Toggle fullscreen</span>
+</span></span><span style="display:flex;"><span>Alt + z                 <span style="color:#75715e"># Toggle float</span>
+</span></span><span style="display:flex;"><span>Alt + e                 <span style="color:#75715e"># Toggle split direction</span>
+</span></span><span style="display:flex;"><span>Alt + n                 <span style="color:#75715e"># Create new space</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># System</span>
+</span></span><span style="display:flex;"><span>Cmd + Return            <span style="color:#75715e"># Open Kitty terminal</span>
+</span></span><span style="display:flex;"><span>Cmd + Shift + Return    <span style="color:#75715e"># Open Arc browser</span>
+</span></span></code></pre></div><h3 id="terminal-multiplexer-tmux">Terminal Multiplexer: Tmux<a hidden class="anchor" aria-hidden="true" href="#terminal-multiplexer-tmux">#</a></h3>
+<p>My tmux configuration focuses on seamless Vim integration:</p>
+<ul>
+<li><strong>Visual</strong>: Catppuccin theme with transparent background</li>
+<li><strong>Navigation</strong>: Vim-style pane navigation with <code>C-h/j/k/l</code></li>
+<li><strong>Splits</strong>: Intuitive <code>|</code> and <code>-</code> for horizontal/vertical splits</li>
+<li><strong>Persistence</strong>: Sessions automatically save and restore via tmux-resurrect</li>
+<li><strong>Performance</strong>: Minimal escape time (10ms) for responsive Vim usage</li>
+</ul>
+<h3 id="status-bar-sketchybar">Status Bar: Sketchybar<a hidden class="anchor" aria-hidden="true" href="#status-bar-sketchybar">#</a></h3>
+<p>A completely custom status bar written in Lua:</p>
+<ul>
+<li><strong>System Monitoring</strong>: CPU, memory, network, battery widgets</li>
+<li><strong>Media Integration</strong>: Now playing information</li>
+<li><strong>Workspace Display</strong>: Current space and window information</li>
+<li><strong>Custom Event System</strong>: C-based event providers for real-time updates</li>
+</ul>
+<h3 id="text-editor-neovim-lazyvim">Text Editor: Neovim (LazyVim)<a hidden class="anchor" aria-hidden="true" href="#text-editor-neovim-lazyvim">#</a></h3>
+<p>Built on the excellent LazyVim distribution with custom modifications:</p>
+<ul>
+<li><strong>Plugin Management</strong>: Lazy.nvim for fast, modern plugin management</li>
+<li><strong>Theme</strong>: Tokyo Night with consistent terminal integration</li>
+<li><strong>Navigation</strong>: Seamless tmux integration via vim-tmux-navigator</li>
+<li><strong>Git Integration</strong>: Lazygit integration for version control</li>
+</ul>
+<h3 id="file-management-yazi">File Management: Yazi<a hidden class="anchor" aria-hidden="true" href="#file-management-yazi">#</a></h3>
+<p>Yazi provides a modern, Rust-based file management experience:</p>
+<ul>
+<li><strong>Speed</strong>: Lightning-fast directory traversal</li>
+<li><strong>Multimedia</strong>: Built-in image/video previews</li>
+<li><strong>Integration</strong>: Custom shell function for directory changing</li>
+<li><strong>Theme</strong>: Catppuccin Mocha for consistent aesthetics</li>
+</ul>
+<h3 id="automation-hammerspoon">Automation: Hammerspoon<a hidden class="anchor" aria-hidden="true" href="#automation-hammerspoon">#</a></h3>
+<p>Lua-powered macOS automation handles system-level tasks:</p>
+<ul>
+<li><strong>Proxy Toggle</strong>: <code>Cmd+P</code> to toggle ClashX proxy</li>
+<li><strong>Auto-reply</strong>: <code>Cmd+G</code> to toggle WeChat message auto-reply</li>
+<li><strong>Extensible</strong>: Modular design for easy feature additions</li>
+</ul>
+<h3 id="development-tools-integration">Development Tools Integration<a hidden class="anchor" aria-hidden="true" href="#development-tools-integration">#</a></h3>
+<h4 id="git-workflow">Git Workflow<a hidden class="anchor" aria-hidden="true" href="#git-workflow">#</a></h4>
+<ul>
+<li><strong>Lazygit</strong>: Beautiful TUI for Git operations</li>
+<li><strong>GitHub CLI</strong>: Integrated for pull requests and issues</li>
+<li><strong>Git Config</strong>: Optimized settings for efficient workflows</li>
+</ul>
+<h4 id="system-monitoring">System Monitoring<a hidden class="anchor" aria-hidden="true" href="#system-monitoring">#</a></h4>
+<ul>
+<li><strong>fastfetch</strong>: Instant system information display</li>
+<li><strong>asitop</strong>: Real-time system resource monitoring</li>
+<li><strong>dust</strong>: Intuitive disk usage analysis</li>
+</ul>
+<h2 id="-system-optimizations">🔧 System Optimizations<a hidden class="anchor" aria-hidden="true" href="#-system-optimizations">#</a></h2>
+<p>The setup script applies numerous macOS tweaks for developers:</p>
+<h3 id="keyboard--input">Keyboard &amp; Input<a hidden class="anchor" aria-hidden="true" href="#keyboard--input">#</a></h3>
+<ul>
+<li>Blazing fast key repeat (1ms delay, 20ms initial)</li>
+<li>Disabled automatic capitalization, smart quotes, and period substitution</li>
+<li>Three-finger drag enabled</li>
+</ul>
+<h3 id="finder-enhancements">Finder Enhancements<a hidden class="anchor" aria-hidden="true" href="#finder-enhancements">#</a></h3>
+<ul>
+<li>Show all file extensions and hidden files</li>
+<li>Path bar and status bar enabled</li>
+<li>List view as default</li>
+<li>Folders sorted first</li>
+</ul>
+<h3 id="performance-optimizations">Performance Optimizations<a hidden class="anchor" aria-hidden="true" href="#performance-optimizations">#</a></h3>
+<ul>
+<li>Sleep image file minimized to save disk space</li>
+<li>.DS_Store creation disabled on network/USB volumes</li>
+<li>Dock auto-hide enabled</li>
+<li>Startup sound disabled</li>
+</ul>
+<h2 id="-aesthetic-consistency">🎨 Aesthetic Consistency<a hidden class="anchor" aria-hidden="true" href="#-aesthetic-consistency">#</a></h2>
+<p>The entire setup maintains visual consistency through:</p>
+<ul>
+<li><strong>Color Scheme</strong>: Catppuccin Mocha across all applications</li>
+<li><strong>Typography</strong>: Nerd Font integration with proper fallbacks</li>
+<li><strong>Transparency</strong>: Consistent opacity and blur effects</li>
+<li><strong>Spacing</strong>: Unified padding and margin values</li>
+</ul>
+<h2 id="-getting-started">🚦 Getting Started<a hidden class="anchor" aria-hidden="true" href="#-getting-started">#</a></h2>
+<ol>
+<li><strong>Prerequisites</strong>: Ensure SIP is disabled and essential tools are installed</li>
+<li><strong>Installation</strong>: Run the automated setup script</li>
+<li><strong>Post-setup</strong>: Configure yabai sudo permissions and start services</li>
+<li><strong>Customization</strong>: Adjust themes and keybindings to your preferences</li>
+</ol>
+<h2 id="-pro-tips">💡 Pro Tips<a hidden class="anchor" aria-hidden="true" href="#-pro-tips">#</a></h2>
+<ul>
+<li>Use <code>Cmd+P</code> frequently to toggle proxy for development</li>
+<li>Leverage the <code>y</code> alias for yazi to navigate and change directories efficiently</li>
+<li>Master the yabai shortcuts for lightning-fast window management</li>
+<li>Utilize tmux sessions for project separation</li>
+<li>Keep your dotfiles in version control for easy syncing across machines</li>
+</ul>
+<h2 id="-future-enhancements">🔮 Future Enhancements<a hidden class="anchor" aria-hidden="true" href="#-future-enhancements">#</a></h2>
+<ul>
+<li>Integration with more development tools</li>
+<li>Enhanced automation scripts</li>
+<li>Custom Sketchybar widgets for project-specific information</li>
+<li>Advanced Hammerspoon automations for workflow optimization</li>
+</ul>
+<h2 id="-conclusion">📝 Conclusion<a hidden class="anchor" aria-hidden="true" href="#-conclusion">#</a></h2>
+<p>This dotfiles setup represents years of refinement, creating an environment where everything works in harmony. The combination of modern tools, thoughtful configuration, and aesthetic consistency results in a development environment that&rsquo;s both powerful and enjoyable to use.</p>
+<p>Whether you&rsquo;re a seasoned developer looking to optimize your workflow or someone just starting their customization journey, I hope this setup inspires you to create your own perfect development environment.</p>
+<hr>
+<p><em>Want to explore the configuration files in detail? Check out the <a href="https://github.com/BiboyQG/dotfiles">dotfiles repository</a> for the complete source code and detailed documentation.</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://biboyqg.github.io/blog/tags/config/">Config</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/macos/">MacOS</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/dotfiles/">Dotfiles</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://biboyqg.github.io/blog/blog/llmarking/">
+    <span class="title">Next »</span>
+    <br>
+    <span>LLMarking: Adaptive Automatic Short-Answer Grading Using Large Language Models</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2025 <a href="https://biboyqg.github.io/blog/">Banghao&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

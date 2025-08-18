@@ -6,8 +6,17 @@
     <description>Recent content on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jun 2024 19:24:12 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 17 Aug 2025 16:53:11 -0500</lastBuildDate>
     <atom:link href="https://biboyqg.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My macOS Development Environment: A Comprehensive Dotfiles Guide</title>
+      <link>https://biboyqg.github.io/blog/blog/macos-config/</link>
+      <pubDate>Sun, 17 Aug 2025 16:53:11 -0500</pubDate>
+      <guid>https://biboyqg.github.io/blog/blog/macos-config/</guid>
+      <description>After countless hours of tweaking and optimizing, I&amp;rsquo;ve finally crafted a macOS development environment that perfectly suits my workflow. This blog post takes you through my complete dotfiles setup, explaining each component and how they work together to create a productive, efficient development experience.
+🎯 Philosophy My dotfiles are built around three core principles:
+Efficiency: Everything should be accessible with minimal keystrokes Aesthetics: A beautiful terminal environment that inspires creativity Automation: Reduce repetitive tasks through smart automation 🛠️ Core Tools Overview Here&amp;rsquo;s the complete arsenal of tools that power my development environment:</description>
+    </item>
     <item>
       <title>LLMarking: Adaptive Automatic Short-Answer Grading Using Large Language Models</title>
       <link>https://biboyqg.github.io/blog/blog/llmarking/</link>
