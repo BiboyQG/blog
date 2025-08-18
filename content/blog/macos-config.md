@@ -1,6 +1,6 @@
 +++
 title = 'My macOS Development Environment: A Comprehensive Dotfiles Guide'
-date = 2025-08-18T16:53:11-05:00
+date = 2025-08-17T16:53:11-05:00
 draft = false
 categories = ['Config', 'macOS']
 tags = ['Config', 'macOS', 'dotfiles']
