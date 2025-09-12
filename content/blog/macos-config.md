@@ -32,6 +32,13 @@ Here's the complete arsenal of tools that power my development environment:
 | **lazygit**     | Latest  | Beautiful terminal Git UI                               |
 | **hammerspoon** | Latest  | macOS automation framework                               |
 | **fastfetch**   | Latest  | System information display tool                          |
+| **cloc**        | N/A     | Count lines of code                                      |
+| **dust**        | N/A     | A more intuitive version of du in rust                   |
+| **asitop**      | N/A     | System monitor for terminal                              |
+| **gh**          | N/A     | GitHub CLI                                               |
+| **bat**         | N/A     | Cat with wings                                           |
+| **oco**         | N/A     | Generate commit messages with LLMs                       |
+| **uv**          | N/A     | Rust package manager for Python                          |
 
 ## 🚀 Quick Setup
 
