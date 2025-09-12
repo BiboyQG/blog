@@ -76,7 +76,7 @@ My Zsh setup is powered by **Zinit** for lightning-fast plugin management and **
 #### Power Aliases:
 
 ```bash
-ll   # eza -alh --icons     - Enhanced file listing
+ll   # eza -alh --icons    - Enhanced file listing
 ssh  # kitten ssh          - SSH through Kitty
 s    # fastfetch           - System information
 l    # lazygit             - Git UI
