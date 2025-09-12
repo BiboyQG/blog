@@ -11,6 +11,7 @@ After countless hours of tweaking and optimizing, I've finally crafted a macOS d
 ## 🎯 Philosophy
 
 My dotfiles are built around three core principles:
+
 - **Efficiency**: Everything should be accessible with minimal keystrokes
 - **Aesthetics**: A beautiful terminal environment that inspires creativity
 - **Automation**: Reduce repetitive tasks through smart automation
@@ -19,17 +20,17 @@ My dotfiles are built around three core principles:
 
 Here's the complete arsenal of tools that power my development environment:
 
-| Tool        | Version | Purpose                                                   |
-| ----------- | ------- | --------------------------------------------------------- |
+| Tool            | Version | Purpose                                                  |
+| --------------- | ------- | -------------------------------------------------------- |
 | **kitty**       | 0.37.0  | GPU-accelerated terminal emulator with advanced features |
 | **zsh**         | Latest  | Modern shell with powerful customization                 |
 | **nvim**        | Latest  | Extensible Vim-based text editor (LazyVim config)        |
 | **sketchybar**  | Latest  | Highly customizable macOS status bar replacement         |
 | **yabai**       | Latest  | Powerful tiling window manager                           |
-| **skhd**        | Latest  | Simple hotkey daemon for system shortcuts               |
+| **skhd**        | Latest  | Simple hotkey daemon for system shortcuts                |
 | **tmux**        | 3.5a    | Terminal multiplexer for session management              |
-| **yazi**        | Latest  | Blazing fast terminal file manager                      |
-| **lazygit**     | Latest  | Beautiful terminal Git UI                               |
+| **yazi**        | Latest  | Blazing fast terminal file manager                       |
+| **lazygit**     | Latest  | Beautiful terminal Git UI                                |
 | **hammerspoon** | Latest  | macOS automation framework                               |
 | **fastfetch**   | Latest  | System information display tool                          |
 | **cloc**        | N/A     | Count lines of code                                      |
@@ -63,6 +64,7 @@ zsh setup.sh
 My Zsh setup is powered by **Zinit** for lightning-fast plugin management and **Powerlevel10k** for a stunning prompt:
 
 #### Key Features:
+
 - **Smart History**: 10,000 entries with deduplication and intelligent search
 - **Advanced Completions**: Case-insensitive matching with fuzzy search
 - **Essential Plugins**:
@@ -72,6 +74,7 @@ My Zsh setup is powered by **Zinit** for lightning-fast plugin management and **
   - Oh My Zsh snippets for Git, kubectl, and more
 
 #### Power Aliases:
+
 ```bash
 ll   # eza -alh --icons     - Enhanced file listing
 ssh  # kitten ssh          - SSH through Kitty
@@ -96,6 +99,7 @@ Kitty serves as my primary terminal with these standout features:
   - Custom tab styling with truncated titles
 
 **Key Bindings**:
+
 - `Cmd+1-9`: Quick tab switching
 - `Cmd+Enter`: Split current directory
 - `F2`: Broadcast mode for multiple panes
@@ -105,12 +109,14 @@ Kitty serves as my primary terminal with these standout features:
 This combination transforms macOS into a tiling window manager powerhouse:
 
 #### Yabai Features:
+
 - **Binary Space Partitioning**: Automatic window tiling
 - **Multi-display Support**: Adaptive padding based on screen resolution
 - **Smart Focus**: Automatic window focus on space/display changes
 - **App Rules**: Specific apps (Raycast, Zoom) excluded from tiling
 
 #### SKHD Shortcuts:
+
 ```bash
 # Navigation
 Alt + h/j/k/l           # Focus windows
@@ -177,11 +183,13 @@ Lua-powered macOS automation handles system-level tasks:
 ### Development Tools Integration
 
 #### Git Workflow
+
 - **Lazygit**: Beautiful TUI for Git operations
 - **GitHub CLI**: Integrated for pull requests and issues
 - **Git Config**: Optimized settings for efficient workflows
 
 #### System Monitoring
+
 - **fastfetch**: Instant system information display
 - **asitop**: Real-time system resource monitoring
 - **dust**: Intuitive disk usage analysis
@@ -191,17 +199,20 @@ Lua-powered macOS automation handles system-level tasks:
 The setup script applies numerous macOS tweaks for developers:
 
 ### Keyboard & Input
+
 - Blazing fast key repeat (1ms delay, 20ms initial)
 - Disabled automatic capitalization, smart quotes, and period substitution
 - Three-finger drag enabled
 
 ### Finder Enhancements
+
 - Show all file extensions and hidden files
 - Path bar and status bar enabled
 - List view as default
 - Folders sorted first
 
 ### Performance Optimizations
+
 - Sleep image file minimized to save disk space
 - .DS_Store creation disabled on network/USB volumes
 - Dock auto-hide enabled
@@ -246,4 +257,4 @@ Whether you're a seasoned developer looking to optimize your workflow or someone
 
 ---
 
-*Want to explore the configuration files in detail? Check out the [dotfiles repository](https://github.com/BiboyQG/dotfiles) for the complete source code and detailed documentation.*
+_Want to explore the configuration files in detail? Check out the [dotfiles repository](https://github.com/BiboyQG/dotfiles) for the complete source code and detailed documentation._
