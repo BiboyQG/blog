@@ -83,6 +83,9 @@ l    # lazygit             - Git UI
 t    # sudo asitop         - System monitor
 y    # yazi function       - File manager with cd support
 c    # claude              - Claude Code CLI
+tn   # tmux new -s         - Create a new tmux session
+ta   # tmux attach -t      - Attach to a tmux session
+cat  # bat                 - Cat with wings
 ```
 
 ### Terminal: Kitty Configuration
