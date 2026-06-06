@@ -6,8 +6,16 @@
     <description>Recent content on Banghao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 Aug 2025 16:53:11 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2026 03:59:00 -0500</lastBuildDate>
     <atom:link href="https://biboyqg.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spreadsheet-RL: Training Spreadsheet Agents with Real Excel and Reinforcement Learning</title>
+      <link>https://biboyqg.github.io/blog/blog/spreadsheet-rl/</link>
+      <pubDate>Sat, 06 Jun 2026 03:59:00 -0500</pubDate>
+      <guid>https://biboyqg.github.io/blog/blog/spreadsheet-rl/</guid>
+      <description>Paper / Project page / Code / Dataset / Model
+Spreadsheet software is one of the most ordinary, durable, and quietly difficult interfaces in computing. A spreadsheet can be a small personal budget, a messy monthly close workbook, an investment-banking model, a sales report, a supply-chain planning sheet, or a hand-built database that has survived for years because it works just well enough. That makes spreadsheets a natural target for AI agents: many people would like to say what they want, let the system edit the workbook, and receive a correct final file.</description>
+    </item>
     <item>
       <title>My macOS Development Environment: A Comprehensive Dotfiles Guide</title>
       <link>https://biboyqg.github.io/blog/blog/macos-config/</link>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Spreadsheet-RL: Training Spreadsheet Agents with Real Excel and Reinforcement Learning | Banghao&#39;s Blog</title>
+<meta name="keywords" content="LLM, Agent, Reinforcement Learning, Spreadsheet, Excel">
+<meta name="description" content="Paper / Project page / Code / Dataset / Model
+Spreadsheet software is one of the most ordinary, durable, and quietly difficult interfaces in computing. A spreadsheet can be a small personal budget, a messy monthly close workbook, an investment-banking model, a sales report, a supply-chain planning sheet, or a hand-built database that has survived for years because it works just well enough. That makes spreadsheets a natural target for AI agents: many people would like to say what they want, let the system edit the workbook, and receive a correct final file.">
+<meta name="author" content="Banghao Chi">
+<link rel="canonical" href="https://biboyqg.github.io/blog/blog/spreadsheet-rl/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.7ece0b63e4dea9482286a19834da3b9806c50613b62e3908ed11bcc65688c436.css" integrity="sha256-fs4LY&#43;TeqUgihqGYNNo7mAbFBhO2LjkI7RG8xlaIxDY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://biboyqg.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://biboyqg.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://biboyqg.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://biboyqg.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://biboyqg.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://biboyqg.github.io/blog/blog/spreadsheet-rl/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Spreadsheet-RL: Training Spreadsheet Agents with Real Excel and Reinforcement Learning" />
+<meta property="og:description" content="Paper / Project page / Code / Dataset / Model
+Spreadsheet software is one of the most ordinary, durable, and quietly difficult interfaces in computing. A spreadsheet can be a small personal budget, a messy monthly close workbook, an investment-banking model, a sales report, a supply-chain planning sheet, or a hand-built database that has survived for years because it works just well enough. That makes spreadsheets a natural target for AI agents: many people would like to say what they want, let the system edit the workbook, and receive a correct final file." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://biboyqg.github.io/blog/blog/spreadsheet-rl/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2026-06-06T03:59:00-05:00" />
+<meta property="article:modified_time" content="2026-06-06T03:59:00-05:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spreadsheet-RL: Training Spreadsheet Agents with Real Excel and Reinforcement Learning"/>
+<meta name="twitter:description" content="Paper / Project page / Code / Dataset / Model
+Spreadsheet software is one of the most ordinary, durable, and quietly difficult interfaces in computing. A spreadsheet can be a small personal budget, a messy monthly close workbook, an investment-banking model, a sales report, a supply-chain planning sheet, or a hand-built database that has survived for years because it works just well enough. That makes spreadsheets a natural target for AI agents: many people would like to say what they want, let the system edit the workbook, and receive a correct final file."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://biboyqg.github.io/blog/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Spreadsheet-RL: Training Spreadsheet Agents with Real Excel and Reinforcement Learning",
+      "item": "https://biboyqg.github.io/blog/blog/spreadsheet-rl/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Spreadsheet-RL: Training Spreadsheet Agents with Real Excel and Reinforcement Learning",
+  "name": "Spreadsheet-RL: Training Spreadsheet Agents with Real Excel and Reinforcement Learning",
+  "description": "Paper / Project page / Code / Dataset / Model\nSpreadsheet software is one of the most ordinary, durable, and quietly difficult interfaces in computing. A spreadsheet can be a small personal budget, a messy monthly close workbook, an investment-banking model, a sales report, a supply-chain planning sheet, or a hand-built database that has survived for years because it works just well enough. That makes spreadsheets a natural target for AI agents: many people would like to say what they want, let the system edit the workbook, and receive a correct final file.",
+  "keywords": [
+    "LLM", "Agent", "Reinforcement Learning", "Spreadsheet", "Excel"
+  ],
+  "articleBody": "Paper / Project page / Code / Dataset / Model\nSpreadsheet software is one of the most ordinary, durable, and quietly difficult interfaces in computing. A spreadsheet can be a small personal budget, a messy monthly close workbook, an investment-banking model, a sales report, a supply-chain planning sheet, or a hand-built database that has survived for years because it works just well enough. That makes spreadsheets a natural target for AI agents: many people would like to say what they want, let the system edit the workbook, and receive a correct final file.\nBut spreadsheet agents are harder than they first appear. The agent is not just answering a question over a table. It must transform a live workbook. It may need to inspect multiple sheets, infer which range matters, write formulas, preserve formatting, delete columns without corrupting references, recalculate dependent cells, and verify that the resulting workbook is actually the desired output. The answer is not a sentence. The answer is the edited .xlsx file.\nOur paper, Spreadsheet-RL: Advancing Large Language Model Agents on Realistic Spreadsheet Tasks via Reinforcement Learning, studies how to train this kind of agent directly. The main idea is to treat spreadsheet automation as an interactive reinforcement learning problem in a realistic Excel environment. Instead of relying only on prompting a general-purpose model, Spreadsheet-RL builds a full training system around realistic spreadsheet tasks, a multi-turn Excel gym, spreadsheet-native tools, and outcome-based rewards computed by comparing the final workbook against an oracle workbook.\nThe result is a specialized open-source spreadsheet agent. On SpreadsheetBench, Spreadsheet-RL improves Qwen3-4B-Thinking-2507 from 12.0% to 23.4% Pass@1. On our Domain-Spreadsheet benchmark, it improves from 8.4% to 17.2% Pass@1. The numbers are not the whole story, though. The more interesting part is what had to be built so RL could work at all.\nWhy spreadsheet agents need more than prompting Prior spreadsheet-agent systems usually focus on inference-time design: better prompts, better planning, better code generation, or better tool descriptions. That direction is useful, and it can work on simpler operations. However, real spreadsheet workflows tend to be long-horizon and stateful.\nA typical task might say:\nCreate a summary sheet by sector, compute enterprise value from market cap, debt, and cash, then calculate EV/Revenue and EV/EBITDA multiples. That instruction hides many decisions. The agent has to locate the relevant sheets, identify headers, choose formulas, fill them down, handle missing values, ensure references point to the right rows, add summary formulas, and check that the final numbers are recalculated. A mistake in one intermediate edit can make later steps appear valid while the final workbook is wrong.\nThis is why spreadsheet automation differs from many text-only tasks. The model must learn a policy for interacting with a mutable artifact. It should not merely know what a VLOOKUP is. It should know when to inspect the workbook, when to use a formula-fill tool, when to use code as a fallback, when to recalculate, and when to stop.\nSpreadsheet-RL is built around that view. The task is formulated as:\nInitial workbook or workbooks. A natural-language instruction. An oracle final workbook. Manipulation regions used for reward computation. An agent that performs a sequence of workbook edits. The reward is outcome-based: after the agent finishes, we compare the edited workbook against the oracle workbook over the target regions. This makes the task verifiable. It also makes the RL signal sparse, because the agent receives credit only after a long sequence of operations. Much of the system design is about making that sparse reward usable.\nBuilding training data from real spreadsheet problems For RL, the first requirement is not the model. It is data. Spreadsheet tasks are expensive to annotate manually because each task needs an initial workbook, a realistic instruction, and a correct final workbook. Step-by-step traces would be even more expensive, and they would likely encode a narrow style of interaction.\nSpreadsheet-RL uses a Spreadsheet Data Agent to construct paired initial-final spreadsheet tasks from public ExcelForum discussions. The pipeline starts from forum threads that contain attached spreadsheets and multi-turn discussion. These threads are valuable because they contain real spreadsheet problems: someone had an actual workbook, a concrete goal, and follow-up clarification or proposed solutions.\nIn the paper’s training setup, we collected posts after January 1, 2024 from publicly accessible ExcelForum pages. The raw collection contains 18,855 discussion threads, 32,691 spreadsheet attachments, and 144,694 user replies. After task construction and filtering, this produces 5,928 high-quality training tasks. Each task contains a natural-language instruction, one or more initial spreadsheets, and an oracle final spreadsheet.\nThe oracle construction step is important. A strong coding agent receives the initial workbook plus the collected thread context, writes executable spreadsheet-editing code, runs that code in the Excel environment, and saves the resulting workbook as a candidate oracle. Then rule-based filtering removes samples with execution failures, invalid workbooks, formula errors, or other verification problems.\nThis gives Spreadsheet-RL the kind of data RL needs: not just textual instructions, but checkable start-goal workbook pairs.\nThe resulting tasks are not all the same shape. They include formula edits, cleaning operations, structural changes, lookups, formatting, aggregation, and multi-sheet workflows. This matters because the policy must learn broad spreadsheet behavior rather than one narrow benchmark trick.\nDomain-Spreadsheet: testing beyond forum-style operations SpreadsheetBench is a major open benchmark for realistic spreadsheet manipulation, and we use it as the main public evaluation. But we also wanted to test whether an agent trained on forum-derived spreadsheet tasks can generalize to professional analytical workflows.\nFor that, the paper introduces Domain-Spreadsheet, a domain-specific benchmark spanning finance, supply chain management, human resources, sales, and real estate. The data construction process starts from domain concepts and professional templates, including areas covered by certifications and common workflows such as CPA, CFA, FRM, CPIM, SHRM, CCP, and CCIM topics. The data agent then turns those concepts into executable spreadsheet tasks.\nFinance examples include comparable-company analysis, Value-at-Risk, debt-service coverage ratios, portfolio rebalancing, hedge schedules, bank reconciliation, and FX exposure analysis. These are not just “change the color of row 3” tasks. They require domain structure, multi-step aggregation, and correct formula placement.\nThe Domain-Spreadsheet evaluation contains 1,660 evaluated tasks. It is intentionally hard for a 4B model. The goal is not to claim that the current system solves professional spreadsheet work end to end. The goal is to measure whether RL training on spreadsheet interaction improves cross-domain behavior.\nSpreadsheet Gym: the environment is part of the algorithm The central environment in the system is Spreadsheet Gym. It is a multi-turn environment where an LLM agent edits a real workbook through tools. The gym is not a decorative wrapper around a prompt. It defines the state, the action interface, the execution semantics, and the final reward path.\nThe first design choice is execution fidelity. Spreadsheet Gym uses Microsoft Excel as the spreadsheet engine. That is not the easiest implementation path, but it is the right target for realistic spreadsheet behavior. Excel supports dynamic array formulas such as FILTER, UNIQUE, SORT, TAKE, and MAP, plus many legacy behaviors and edge cases that are not consistently reproduced by alternative engines.\nThis matters for RL because the model should be trained against the same semantics used for evaluation. If the reward engine differs from the actual spreadsheet engine, the policy can receive inconsistent feedback. A formula might be considered correct in a Python interpreter but fail in Excel, or vice versa. Spreadsheet-RL treats Excel as the source of truth.\nThe second design choice is state isolation. RL training samples many rollout trajectories in parallel. If two trajectories write to the same workbook path, one agent can overwrite another agent’s intermediate state, leak data across samples, or corrupt a final output used for reward computation. Spreadsheet Gym avoids this by assigning each rollout a unique filesystem workspace. The initial workbook is copied into that workspace as data.xlsx, and all tool calls operate on the workspace-local file.\nThis sounds like infrastructure detail, but it is actually algorithmic hygiene. On-policy RL assumes that each sampled trajectory corresponds to the actions of one policy in one environment. Shared mutable workbook state breaks that assumption.\nThe spreadsheet-native tool harness A naive spreadsheet agent could receive only a code interpreter and be told to edit the workbook with Python. That interface is expressive, but it is brittle, especially for smaller models. Many spreadsheet failures are not deep reasoning failures. They are interface failures.\nFor example, suppose a task asks the agent to delete every column whose header contains /description. If the model writes Python code that loops left-to-right and deletes columns as soon as they match, each deletion shifts later columns left. The loop can skip columns or delete the wrong ones. This is a common spreadsheet-specific trap.\nAnother example is formula propagation. If the task asks for a VLOOKUP formula in G3:G58, the model may hand-construct a formula string inside a Python loop. It must escape quotation marks correctly, update relative references, preserve absolute references, and save the workbook in a way that Excel can recalculate. The issue is not that Python cannot express the operation. The issue is that the model is being asked to re-implement spreadsheet semantics from scratch.\nSpreadsheet Gym therefore exposes spreadsheet-native tools:\nfind_cells locates headers, anchors, and text. inspect_range reads small A1 ranges, optionally with formulas, formatting, validations, merged-cell metadata, and other local details. fill_formula fills a top-left formula template over a rectangular range, translating relative references. clear_range blanks cells while preserving workbook structure. delete_rows and delete_columns perform structural deletion with expected spreadsheet shift semantics. recalculate_and_read triggers Excel recalculation and reads back selected ranges. code_interpreter remains available for custom logic and fallback. The harness also encodes a workflow prior: inspect, modify, verify. The model is encouraged to inspect small relevant ranges first, make the smallest necessary edit, verify values or formulas, and iterate if needed. Tool-calling rules allow multiple read-only calls in one assistant turn but require write operations to be serialized. This prevents conflicting workbook mutations while still letting the agent inspect efficiently.\nThis is one of the most important lessons from the paper: tools and RL are not separate. The tool interface shapes the initial policy. A better action space gives the model a higher chance of producing valid rollouts before RL begins, and that makes outcome-based RL more effective.\nReward computation: why the verifier is asynchronous The RL reward is conceptually simple. Given the agent’s predicted workbook and the oracle workbook, compare the target cells after recalculation. If the output is invalid, the reward is 0. Otherwise, compute whether the target cells match under the evaluation rule.\nIn practice, this reward is expensive. The verifier must open the edited workbook in Excel, trigger recalculation, save the workbook with updated cached values, and compare answer-region cells against the oracle. That requires a Windows machine with Microsoft Excel. It also has variable latency: some workbooks recalculate quickly, while others take longer due to formula dependencies, volatile functions, workbook size, or Excel runtime state.\nA synchronous HTTP endpoint would be fragile here. If a rollout worker uploads a workbook and waits for one long request to return, GPU-side training can stall on slow Excel jobs. Long-lived HTTP requests are also more likely to be dropped behind proxies or tunnels.\nSpreadsheet-RL instead uses an asynchronous reward and recalculation API. The client submits a workbook and receives a job ID quickly. A background worker later claims the job, opens Excel, recalculates the workbook, computes the result, and stores the terminal state in SQLite. The client polls a lightweight result endpoint until the job reaches done or error.\nThere are two related paths:\nThe reward path submits an edited workbook to compute the final outcome reward. The recalculation path powers recalculate_and_read, which lets the agent verify intermediate formulas during a rollout. The verifier uses a bounded pool of long-lived Excel instances to amortize cold starts. Workers are recycled when they become unhealthy or memory-heavy. Queue limits provide backpressure so training workers retry instead of overwhelming Excel. In the 4B training runs, a single Windows CPU server with 32 GB memory and four concurrent Excel instances sustained more than 20,000 reward/recalculation jobs in under 30 minutes, exceeding 11 jobs per second on average.\nThis is a nice example of a practical RL systems problem. The mathematical reward is binary. The engineering required to deliver that reward reliably at scale is not binary at all.\nTraining with GRPO and outcome rewards Spreadsheet-RL fine-tunes Qwen3-4B-Thinking-2507 using GRPO, a critic-free policy optimization method that estimates advantages from groups of sampled rollouts. For each task, the policy samples multiple interaction trajectories in Spreadsheet Gym. Each trajectory produces a final workbook. The verifier computes the outcome reward. The model is updated to increase the likelihood of trajectories that perform better relative to the group, while a KL penalty keeps the trained policy close to the reference model.\nThis setup is a good match for spreadsheet tasks for three reasons.\nFirst, the reward is verifiable. We do not need a model judge to decide whether the spreadsheet “looks good”. We can compare cells in the final workbook against an oracle.\nSecond, we do not require step-by-step supervised traces. The agent can explore different ways to solve the same workbook task. That is important because many spreadsheet workflows have multiple valid edit sequences.\nThird, the interaction is multi-turn. The policy does not produce one long script and disappear. It can inspect, act, observe, recalculate, and adapt. That makes the model’s behavior closer to how a human would work through a spreadsheet.\nThe reported 4B run trains for 60 steps. Each step uses 64 prompts, with 16 rollouts per prompt, giving 1,024 rollouts per step. The base model is Qwen/Qwen3-4B-Thinking-2507. Rollouts use temperature 0.6, top-p 0.95, and top-k 20. The optimizer is AdamW with learning rate 1e-6, KL coefficient 0.001, and dynamic batching. The run uses 1 x 4 NVIDIA H100 GPUs and takes about 40 hours.\nThose details matter because spreadsheet RL is expensive in an unusual way. The bottleneck is not only GPU training. It is also environment rollout, tool execution, Excel recalculation, and reward delivery.\nMain results on SpreadsheetBench The clearest result is the staged improvement on SpreadsheetBench. Starting with the same 4B open-source base model:\nModel / stage Environment Pass@1 Qwen3-4B-Thinking-2507 Spreadsheet Gym 12.0 + Spreadsheet-native interaction harness Spreadsheet Gym 15.6 + Comprehensive spreadsheet-tool access Spreadsheet Gym 19.3 + Spreadsheet-RL post-training Spreadsheet Gym 23.4 This decomposition is useful. It shows that the gain does not come from RL alone. The harness improves the model. The full spreadsheet-tool interface improves it again. RL then improves it further.\nThe final 23.4% Pass@1 also puts the 4B open-source Spreadsheet-RL agent near strong proprietary baselines reported in prior work. It surpasses the OpenAI o3 SpreadsheetBench number reported in the paper’s comparison table, while remaining much smaller and reproducible within the released framework. It does not beat the strongest closed spreadsheet agents such as Copilot Agent Mode, but that is not the central claim. The central claim is that model-side RL training for spreadsheet agents works and can be studied openly.\nGeneralization on Domain-Spreadsheet The Domain-Spreadsheet benchmark asks whether the trained agent transfers from forum-style tasks to more domain-heavy workflows.\nDomain Eval count Base Pass@1 RL Pass@1 Finance-B 597 15.6 29.3 Finance-I 388 7.7 16.2 Finance-A 135 8.1 19.3 Supply Chain 180 1.1 5.0 HR 185 0.5 3.2 Sales 86 1.2 5.8 Real Estate 89 1.1 1.1 Overall 1,660 8.4 17.2 The finance gains are the largest, but the trend is broader: supply chain, HR, and sales also improve. Real estate remains unchanged at 1.1%, which is a useful negative result. It suggests that not every domain benefits equally from the current training data, current tools, and current 4B model capacity.\nThis is where benchmark design matters. If we only reported one aggregate score, it would be easy to miss the unevenness. Domain-specific breakdowns show where the current agent is learning transferable spreadsheet behavior and where it is still weak.\nRL changes the rollout behavior, not just the score One of the more interesting parts of the appendix is the qualitative comparison between early and later checkpoints. The step 50 checkpoint is more concise than the step 0 checkpoint: mean assistant-output length drops from 51,732 to 38,965 characters in the analyzed SpreadsheetBench rollouts. The model is also less likely to admit being stuck and more likely to state an explicit alternative plan when backtracking.\nThe training dynamics tell a similar story. During RL, smoothed training reward rises from roughly 0.21 near the first steps to 0.33 by step 60. SpreadsheetBench accuracy improves from 19.3% at step 0 to 23.4% at step 60. Mean response length drops from around 16k tokens near the start to around 11k by step 60, and mean interaction turns fall from roughly 20 to about 11.\nThat combination is important. A better spreadsheet agent should not only succeed more often. It should also waste fewer turns, inspect more deliberately, and recover from failed attempts with a clearer plan.\nWhat I think is the key technical lesson The key lesson is that spreadsheet agents need co-design across data, environment, tools, verifier, and training algorithm.\nA prompt alone is not enough, because the agent needs a reliable action space. A code interpreter alone is not enough, because too many spreadsheet semantics become low-level code-generation traps. RL alone is not enough, because sparse rewards require the initial policy to achieve non-trivial success. A benchmark alone is not enough, because training needs scalable task construction. Excel fidelity alone is not enough, because without asynchronous reward infrastructure, training throughput collapses.\nSpreadsheet-RL works because these pieces reinforce each other:\nThe data agent creates realistic start-goal workbook pairs. Spreadsheet Gym gives the policy a faithful and isolated environment. Spreadsheet-native tools reduce avoidable execution failures. The verifier turns final workbooks into reliable outcome rewards. GRPO uses those rewards to improve the interaction policy. This is also why the staged ablation is so informative. Spreadsheet-native harnessing moves the model from 12.0 to 15.6. Full tools move it to 19.3. RL moves it to 23.4. The system becomes trainable before it becomes well-trained.\nLimitations and what comes next Spreadsheet-RL is a research foundation, not a fully deployable office assistant. The experiments focus on lightweight open-source models, especially the 4B Qwen3 model. We do not yet report RL training results for larger dense models or mixture-of-experts models. Scaling the framework to stronger models is an obvious next step.\nThe current agent also remains far from perfect. A 23.4% Pass@1 score on SpreadsheetBench is a large improvement over the base model, but it also means most tasks are still unsolved on the first try. Domain-Spreadsheet shows the same pattern: overall performance doubles, but real estate does not improve, and several professional domains remain difficult.\nThere are also deployment risks. Spreadsheet agents can make subtle errors: a formula can be off by one row, a structural edit can break a downstream reference, or a formatting change can hide a problem. In high-stakes settings such as finance or HR, users should not blindly trust an edited workbook. Practical systems need edit logs, human review, privacy controls, stronger validators, and domain-specific safety checks.\nFrom the research side, I see several natural directions:\nScaling to larger and MoE models while keeping environment throughput stable. Expanding the tool interface to cover richer chart, pivot table, formatting, and VBA-style workflows. Improving reward signals beyond binary final-cell matching, while avoiding unreliable model judging. Building better privacy-preserving data pipelines for enterprise workbooks. Studying how spreadsheet-specific RL transfers to other productivity interfaces. Spreadsheets are not glamorous, but they are everywhere. That is exactly why they are interesting. If AI agents are going to help with everyday data work, they need to learn how to operate inside the messy, stateful tools people already use. Spreadsheet-RL is one step toward making that research open, reproducible, and trainable.\n",
+  "wordCount" : "3300",
+  "inLanguage": "en",
+  "datePublished": "2026-06-06T03:59:00-05:00",
+  "dateModified": "2026-06-06T03:59:00-05:00",
+  "author":{
+    "@type": "Person",
+    "name": "Banghao Chi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://biboyqg.github.io/blog/blog/spreadsheet-rl/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Banghao's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://biboyqg.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://biboyqg.github.io/blog/" accesskey="h" title="Banghao&#39;s Blog (Alt + H)">Banghao&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://biboyqg.github.io/blog/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/blog/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/blog/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biboyqg.github.io/" title="Home Page">
+                    <span>Home Page</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Spreadsheet-RL: Training Spreadsheet Agents with Real Excel and Reinforcement Learning
+    </h1>
+    <div class="post-meta"><span title='2026-06-06 03:59:00 -0500 -0500'>June 6, 2026</span>&nbsp;·&nbsp;16 min&nbsp;·&nbsp;Banghao Chi
+
+</div>
+  </header> 
+  <div class="post-content"><p><a href="https://arxiv.org/abs/2605.22642">Paper</a> / <a href="https://spreadsheet-rl.github.io/">Project page</a> / <a href="https://github.com/Spreadsheet-RL/Spreadsheet-RL">Code</a> / <a href="https://huggingface.co/datasets/Spreadsheet-RL/Spreadsheet-RL">Dataset</a> / <a href="https://huggingface.co/Spreadsheet-RL/Spreadsheet-RL-4B">Model</a></p>
+<p>Spreadsheet software is one of the most ordinary, durable, and quietly difficult interfaces in computing. A spreadsheet can be a small personal budget, a messy monthly close workbook, an investment-banking model, a sales report, a supply-chain planning sheet, or a hand-built database that has survived for years because it works just well enough. That makes spreadsheets a natural target for AI agents: many people would like to say what they want, let the system edit the workbook, and receive a correct final file.</p>
+<p>But spreadsheet agents are harder than they first appear. The agent is not just answering a question over a table. It must transform a live workbook. It may need to inspect multiple sheets, infer which range matters, write formulas, preserve formatting, delete columns without corrupting references, recalculate dependent cells, and verify that the resulting workbook is actually the desired output. The answer is not a sentence. The answer is the edited <code>.xlsx</code> file.</p>
+<p>Our paper, <a href="https://arxiv.org/abs/2605.22642">Spreadsheet-RL: Advancing Large Language Model Agents on Realistic Spreadsheet Tasks via Reinforcement Learning</a>, studies how to train this kind of agent directly. The main idea is to treat spreadsheet automation as an interactive reinforcement learning problem in a realistic Excel environment. Instead of relying only on prompting a general-purpose model, Spreadsheet-RL builds a full training system around realistic spreadsheet tasks, a multi-turn Excel gym, spreadsheet-native tools, and outcome-based rewards computed by comparing the final workbook against an oracle workbook.</p>
+<p>The result is a specialized open-source spreadsheet agent. On SpreadsheetBench, Spreadsheet-RL improves Qwen3-4B-Thinking-2507 from 12.0% to 23.4% Pass@1. On our Domain-Spreadsheet benchmark, it improves from 8.4% to 17.2% Pass@1. The numbers are not the whole story, though. The more interesting part is what had to be built so RL could work at all.</p>
+<p><img loading="lazy" src="../assets/spreadsheet-rl-architecture.png" alt="Spreadsheet-RL architecture"  />
+</p>
+<h2 id="why-spreadsheet-agents-need-more-than-prompting">Why spreadsheet agents need more than prompting<a hidden class="anchor" aria-hidden="true" href="#why-spreadsheet-agents-need-more-than-prompting">#</a></h2>
+<p>Prior spreadsheet-agent systems usually focus on inference-time design: better prompts, better planning, better code generation, or better tool descriptions. That direction is useful, and it can work on simpler operations. However, real spreadsheet workflows tend to be long-horizon and stateful.</p>
+<p>A typical task might say:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Create a summary sheet by sector, compute enterprise value from market cap,
+</span></span><span style="display:flex;"><span>debt, and cash, then calculate EV/Revenue and EV/EBITDA multiples.
+</span></span></code></pre></div><p>That instruction hides many decisions. The agent has to locate the relevant sheets, identify headers, choose formulas, fill them down, handle missing values, ensure references point to the right rows, add summary formulas, and check that the final numbers are recalculated. A mistake in one intermediate edit can make later steps appear valid while the final workbook is wrong.</p>
+<p>This is why spreadsheet automation differs from many text-only tasks. The model must learn a policy for interacting with a mutable artifact. It should not merely know what a VLOOKUP is. It should know when to inspect the workbook, when to use a formula-fill tool, when to use code as a fallback, when to recalculate, and when to stop.</p>
+<p>Spreadsheet-RL is built around that view. The task is formulated as:</p>
+<ul>
+<li>Initial workbook or workbooks.</li>
+<li>A natural-language instruction.</li>
+<li>An oracle final workbook.</li>
+<li>Manipulation regions used for reward computation.</li>
+<li>An agent that performs a sequence of workbook edits.</li>
+</ul>
+<p>The reward is outcome-based: after the agent finishes, we compare the edited workbook against the oracle workbook over the target regions. This makes the task verifiable. It also makes the RL signal sparse, because the agent receives credit only after a long sequence of operations. Much of the system design is about making that sparse reward usable.</p>
+<h2 id="building-training-data-from-real-spreadsheet-problems">Building training data from real spreadsheet problems<a hidden class="anchor" aria-hidden="true" href="#building-training-data-from-real-spreadsheet-problems">#</a></h2>
+<p>For RL, the first requirement is not the model. It is data. Spreadsheet tasks are expensive to annotate manually because each task needs an initial workbook, a realistic instruction, and a correct final workbook. Step-by-step traces would be even more expensive, and they would likely encode a narrow style of interaction.</p>
+<p>Spreadsheet-RL uses a Spreadsheet Data Agent to construct paired initial-final spreadsheet tasks from public ExcelForum discussions. The pipeline starts from forum threads that contain attached spreadsheets and multi-turn discussion. These threads are valuable because they contain real spreadsheet problems: someone had an actual workbook, a concrete goal, and follow-up clarification or proposed solutions.</p>
+<p>In the paper&rsquo;s training setup, we collected posts after January 1, 2024 from publicly accessible ExcelForum pages. The raw collection contains 18,855 discussion threads, 32,691 spreadsheet attachments, and 144,694 user replies. After task construction and filtering, this produces 5,928 high-quality training tasks. Each task contains a natural-language instruction, one or more initial spreadsheets, and an oracle final spreadsheet.</p>
+<p>The oracle construction step is important. A strong coding agent receives the initial workbook plus the collected thread context, writes executable spreadsheet-editing code, runs that code in the Excel environment, and saves the resulting workbook as a candidate oracle. Then rule-based filtering removes samples with execution failures, invalid workbooks, formula errors, or other verification problems.</p>
+<p>This gives Spreadsheet-RL the kind of data RL needs: not just textual instructions, but checkable start-goal workbook pairs.</p>
+<p>The resulting tasks are not all the same shape. They include formula edits, cleaning operations, structural changes, lookups, formatting, aggregation, and multi-sheet workflows. This matters because the policy must learn broad spreadsheet behavior rather than one narrow benchmark trick.</p>
+<p><img loading="lazy" src="../assets/spreadsheet-rl-operation-distribution.png" alt="Operation distribution in the training data"  />
+</p>
+<h2 id="domain-spreadsheet-testing-beyond-forum-style-operations">Domain-Spreadsheet: testing beyond forum-style operations<a hidden class="anchor" aria-hidden="true" href="#domain-spreadsheet-testing-beyond-forum-style-operations">#</a></h2>
+<p>SpreadsheetBench is a major open benchmark for realistic spreadsheet manipulation, and we use it as the main public evaluation. But we also wanted to test whether an agent trained on forum-derived spreadsheet tasks can generalize to professional analytical workflows.</p>
+<p>For that, the paper introduces Domain-Spreadsheet, a domain-specific benchmark spanning finance, supply chain management, human resources, sales, and real estate. The data construction process starts from domain concepts and professional templates, including areas covered by certifications and common workflows such as CPA, CFA, FRM, CPIM, SHRM, CCP, and CCIM topics. The data agent then turns those concepts into executable spreadsheet tasks.</p>
+<p>Finance examples include comparable-company analysis, Value-at-Risk, debt-service coverage ratios, portfolio rebalancing, hedge schedules, bank reconciliation, and FX exposure analysis. These are not just &ldquo;change the color of row 3&rdquo; tasks. They require domain structure, multi-step aggregation, and correct formula placement.</p>
+<p><img loading="lazy" src="../assets/spreadsheet-rl-domain-finance-example.png" alt="Domain-Spreadsheet finance example"  />
+</p>
+<p>The Domain-Spreadsheet evaluation contains 1,660 evaluated tasks. It is intentionally hard for a 4B model. The goal is not to claim that the current system solves professional spreadsheet work end to end. The goal is to measure whether RL training on spreadsheet interaction improves cross-domain behavior.</p>
+<h2 id="spreadsheet-gym-the-environment-is-part-of-the-algorithm">Spreadsheet Gym: the environment is part of the algorithm<a hidden class="anchor" aria-hidden="true" href="#spreadsheet-gym-the-environment-is-part-of-the-algorithm">#</a></h2>
+<p>The central environment in the system is Spreadsheet Gym. It is a multi-turn environment where an LLM agent edits a real workbook through tools. The gym is not a decorative wrapper around a prompt. It defines the state, the action interface, the execution semantics, and the final reward path.</p>
+<p>The first design choice is execution fidelity. Spreadsheet Gym uses Microsoft Excel as the spreadsheet engine. That is not the easiest implementation path, but it is the right target for realistic spreadsheet behavior. Excel supports dynamic array formulas such as <code>FILTER</code>, <code>UNIQUE</code>, <code>SORT</code>, <code>TAKE</code>, and <code>MAP</code>, plus many legacy behaviors and edge cases that are not consistently reproduced by alternative engines.</p>
+<p>This matters for RL because the model should be trained against the same semantics used for evaluation. If the reward engine differs from the actual spreadsheet engine, the policy can receive inconsistent feedback. A formula might be considered correct in a Python interpreter but fail in Excel, or vice versa. Spreadsheet-RL treats Excel as the source of truth.</p>
+<p>The second design choice is state isolation. RL training samples many rollout trajectories in parallel. If two trajectories write to the same workbook path, one agent can overwrite another agent&rsquo;s intermediate state, leak data across samples, or corrupt a final output used for reward computation. Spreadsheet Gym avoids this by assigning each rollout a unique filesystem workspace. The initial workbook is copied into that workspace as <code>data.xlsx</code>, and all tool calls operate on the workspace-local file.</p>
+<p>This sounds like infrastructure detail, but it is actually algorithmic hygiene. On-policy RL assumes that each sampled trajectory corresponds to the actions of one policy in one environment. Shared mutable workbook state breaks that assumption.</p>
+<h2 id="the-spreadsheet-native-tool-harness">The spreadsheet-native tool harness<a hidden class="anchor" aria-hidden="true" href="#the-spreadsheet-native-tool-harness">#</a></h2>
+<p>A naive spreadsheet agent could receive only a code interpreter and be told to edit the workbook with Python. That interface is expressive, but it is brittle, especially for smaller models. Many spreadsheet failures are not deep reasoning failures. They are interface failures.</p>
+<p>For example, suppose a task asks the agent to delete every column whose header contains <code>/description</code>. If the model writes Python code that loops left-to-right and deletes columns as soon as they match, each deletion shifts later columns left. The loop can skip columns or delete the wrong ones. This is a common spreadsheet-specific trap.</p>
+<p>Another example is formula propagation. If the task asks for a VLOOKUP formula in <code>G3:G58</code>, the model may hand-construct a formula string inside a Python loop. It must escape quotation marks correctly, update relative references, preserve absolute references, and save the workbook in a way that Excel can recalculate. The issue is not that Python cannot express the operation. The issue is that the model is being asked to re-implement spreadsheet semantics from scratch.</p>
+<p>Spreadsheet Gym therefore exposes spreadsheet-native tools:</p>
+<ul>
+<li><code>find_cells</code> locates headers, anchors, and text.</li>
+<li><code>inspect_range</code> reads small A1 ranges, optionally with formulas, formatting, validations, merged-cell metadata, and other local details.</li>
+<li><code>fill_formula</code> fills a top-left formula template over a rectangular range, translating relative references.</li>
+<li><code>clear_range</code> blanks cells while preserving workbook structure.</li>
+<li><code>delete_rows</code> and <code>delete_columns</code> perform structural deletion with expected spreadsheet shift semantics.</li>
+<li><code>recalculate_and_read</code> triggers Excel recalculation and reads back selected ranges.</li>
+<li><code>code_interpreter</code> remains available for custom logic and fallback.</li>
+</ul>
+<p>The harness also encodes a workflow prior: inspect, modify, verify. The model is encouraged to inspect small relevant ranges first, make the smallest necessary edit, verify values or formulas, and iterate if needed. Tool-calling rules allow multiple read-only calls in one assistant turn but require write operations to be serialized. This prevents conflicting workbook mutations while still letting the agent inspect efficiently.</p>
+<p>This is one of the most important lessons from the paper: tools and RL are not separate. The tool interface shapes the initial policy. A better action space gives the model a higher chance of producing valid rollouts before RL begins, and that makes outcome-based RL more effective.</p>
+<h2 id="reward-computation-why-the-verifier-is-asynchronous">Reward computation: why the verifier is asynchronous<a hidden class="anchor" aria-hidden="true" href="#reward-computation-why-the-verifier-is-asynchronous">#</a></h2>
+<p>The RL reward is conceptually simple. Given the agent&rsquo;s predicted workbook and the oracle workbook, compare the target cells after recalculation. If the output is invalid, the reward is 0. Otherwise, compute whether the target cells match under the evaluation rule.</p>
+<p>In practice, this reward is expensive. The verifier must open the edited workbook in Excel, trigger recalculation, save the workbook with updated cached values, and compare answer-region cells against the oracle. That requires a Windows machine with Microsoft Excel. It also has variable latency: some workbooks recalculate quickly, while others take longer due to formula dependencies, volatile functions, workbook size, or Excel runtime state.</p>
+<p>A synchronous HTTP endpoint would be fragile here. If a rollout worker uploads a workbook and waits for one long request to return, GPU-side training can stall on slow Excel jobs. Long-lived HTTP requests are also more likely to be dropped behind proxies or tunnels.</p>
+<p>Spreadsheet-RL instead uses an asynchronous reward and recalculation API. The client submits a workbook and receives a job ID quickly. A background worker later claims the job, opens Excel, recalculates the workbook, computes the result, and stores the terminal state in SQLite. The client polls a lightweight result endpoint until the job reaches <code>done</code> or <code>error</code>.</p>
+<p>There are two related paths:</p>
+<ul>
+<li>The reward path submits an edited workbook to compute the final outcome reward.</li>
+<li>The recalculation path powers <code>recalculate_and_read</code>, which lets the agent verify intermediate formulas during a rollout.</li>
+</ul>
+<p>The verifier uses a bounded pool of long-lived Excel instances to amortize cold starts. Workers are recycled when they become unhealthy or memory-heavy. Queue limits provide backpressure so training workers retry instead of overwhelming Excel. In the 4B training runs, a single Windows CPU server with 32 GB memory and four concurrent Excel instances sustained more than 20,000 reward/recalculation jobs in under 30 minutes, exceeding 11 jobs per second on average.</p>
+<p>This is a nice example of a practical RL systems problem. The mathematical reward is binary. The engineering required to deliver that reward reliably at scale is not binary at all.</p>
+<h2 id="training-with-grpo-and-outcome-rewards">Training with GRPO and outcome rewards<a hidden class="anchor" aria-hidden="true" href="#training-with-grpo-and-outcome-rewards">#</a></h2>
+<p>Spreadsheet-RL fine-tunes Qwen3-4B-Thinking-2507 using GRPO, a critic-free policy optimization method that estimates advantages from groups of sampled rollouts. For each task, the policy samples multiple interaction trajectories in Spreadsheet Gym. Each trajectory produces a final workbook. The verifier computes the outcome reward. The model is updated to increase the likelihood of trajectories that perform better relative to the group, while a KL penalty keeps the trained policy close to the reference model.</p>
+<p>This setup is a good match for spreadsheet tasks for three reasons.</p>
+<p>First, the reward is verifiable. We do not need a model judge to decide whether the spreadsheet &ldquo;looks good&rdquo;. We can compare cells in the final workbook against an oracle.</p>
+<p>Second, we do not require step-by-step supervised traces. The agent can explore different ways to solve the same workbook task. That is important because many spreadsheet workflows have multiple valid edit sequences.</p>
+<p>Third, the interaction is multi-turn. The policy does not produce one long script and disappear. It can inspect, act, observe, recalculate, and adapt. That makes the model&rsquo;s behavior closer to how a human would work through a spreadsheet.</p>
+<p>The reported 4B run trains for 60 steps. Each step uses 64 prompts, with 16 rollouts per prompt, giving 1,024 rollouts per step. The base model is <code>Qwen/Qwen3-4B-Thinking-2507</code>. Rollouts use temperature 0.6, top-p 0.95, and top-k 20. The optimizer is AdamW with learning rate <code>1e-6</code>, KL coefficient <code>0.001</code>, and dynamic batching. The run uses 1 x 4 NVIDIA H100 GPUs and takes about 40 hours.</p>
+<p>Those details matter because spreadsheet RL is expensive in an unusual way. The bottleneck is not only GPU training. It is also environment rollout, tool execution, Excel recalculation, and reward delivery.</p>
+<h2 id="main-results-on-spreadsheetbench">Main results on SpreadsheetBench<a hidden class="anchor" aria-hidden="true" href="#main-results-on-spreadsheetbench">#</a></h2>
+<p>The clearest result is the staged improvement on SpreadsheetBench. Starting with the same 4B open-source base model:</p>
+<table>
+<thead>
+<tr>
+<th>Model / stage</th>
+<th>Environment</th>
+<th style="text-align:right">Pass@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qwen3-4B-Thinking-2507</td>
+<td>Spreadsheet Gym</td>
+<td style="text-align:right">12.0</td>
+</tr>
+<tr>
+<td>+ Spreadsheet-native interaction harness</td>
+<td>Spreadsheet Gym</td>
+<td style="text-align:right">15.6</td>
+</tr>
+<tr>
+<td>+ Comprehensive spreadsheet-tool access</td>
+<td>Spreadsheet Gym</td>
+<td style="text-align:right">19.3</td>
+</tr>
+<tr>
+<td>+ Spreadsheet-RL post-training</td>
+<td>Spreadsheet Gym</td>
+<td style="text-align:right">23.4</td>
+</tr>
+</tbody>
+</table>
+<p>This decomposition is useful. It shows that the gain does not come from RL alone. The harness improves the model. The full spreadsheet-tool interface improves it again. RL then improves it further.</p>
+<p>The final 23.4% Pass@1 also puts the 4B open-source Spreadsheet-RL agent near strong proprietary baselines reported in prior work. It surpasses the OpenAI o3 SpreadsheetBench number reported in the paper&rsquo;s comparison table, while remaining much smaller and reproducible within the released framework. It does not beat the strongest closed spreadsheet agents such as Copilot Agent Mode, but that is not the central claim. The central claim is that model-side RL training for spreadsheet agents works and can be studied openly.</p>
+<h2 id="generalization-on-domain-spreadsheet">Generalization on Domain-Spreadsheet<a hidden class="anchor" aria-hidden="true" href="#generalization-on-domain-spreadsheet">#</a></h2>
+<p>The Domain-Spreadsheet benchmark asks whether the trained agent transfers from forum-style tasks to more domain-heavy workflows.</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th style="text-align:right">Eval count</th>
+<th style="text-align:right">Base Pass@1</th>
+<th style="text-align:right">RL Pass@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Finance-B</td>
+<td style="text-align:right">597</td>
+<td style="text-align:right">15.6</td>
+<td style="text-align:right">29.3</td>
+</tr>
+<tr>
+<td>Finance-I</td>
+<td style="text-align:right">388</td>
+<td style="text-align:right">7.7</td>
+<td style="text-align:right">16.2</td>
+</tr>
+<tr>
+<td>Finance-A</td>
+<td style="text-align:right">135</td>
+<td style="text-align:right">8.1</td>
+<td style="text-align:right">19.3</td>
+</tr>
+<tr>
+<td>Supply Chain</td>
+<td style="text-align:right">180</td>
+<td style="text-align:right">1.1</td>
+<td style="text-align:right">5.0</td>
+</tr>
+<tr>
+<td>HR</td>
+<td style="text-align:right">185</td>
+<td style="text-align:right">0.5</td>
+<td style="text-align:right">3.2</td>
+</tr>
+<tr>
+<td>Sales</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">1.2</td>
+<td style="text-align:right">5.8</td>
+</tr>
+<tr>
+<td>Real Estate</td>
+<td style="text-align:right">89</td>
+<td style="text-align:right">1.1</td>
+<td style="text-align:right">1.1</td>
+</tr>
+<tr>
+<td>Overall</td>
+<td style="text-align:right">1,660</td>
+<td style="text-align:right">8.4</td>
+<td style="text-align:right">17.2</td>
+</tr>
+</tbody>
+</table>
+<p>The finance gains are the largest, but the trend is broader: supply chain, HR, and sales also improve. Real estate remains unchanged at 1.1%, which is a useful negative result. It suggests that not every domain benefits equally from the current training data, current tools, and current 4B model capacity.</p>
+<p>This is where benchmark design matters. If we only reported one aggregate score, it would be easy to miss the unevenness. Domain-specific breakdowns show where the current agent is learning transferable spreadsheet behavior and where it is still weak.</p>
+<h2 id="rl-changes-the-rollout-behavior-not-just-the-score">RL changes the rollout behavior, not just the score<a hidden class="anchor" aria-hidden="true" href="#rl-changes-the-rollout-behavior-not-just-the-score">#</a></h2>
+<p>One of the more interesting parts of the appendix is the qualitative comparison between early and later checkpoints. The step 50 checkpoint is more concise than the step 0 checkpoint: mean assistant-output length drops from 51,732 to 38,965 characters in the analyzed SpreadsheetBench rollouts. The model is also less likely to admit being stuck and more likely to state an explicit alternative plan when backtracking.</p>
+<p>The training dynamics tell a similar story. During RL, smoothed training reward rises from roughly 0.21 near the first steps to 0.33 by step 60. SpreadsheetBench accuracy improves from 19.3% at step 0 to 23.4% at step 60. Mean response length drops from around 16k tokens near the start to around 11k by step 60, and mean interaction turns fall from roughly 20 to about 11.</p>
+<p><img loading="lazy" src="../assets/spreadsheet-rl-training-dynamics.png" alt="Spreadsheet-RL training dynamics"  />
+</p>
+<p>That combination is important. A better spreadsheet agent should not only succeed more often. It should also waste fewer turns, inspect more deliberately, and recover from failed attempts with a clearer plan.</p>
+<h2 id="what-i-think-is-the-key-technical-lesson">What I think is the key technical lesson<a hidden class="anchor" aria-hidden="true" href="#what-i-think-is-the-key-technical-lesson">#</a></h2>
+<p>The key lesson is that spreadsheet agents need co-design across data, environment, tools, verifier, and training algorithm.</p>
+<p>A prompt alone is not enough, because the agent needs a reliable action space. A code interpreter alone is not enough, because too many spreadsheet semantics become low-level code-generation traps. RL alone is not enough, because sparse rewards require the initial policy to achieve non-trivial success. A benchmark alone is not enough, because training needs scalable task construction. Excel fidelity alone is not enough, because without asynchronous reward infrastructure, training throughput collapses.</p>
+<p>Spreadsheet-RL works because these pieces reinforce each other:</p>
+<ul>
+<li>The data agent creates realistic start-goal workbook pairs.</li>
+<li>Spreadsheet Gym gives the policy a faithful and isolated environment.</li>
+<li>Spreadsheet-native tools reduce avoidable execution failures.</li>
+<li>The verifier turns final workbooks into reliable outcome rewards.</li>
+<li>GRPO uses those rewards to improve the interaction policy.</li>
+</ul>
+<p>This is also why the staged ablation is so informative. Spreadsheet-native harnessing moves the model from 12.0 to 15.6. Full tools move it to 19.3. RL moves it to 23.4. The system becomes trainable before it becomes well-trained.</p>
+<h2 id="limitations-and-what-comes-next">Limitations and what comes next<a hidden class="anchor" aria-hidden="true" href="#limitations-and-what-comes-next">#</a></h2>
+<p>Spreadsheet-RL is a research foundation, not a fully deployable office assistant. The experiments focus on lightweight open-source models, especially the 4B Qwen3 model. We do not yet report RL training results for larger dense models or mixture-of-experts models. Scaling the framework to stronger models is an obvious next step.</p>
+<p>The current agent also remains far from perfect. A 23.4% Pass@1 score on SpreadsheetBench is a large improvement over the base model, but it also means most tasks are still unsolved on the first try. Domain-Spreadsheet shows the same pattern: overall performance doubles, but real estate does not improve, and several professional domains remain difficult.</p>
+<p>There are also deployment risks. Spreadsheet agents can make subtle errors: a formula can be off by one row, a structural edit can break a downstream reference, or a formatting change can hide a problem. In high-stakes settings such as finance or HR, users should not blindly trust an edited workbook. Practical systems need edit logs, human review, privacy controls, stronger validators, and domain-specific safety checks.</p>
+<p>From the research side, I see several natural directions:</p>
+<ul>
+<li>Scaling to larger and MoE models while keeping environment throughput stable.</li>
+<li>Expanding the tool interface to cover richer chart, pivot table, formatting, and VBA-style workflows.</li>
+<li>Improving reward signals beyond binary final-cell matching, while avoiding unreliable model judging.</li>
+<li>Building better privacy-preserving data pipelines for enterprise workbooks.</li>
+<li>Studying how spreadsheet-specific RL transfers to other productivity interfaces.</li>
+</ul>
+<p>Spreadsheets are not glamorous, but they are everywhere. That is exactly why they are interesting. If AI agents are going to help with everyday data work, they need to learn how to operate inside the messy, stateful tools people already use. Spreadsheet-RL is one step toward making that research open, reproducible, and trainable.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://biboyqg.github.io/blog/tags/llm/">LLM</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/agent/">Agent</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/reinforcement-learning/">Reinforcement Learning</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/spreadsheet/">Spreadsheet</a></li>
+      <li><a href="https://biboyqg.github.io/blog/tags/excel/">Excel</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://biboyqg.github.io/blog/blog/macos-config/">
+    <span class="title">Next »</span>
+    <br>
+    <span>My macOS Development Environment: A Comprehensive Dotfiles Guide</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="https://biboyqg.github.io/blog/">Banghao&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
